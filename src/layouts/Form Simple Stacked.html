@@ -1,0 +1,45 @@
+<!-- Form Simple Stacked -->
+<div class="bg-background p-8">
+  <div class="mx-auto max-w-md rounded-lg border bg-card p-6 shadow-sm">
+    <form action="#" method="POST" class="space-y-6">
+       <h2 class="text-xl font-semibold text-card-foreground">Account Information</h2>
+      <div>
+        <label for="form-username" class="block text-sm font-medium text-foreground">Username</label>
+        <div class="mt-1">
+          <input type="text" name="username" id="form-username" autocomplete="username" required class="block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="johndoe">
+        </div>
+      </div>
+
+      <div>
+        <label for="form-email" class="block text-sm font-medium text-foreground">Email address</label>
+        <div class="mt-1">
+          <input id="form-email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="you@example.com">
+        </div>
+      </div>
+
+      <div>
+        <label for="form-password" class="block text-sm font-medium text-foreground">Password</label>
+        <div class="mt-1">
+          <input id="form-password" name="password" type="password" autocomplete="new-password" required class="block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="••••••••">
+        </div>
+      </div>
+
+       <div>
+        <label for="form-bio" class="block text-sm font-medium text-foreground">Bio</label>
+        <div class="mt-1">
+          <textarea id="form-bio" name="bio" rows="3" class="block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="Tell us a little about yourself"></textarea>
+        </div>
+         <p class="mt-2 text-sm text-muted-foreground">Brief description for your profile.</p>
+      </div>
+
+       <div class="flex items-center">
+         <input id="form-subscribe" name="subscribe" type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary">
+         <label for="form-subscribe" class="ml-2 block text-sm text-foreground">Subscribe to newsletter</label>
+      </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
