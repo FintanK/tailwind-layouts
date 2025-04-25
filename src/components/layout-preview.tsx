@@ -6,13 +6,141 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { Clipboard, Check, Loader2 } from 'lucide-react';
-// Removed direct import of getLayoutContent as it uses 'fs'
-// import { getLayoutContent } from '@/lib/layouts';
+import { useTheme } from 'next-themes';
 
 interface LayoutPreviewProps {
   initialContent: string;
   initialLayoutName: string;
 }
+
+// Function to generate iframe content. Now takes theme as an argument.
+const generateIframeContent = (htmlContent: string, theme: 'light' | 'dark' | 'system' | undefined) => {
+  const effectiveTheme = theme === 'system' ? 'light' : theme || 'light'; // Default to light if undefined or system (can refine system detection later if needed)
+  const strippedContent = htmlContent.replace(/<!--.*?-->/gs, ''); // Strip comments before injecting
+
+  return `
+    <!DOCTYPE html>
+    <html lang="en" class="${effectiveTheme}">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+      <script>
+        // Minimal script to apply dark class based on the html tag
+        tailwind.config = {
+          darkMode: 'class',
+          theme: {
+             extend: {
+                 colors: {
+                    // Define HSL colors using CSS variables inherited from parent scope if needed,
+                    // but primarily rely on Tailwind's dark: variant driven by the html class.
+                    // This example assumes base Tailwind colors work well with the dark class.
+                    // You could inject parent CSS variables here if needed, but it's complex.
+                    border: 'hsl(var(--border))',
+                    input: 'hsl(var(--input))',
+                    ring: 'hsl(var(--ring))',
+                    background: 'hsl(var(--background))',
+                    foreground: 'hsl(var(--foreground))',
+                    primary: {
+                      DEFAULT: 'hsl(var(--primary))',
+                      foreground: 'hsl(var(--primary-foreground))',
+                    },
+                    secondary: {
+                      DEFAULT: 'hsl(var(--secondary))',
+                      foreground: 'hsl(var(--secondary-foreground))',
+                    },
+                    destructive: {
+                      DEFAULT: 'hsl(var(--destructive))',
+                      foreground: 'hsl(var(--destructive-foreground))',
+                    },
+                    muted: {
+                      DEFAULT: 'hsl(var(--muted))',
+                      foreground: 'hsl(var(--muted-foreground))',
+                    },
+                    accent: {
+                      DEFAULT: 'hsl(var(--accent))',
+                      foreground: 'hsl(var(--accent-foreground))',
+                    },
+                    popover: {
+                      DEFAULT: 'hsl(var(--popover))',
+                      foreground: 'hsl(var(--popover-foreground))',
+                    },
+                    card: {
+                      DEFAULT: 'hsl(var(--card))',
+                      foreground: 'hsl(var(--card-foreground))',
+                    },
+                 }
+               }
+          }
+        }
+      </script>
+       <style>
+        /* Basic styles for preview isolation and theme */
+         :root {
+            /* Define HSL colors directly for Tailwind JIT - copy from globals.css */
+             --background: 210 20% 98%; /* light */
+             --foreground: 215 28% 17%;
+             --card: 0 0% 100%;
+             --card-foreground: 215 28% 17%;
+             --popover: 0 0% 100%;
+             --popover-foreground: 215 28% 17%;
+             --primary: 168 76% 42%;
+             --primary-foreground: 180 100% 98%;
+             --secondary: 210 31% 91%;
+             --secondary-foreground: 215 28% 17%;
+             --muted: 210 31% 91%;
+             --muted-foreground: 217 19% 47%;
+             --accent: 25 95% 53%;
+             --accent-foreground: 0 0% 100%;
+             --destructive: 0 84% 60%;
+             --destructive-foreground: 0 0% 100%;
+             --border: 215 25% 88%;
+             --input: 215 25% 88%;
+             --ring: 168 76% 42%;
+             --radius: 0.5rem;
+         }
+         .dark {
+            --background: 220 13% 18%; /* dark */
+            --foreground: 210 20% 98%;
+            --card: 224 14% 14%;
+            --card-foreground: 210 20% 98%;
+            --popover: 224 14% 14%;
+            --popover-foreground: 210 20% 98%;
+            --primary: 168 76% 42%;
+            --primary-foreground: 180 100% 98%;
+            --secondary: 217 19% 27%;
+            --secondary-foreground: 210 20% 98%;
+            --muted: 217 19% 27%;
+            --muted-foreground: 216 15% 65%;
+            --accent: 25 95% 53%;
+            --accent-foreground: 0 0% 100%;
+            --destructive: 0 72% 51%;
+            --destructive-foreground: 0 0% 100%;
+            --border: 217 19% 27%;
+            --input: 217 19% 27%;
+            --ring: 168 76% 42%;
+         }
+         body {
+            margin: 0;
+            padding: 1rem; /* Add padding for better visibility */
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: sans-serif; /* Basic font */
+            min-height: 100%; /* Ensure body takes minimum height */
+            box-sizing: border-box;
+        }
+        /* Ensure links look reasonable */
+        a { color: hsl(var(--primary)); }
+        a:hover { text-decoration: underline; }
+       </style>
+    </head>
+    <body class="antialiased">
+      ${strippedContent}
+    </body>
+    </html>
+  `;
+};
+
 
 export default function LayoutPreview({ initialContent, initialLayoutName }: LayoutPreviewProps) {
   const [layoutContent, setLayoutContent] = useState(initialContent);
@@ -22,13 +150,21 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
   const { toast } = useToast();
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme(); // Use resolvedTheme
+  const [iframeSrcDoc, setIframeSrcDoc] = useState('');
 
   const stripHtmlComments = (html: string) => {
     return html.replace(/<!--.*?-->/gs, '');
   };
 
   const copyToClipboard = async () => {
-    const contentToCopy = stripHtmlComments(layoutContent);
+     // Ensure layoutContent is up-to-date before copying
+    const currentLayout = layoutContent; // Read from state directly
+    if (!currentLayout || currentLayout.startsWith('<p class="p-4 text-destructive">')) {
+        toast({ title: 'Nothing to copy', description: 'Load a valid layout first.', variant: 'destructive' });
+        return;
+    }
+    const contentToCopy = stripHtmlComments(currentLayout);
     try {
       await navigator.clipboard.writeText(contentToCopy);
       setCopied(true);
@@ -50,47 +186,41 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
   const fetchAndSetLayout = useCallback(async (name: string) => {
     setIsLoading(true);
     setLayoutName(name);
+    setLayoutContent(''); // Clear previous content immediately
+    setIframeSrcDoc(''); // Clear iframe immediately
     try {
-      // Fetch content from the API route
       const response = await fetch(`/api/layout/${encodeURIComponent(name)}`);
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({ error: `HTTP error ${response.status}` }));
         throw new Error(errorData.error || `Failed to fetch layout: ${response.statusText}`);
       }
       const data = await response.json();
+      // Update layoutContent state - the useEffect watching this will update the iframe
       setLayoutContent(data.content);
     } catch (error: any) {
       console.error('Failed to fetch layout:', error);
+      const errorMessage = `<p class="p-4 text-destructive">Error loading layout: ${error.message || 'Unknown error'}</p>`;
+      setLayoutContent(errorMessage); // Set error message in state
       toast({
         title: 'Error',
         description: error.message || 'Failed to load layout content.',
         variant: 'destructive',
       });
-      setLayoutContent(`<p class="p-4 text-destructive">Error loading layout: ${error.message || 'Unknown error'}</p>`);
     } finally {
       setIsLoading(false);
-      // Force iframe reload by updating srcdoc. Clear first, then set.
-      if (iframeRef.current) {
-          iframeRef.current.srcdoc = ' '; // Clear first
-          setTimeout(() => {
-             if (iframeRef.current) {
-                // Use a temporary state variable to avoid potential race condition with layoutContent update
-                const currentContent = layoutContent;
-                iframeRef.current.srcdoc = generateIframeContent(currentContent);
-             }
-          }, 0); // Set in next tick
-      }
     }
-  }, [toast, layoutContent]); // Include layoutContent in dependency to regenerate iframe doc correctly
+  }, [toast]); // Removed layoutContent dependency
 
-  // Handle clicks on layout selector buttons
+  // Handle clicks on layout selector buttons (Client-side only)
   useEffect(() => {
     const handleLayoutSelection = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       const button = target.closest('.layout-selector-button');
       if (button instanceof HTMLButtonElement) {
         const name = button.dataset.layoutName;
-        if (name && name !== layoutName) { // Only fetch if name is different
+         // Check name exists and is different from the current layout name
+         if (name && name !== layoutNameRef.current) { // Use ref for current name check
+          layoutNameRef.current = name; // Update ref immediately
           fetchAndSetLayout(name);
            // Update active state visually
            document.querySelectorAll('.layout-selector-button').forEach(btn => btn.removeAttribute('data-active'));
@@ -99,12 +229,14 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
       }
     };
 
-    // Use event delegation on a parent container if possible
-    // Ensure the selector is specific enough. Assuming the sidebar content area has this attribute.
+    // Use event delegation on the sidebar content area
     const sidebarContentElement = document.querySelector('[data-sidebar="content"]');
     sidebarContentElement?.addEventListener('click', handleLayoutSelection);
 
-    // Set initial active state for the first layout
+     // Ref to track current layout name to prevent redundant fetches from rapid clicks
+     const layoutNameRef = { current: initialLayoutName };
+
+     // Set initial active state
     const initialButton = document.querySelector(`.layout-selector-button[data-layout-name="${initialLayoutName}"]`);
     initialButton?.setAttribute('data-active', 'true');
 
@@ -112,183 +244,26 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
     return () => {
       sidebarContentElement?.removeEventListener('click', handleLayoutSelection);
     };
-  }, [fetchAndSetLayout, initialLayoutName, layoutName]); // Add layoutName to prevent refetching same layout
-
-  // Generate iframe content including Tailwind CDN and theme handling
- const generateIframeContent = (htmlContent: string) => {
-    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    // Use CSS variables from the parent document for consistency
-    const parentStyle = getComputedStyle(document.documentElement);
-    const primaryColor = parentStyle.getPropertyValue('--primary').trim(); // e.g., 168 76% 42%
-    const primaryFgColor = parentStyle.getPropertyValue('--primary-foreground').trim();
-    const secondaryColor = parentStyle.getPropertyValue('--secondary').trim();
-    const secondaryFgColor = parentStyle.getPropertyValue('--secondary-foreground').trim();
-    const accentColor = parentStyle.getPropertyValue('--accent').trim();
-    const accentFgColor = parentStyle.getPropertyValue('--accent-foreground').trim();
-    const bgColor = parentStyle.getPropertyValue('--background').trim();
-    const fgColor = parentStyle.getPropertyValue('--foreground').trim();
-    const cardColor = parentStyle.getPropertyValue('--card').trim();
-    const cardFgColor = parentStyle.getPropertyValue('--card-foreground').trim();
-    const mutedColor = parentStyle.getPropertyValue('--muted').trim();
-    const mutedFgColor = parentStyle.getPropertyValue('--muted-foreground').trim();
+    // initialLayoutName ensures the initial active state is set correctly on mount
+    // fetchAndSetLayout is stable due to useCallback
+  }, [fetchAndSetLayout, initialLayoutName]);
 
 
-    return `
-      <!DOCTYPE html>
-      <html lang="en" class="${theme}">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-        <style>
-         :root {
-            /* Define HSL colors directly for Tailwind JIT */
-            --background-hsl: ${bgColor};
-            --foreground-hsl: ${fgColor};
-            --card-hsl: ${cardColor};
-            --card-foreground-hsl: ${cardFgColor};
-            --popover-hsl: ${parentStyle.getPropertyValue('--popover').trim()};
-            --popover-foreground-hsl: ${parentStyle.getPropertyValue('--popover-foreground').trim()};
-            --primary-hsl: ${primaryColor};
-            --primary-foreground-hsl: ${primaryFgColor};
-            --secondary-hsl: ${secondaryColor};
-            --secondary-foreground-hsl: ${secondaryFgColor};
-            --muted-hsl: ${mutedColor};
-            --muted-foreground-hsl: ${mutedFgColor};
-            --accent-hsl: ${accentColor};
-            --accent-foreground-hsl: ${accentFgColor};
-            --destructive-hsl: ${parentStyle.getPropertyValue('--destructive').trim()};
-            --destructive-foreground-hsl: ${parentStyle.getPropertyValue('--destructive-foreground').trim()};
-            --border-hsl: ${parentStyle.getPropertyValue('--border').trim()};
-            --input-hsl: ${parentStyle.getPropertyValue('--input').trim()};
-            --ring-hsl: ${parentStyle.getPropertyValue('--ring').trim()};
-          }
-          /* Basic styles for preview isolation */
-          body { margin: 0; padding: 1rem; background-color: hsl(var(--background-hsl)); color: hsl(var(--foreground-hsl)); font-family: sans-serif; }
-          /* Ensure links look reasonable */
-          a { color: hsl(var(--primary-hsl)); }
-          a:hover { text-decoration: underline; }
-        </style>
-        <script>
-          // Function to convert HSL string to HSL object
-          function parseHsl(hslString) {
-            const match = hslString.match(/([\\d.]+)\\s+([\\d.]+)%\\s+([\\d.]+)%/);
-            if (match) return { h: parseFloat(match[1]), s: parseFloat(match[2]), l: parseFloat(match[3]) };
-            return { h: 0, s: 0, l: 0 }; // Default fallback
-          }
-
-          // Function to format HSL object back to string for CSS
-          function formatHsl(hslObj) {
-            return \`hsl(\${hslObj.h}, \${hslObj.s}%, \${hslObj.l}%)\`;
-          }
-
-          // Apply parsed HSL values to Tailwind config
-          tailwind.config = {
-             darkMode: 'class', // Use class strategy
-             theme: {
-               extend: {
-                 colors: {
-                    border: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--border-hsl'))),
-                    input: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--input-hsl'))),
-                    ring: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--ring-hsl'))),
-                    background: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--background-hsl'))),
-                    foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--foreground-hsl'))),
-                    primary: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--primary-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--primary-foreground-hsl'))),
-                    },
-                    secondary: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--secondary-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--secondary-foreground-hsl'))),
-                    },
-                    destructive: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--destructive-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--destructive-foreground-hsl'))),
-                    },
-                    muted: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--muted-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--muted-foreground-hsl'))),
-                    },
-                    accent: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--accent-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--accent-foreground-hsl'))),
-                    },
-                    popover: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--popover-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--popover-foreground-hsl'))),
-                    },
-                    card: {
-                      DEFAULT: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--card-hsl'))),
-                      foreground: formatHsl(parseHsl(getComputedStyle(document.documentElement).getPropertyValue('--card-foreground-hsl'))),
-                    },
-                 }
-               }
-             }
-          }
-
-           // Observer to sync theme changes from parent
-          const observer = new MutationObserver((mutationsList) => {
-            for (const mutation of mutationsList) {
-              if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                const targetElement = mutation.target;
-                // Ensure targetElement is an Element before accessing classList
-                if (targetElement instanceof Element) {
-                   const isDark = targetElement.classList.contains('dark');
-                   document.documentElement.classList.toggle('dark', isDark);
-                   // We might need to re-apply styles or trigger a Tailwind update if possible,
-                   // but often just toggling the class is enough if Tailwind CSS is watching it.
-                   // Re-applying config might be too heavy.
-                }
-              }
-            }
-          });
-
-          // Observe the parent document's root element for class changes
-          try {
-           if(window.parent && window.parent.document) {
-             observer.observe(window.parent.document.documentElement, { attributes: true, attributeFilter: ['class'] });
-             // Initial theme sync
-             document.documentElement.classList.toggle('dark', window.parent.document.documentElement.classList.contains('dark'));
-           }
-          } catch (e) {
-            console.warn("Could not observe parent document:", e); // Handle cross-origin issues if they arise
-          }
-
-        </script>
-
-      </head>
-      <body class="antialiased">
-        ${stripHtmlComments(htmlContent)}
-      </body>
-      </html>
-    `;
-  };
-
-   // Update iframe when layoutContent changes or theme changes on the main document
+  // Effect to update iframe srcDoc when layoutContent or theme changes (Client-side only)
   useEffect(() => {
-    if (iframeRef.current) {
-       iframeRef.current.srcdoc = generateIframeContent(layoutContent);
+    // Only run on client
+    if (typeof window !== 'undefined') {
+       const newSrcDoc = generateIframeContent(layoutContent, resolvedTheme as 'light' | 'dark');
+       setIframeSrcDoc(newSrcDoc); // Update state, which triggers iframe update
     }
-
-     // Add observer for theme changes on the main document to re-render iframe content
-    const observer = new MutationObserver(() => {
-        if (iframeRef.current) {
-            // Regenerate content with potentially new theme-derived colors
-            iframeRef.current.srcdoc = generateIframeContent(layoutContent);
-        }
-    });
-
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    return () => observer.disconnect();
-
-  }, [layoutContent]); // Re-run ONLY when layoutContent changes. Theme changes handled by observer.
+  }, [layoutContent, resolvedTheme]);
 
 
   return (
-    <div ref={containerRef} className="flex h-full flex-col p-4 md:p-6">
-      <Card className="flex flex-1 flex-col overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between border-b px-4 py-3 sm:px-6">
+    // Increased height using h-screen and subtracting header height (approx h-14) + padding (p-4/p-6)
+    <div ref={containerRef} className="flex h-[calc(100vh-theme(spacing.14)-2rem)] flex-col p-4 md:p-6 md:h-[calc(100vh-theme(spacing.14)-3rem)]">
+      <Card className="flex flex-1 flex-col overflow-hidden"> {/* Ensure card flexes and handles overflow */}
+        <CardHeader className="flex flex-row items-center justify-between border-b px-4 py-3 sm:px-6 flex-shrink-0"> {/* Prevent header from shrinking */}
           <div>
              <CardTitle className="text-lg">{layoutName || 'Select a Layout'}</CardTitle>
              <CardDescription>Preview of the selected layout</CardDescription>
@@ -299,8 +274,10 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
             <span className="ml-2 hidden sm:inline">Copy Code</span>
           </Button>
         </CardHeader>
-        <CardContent className="flex-1 p-0">
-          <ScrollArea className="h-full w-full">
+        {/* Removed padding from CardContent, iframe container takes full space */}
+        <CardContent className="flex-1 p-0 overflow-auto"> {/* Allow content to scroll if needed */}
+           {/* Container for iframe ensures it takes full height */}
+           <div className="h-full w-full">
             {isLoading ? (
               <div className="flex h-full items-center justify-center p-6 text-muted-foreground">
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -310,14 +287,16 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
               <iframe
                 ref={iframeRef}
                 title="Layout Preview"
-                className="h-full w-full border-0 bg-background" // Use background color for iframe itself
-                sandbox="allow-scripts allow-same-origin" // Allow scripts for potential JS in layouts and same-origin for Tailwind CDN + parent observer
-                srcDoc={generateIframeContent(layoutContent)} // Use effect to manage srcDoc
+                className="h-full w-full border-0" // Removed bg-background, let iframe body handle it
+                sandbox="allow-scripts allow-same-origin"
+                srcDoc={iframeSrcDoc} // Set srcDoc from state
               />
             )}
-          </ScrollArea>
+         </div>
         </CardContent>
       </Card>
     </div>
   );
 }
+
+    

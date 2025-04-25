@@ -78,7 +78,8 @@ export default async function Home() {
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        {/* Pass initial fetched data to the client component */}
+        {/* Pass initial fetched data to the client component
+            LayoutPreview now controls its own height and scrolling */}
         <LayoutPreview initialContent={initialLayoutContent} initialLayoutName={initialLayoutName} />
       </SidebarInset>
     </SidebarProvider>
