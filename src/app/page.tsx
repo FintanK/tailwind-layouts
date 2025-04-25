@@ -46,9 +46,9 @@ async function fetchInitialLayoutContent(name: string): Promise<string> {
 
 
 export default async function Home() {
-  const layoutNames = await getLayoutNames();
-  // Fetch the first layout's content using the API helper
-  const initialLayoutName = layoutNames.length > 0 ? layoutNames[0] : 'Placeholder Layout'; // Use placeholder if no layouts
+  const layoutNames = await getLayoutNames(); // Names are now sorted alphabetically by getLayoutNames
+  // Fetch the first layout's content (alphabetically first, excluding Placeholder if others exist)
+  const initialLayoutName = layoutNames.length > 0 ? layoutNames[0] : 'Placeholder Layout'; // Use the first name from sorted list
   const initialLayoutContent = await fetchInitialLayoutContent(initialLayoutName);
 
 

@@ -23,7 +23,8 @@ export async function getLayoutNames(): Promise<string[]> {
     const filenames = await fs.readdir(layoutsDirectory);
     const layoutNames = filenames
       .filter((filename) => /\.(html|md)$/.test(filename)) // Allow .html or .md
-      .map((filename) => filename.replace(/\.(html|md)$/, '')); // Remove extension
+      .map((filename) => filename.replace(/\.(html|md)$/, '')) // Remove extension
+      .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
 
     // Ensure 'Placeholder Layout' is included if the directory was initially empty or only contains it.
     if (layoutNames.length === 0 && filenames.includes('Placeholder Layout.md')) {
@@ -39,6 +40,14 @@ export async function getLayoutNames(): Promise<string[]> {
             await fs.writeFile(path.join(layoutsDirectory, 'Placeholder Layout.md'), '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Select a layout from the sidebar to preview it here.</p></div>', 'utf8');
          }
         return ['Placeholder Layout'];
+    }
+
+
+    // Ensure 'Placeholder Layout' is last if it exists
+    const placeholderIndex = layoutNames.indexOf('Placeholder Layout');
+    if (placeholderIndex > -1) {
+      layoutNames.splice(placeholderIndex, 1);
+      layoutNames.push('Placeholder Layout');
     }
 
 

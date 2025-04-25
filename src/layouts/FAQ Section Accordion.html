@@ -1,0 +1,90 @@
+<!-- FAQ Section Accordion -->
+<div class="bg-background">
+  <div class="mx-auto max-w-7xl py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl divide-y-2 divide-border">
+      <h2 class="text-center text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Frequently Asked Questions</h2>
+      <dl class="mt-6 space-y-6 divide-y divide-border">
+        <!-- Question 1 -->
+        <div class="pt-6">
+          <dt class="text-lg">
+            <!-- Expand/collapse button -->
+            <button type="button" class="flex w-full items-start justify-between text-left text-foreground" aria-controls="faq-1" aria-expanded="false">
+              <span class="font-medium">What's the best thing about Switzerland?</span>
+              <span class="ml-6 flex h-7 items-center">
+                 <!-- Heroicon name: outline/chevron-down -->
+                 <svg class="h-6 w-6 transform rotate-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                 </svg>
+                 <!-- Heroicon name: outline/chevron-up -->
+                 <svg class="hidden h-6 w-6 transform rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                 </svg>
+              </span>
+            </button>
+          </dt>
+          <dd class="mt-2 pr-12 hidden" id="faq-1">
+            <p class="text-base text-muted-foreground">I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</p>
+          </dd>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="pt-6">
+          <dt class="text-lg">
+            <button type="button" class="flex w-full items-start justify-between text-left text-foreground" aria-controls="faq-2" aria-expanded="false">
+              <span class="font-medium">How do you make holy water?</span>
+               <span class="ml-6 flex h-7 items-center">
+                 <svg class="h-6 w-6 transform rotate-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                 </svg>
+                 <svg class="hidden h-6 w-6 transform rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                 </svg>
+              </span>
+            </button>
+          </dt>
+          <dd class="mt-2 pr-12 hidden" id="faq-2">
+            <p class="text-base text-muted-foreground">You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore fuga aliquam nostrum quod porro.</p>
+          </dd>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="pt-6">
+          <dt class="text-lg">
+            <button type="button" class="flex w-full items-start justify-between text-left text-foreground" aria-controls="faq-3" aria-expanded="false">
+              <span class="font-medium">What do you call someone with no body and no nose?</span>
+               <span class="ml-6 flex h-7 items-center">
+                 <svg class="h-6 w-6 transform rotate-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                 </svg>
+                 <svg class="hidden h-6 w-6 transform rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                 </svg>
+              </span>
+            </button>
+          </dt>
+          <dd class="mt-2 pr-12 hidden" id="faq-3">
+            <p class="text-base text-muted-foreground">Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, voluptas ipsa quia excepturi.</p>
+          </dd>
+        </div>
+        <!-- More questions... -->
+      </dl>
+    </div>
+  </div>
+</div>
+
+<!-- Basic JS to toggle accordion (replace with Radix UI Accordion component for production) -->
+<script>
+  document.querySelectorAll('[aria-controls^="faq-"]').forEach(button => {
+    button.addEventListener('click', () => {
+      const content = document.getElementById(button.getAttribute('aria-controls'));
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      button.setAttribute('aria-expanded', !isExpanded);
+      content.classList.toggle('hidden');
+
+      const svgs = button.querySelectorAll('svg');
+      svgs[0].classList.toggle('hidden', !isExpanded); // Down arrow
+      svgs[1].classList.toggle('hidden', isExpanded); // Up arrow
+    });
+  });
+</script>
