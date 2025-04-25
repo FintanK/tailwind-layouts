@@ -1,0 +1,60 @@
+<!-- Overlay - Slide Over Right Panel -->
+<!-- Trigger button (for demonstration) -->
+<div class="p-8 text-center">
+  <button onclick="document.getElementById('slide-over-panel').classList.remove('hidden')" class="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+    Open Slide Over
+  </button>
+</div>
+
+<!-- Slide-over panel -->
+<div id="slide-over-panel" class="relative z-10 hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+  <!-- Background backdrop -->
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+        <!-- Slide-over panel content -->
+        <div class="pointer-events-auto w-screen max-w-md transform transition ease-in-out duration-500 sm:duration-700 translate-x-0"
+             x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
+             x-transition:enter-start="translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="translate-x-full">
+          <div class="flex h-full flex-col overflow-y-scroll bg-card py-6 shadow-xl">
+            <div class="px-4 sm:px-6">
+              <div class="flex items-start justify-between">
+                <h2 class="text-lg font-medium text-foreground" id="slide-over-title">Panel title</h2>
+                <div class="ml-3 flex h-7 items-center">
+                  <button type="button" class="rounded-md bg-card text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" onclick="document.getElementById('slide-over-panel').classList.add('hidden')">
+                    <span class="sr-only">Close panel</span>
+                    <!-- Heroicon name: outline/x-mark -->
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="relative mt-6 flex-1 px-4 sm:px-6">
+              <!-- Replace with your content -->
+              <div class="absolute inset-0 px-4 sm:px-6">
+                <div class="h-full border-2 border-dashed border-border" aria-hidden="true">
+                   <p class="p-4 text-muted-foreground">Your panel content goes here.</p>
+                </div>
+              </div>
+              <!-- /End replace -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Basic JS for demo; use state management (like Alpine.js or React state) in production -->
+<script>
+  // This script is just for the button click demo.
+  // Proper state management should be used for showing/hiding the panel.
+</script>
