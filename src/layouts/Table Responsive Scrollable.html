@@ -1,0 +1,84 @@
+<!-- Table Responsive Scrollable -->
+<div class="bg-background px-4 py-8 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-foreground">Invoices</h1>
+      <p class="mt-2 text-sm text-muted-foreground">A list of recent invoices.</p>
+    </div>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:w-auto">Create Invoice</button>
+    </div>
+  </div>
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <table class="min-w-full divide-y divide-border">
+            <thead class="bg-muted">
+              <tr>
+                <th scope="col" class="sticky left-0 z-10 bg-muted py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-muted-foreground sm:pl-6">Invoice #</th>
+                <th scope="col" class="whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">Client</th>
+                <th scope="col" class="whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">Issue Date</th>
+                <th scope="col" class="whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">Due Date</th>
+                <th scope="col" class="whitespace-nowrap px-3 py-3.5 text-right text-sm font-semibold text-muted-foreground">Amount</th>
+                <th scope="col" class="whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">Status</th>
+                <th scope="col" class="whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">Description</th>
+                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <span class="sr-only">Actions</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border bg-card">
+              <!-- Row 1 -->
+              <tr>
+                <td class="sticky left-0 z-10 whitespace-nowrap bg-card py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">INV-00123</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Tech Solutions Inc.</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">2023-05-01</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">2023-05-15</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-right text-muted-foreground">$1,250.00</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+                   <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Paid</span>
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground max-w-xs truncate">Website redesign and development</td>
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                  <a href="#" class="text-primary hover:text-primary/90">View</a>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td class="sticky left-0 z-10 whitespace-nowrap bg-card py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">INV-00124</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Creative Agency Ltd.</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">2023-05-05</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">2023-05-20</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-right text-muted-foreground">$3,500.50</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+                   <span class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">Pending</span>
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground max-w-xs truncate">Branding package and logo design</td>
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                  <a href="#" class="text-primary hover:text-primary/90">View</a>
+                </td>
+              </tr>
+              <!-- Row 3 -->
+              <tr>
+                 <td class="sticky left-0 z-10 whitespace-nowrap bg-card py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">INV-00125</td>
+                 <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Global Exports Co.</td>
+                 <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">2023-04-28</td>
+                 <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">2023-05-12</td>
+                 <td class="whitespace-nowrap px-3 py-4 text-sm text-right text-muted-foreground">$875.00</td>
+                 <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+                   <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">Overdue</span>
+                 </td>
+                 <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground max-w-xs truncate">Consulting services - April</td>
+                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                   <a href="#" class="text-primary hover:text-primary/90">View</a>
+                 </td>
+               </tr>
+              <!-- More rows... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

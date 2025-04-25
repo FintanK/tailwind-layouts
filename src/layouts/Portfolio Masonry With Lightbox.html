@@ -1,0 +1,79 @@
+<!-- Portfolio Masonry With Lightbox -->
+<!-- Note: Basic HTML structure. Requires JavaScript for Masonry layout (e.g., Masonry.js or CSS columns) and Lightbox functionality (e.g., Photoswipe, Fancybox). -->
+<div class="bg-background px-4 py-16 sm:px-6 lg:px-8">
+  <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Project Showcase</h2>
+      <p class="mt-4 text-lg text-muted-foreground">Click on an image to view details.</p>
+  </div>
+
+  <!-- Masonry Grid Container (use CSS columns or JS library) -->
+  <div class="masonry-grid columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+    <!-- Portfolio Item 1 -->
+    <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1200/800?random=pfl1" data-lightbox="portfolio" data-title="Project Alpha Description">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/700?random=pfl1" alt="Portfolio Item 1">
+      </a>
+    </div>
+    <!-- Portfolio Item 2 -->
+     <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1200/900?random=pfl2" data-lightbox="portfolio" data-title="Project Beta Details">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/500?random=pfl2" alt="Portfolio Item 2">
+      </a>
+    </div>
+    <!-- Portfolio Item 3 -->
+     <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1000/1000?random=pfl3" data-lightbox="portfolio" data-title="Gamma Project Showcase">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/600?random=pfl3" alt="Portfolio Item 3">
+      </a>
+    </div>
+     <!-- Portfolio Item 4 -->
+    <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1100/800?random=pfl4" data-lightbox="portfolio" data-title="Project Delta Insights">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/400?random=pfl4" alt="Portfolio Item 4">
+      </a>
+    </div>
+     <!-- Portfolio Item 5 -->
+     <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1200/1000?random=pfl5" data-lightbox="portfolio" data-title="Epsilon Initiative">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/750?random=pfl5" alt="Portfolio Item 5">
+      </a>
+    </div>
+    <!-- Portfolio Item 6 -->
+    <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1300/800?random=pfl6" data-lightbox="portfolio" data-title="Project Zeta Overview">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/550?random=pfl6" alt="Portfolio Item 6">
+      </a>
+    </div>
+    <!-- Add more items as needed -->
+     <!-- Portfolio Item 7 -->
+    <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1200/1100?random=pfl7" data-lightbox="portfolio" data-title="Omega Development Cycle">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/900?random=pfl7" alt="Portfolio Item 7">
+      </a>
+    </div>
+     <!-- Portfolio Item 8 -->
+     <div class="mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <a href="https://picsum.photos/1000/700?random=pfl8" data-lightbox="portfolio" data-title="Theta Phase Results">
+        <img class="w-full h-auto block transition-transform duration-300 group-hover:scale-105" src="https://picsum.photos/500/450?random=pfl8" alt="Portfolio Item 8">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Include a lightbox library like Lightbox2 or Fancybox via CDN or npm install -->
+<!-- Example using basic concept (replace with actual library initialization) -->
+<script>
+  // Placeholder for lightbox initialization logic
+  // e.g., lightGallery(document.querySelector('.masonry-grid'));
+  // or basic implementation:
+  document.querySelectorAll('[data-lightbox="portfolio"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Basic alert to show functionality concept
+      alert(`Lightbox triggered for: ${link.href}\nTitle: ${link.dataset.title}`);
+      // Replace alert with actual lightbox library call, e.g.:
+      // Lity(link.href);
+      // or openFancybox([{ src: link.href, opts: { caption: link.dataset.title } }]);
+    });
+  });
+</script>

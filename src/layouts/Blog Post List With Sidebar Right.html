@@ -1,0 +1,155 @@
+<!-- Blog Post List With Sidebar Right -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <!-- Blog Posts -->
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">From the Blog</h2>
+        <p class="mt-3 text-xl text-muted-foreground sm:mt-4">
+          Stay updated with our latest insights and stories.
+        </p>
+        <div class="mt-8 space-y-12">
+          <!-- Post 1 -->
+          <div class="flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+            <div class="flex-shrink-0">
+              <img class="h-48 w-full object-cover" src="https://picsum.photos/600/300?random=bps1" alt="Blog post 1 image">
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-6">
+              <div class="flex-1">
+                <p class="text-sm font-medium text-primary">
+                  <a href="#" class="hover:underline">Development</a>
+                </p>
+                <a href="#" class="mt-2 block">
+                  <p class="text-xl font-semibold text-card-foreground">Mastering Tailwind CSS</p>
+                  <p class="mt-3 text-base text-muted-foreground">Dive deep into the utility-first framework and streamline your styling workflow.</p>
+                </a>
+              </div>
+              <div class="mt-6 flex items-center">
+                <div class="text-sm text-muted-foreground">
+                  <time datetime="2023-05-10">May 10, 2023</time>
+                  <span aria-hidden="true"> &middot; </span>
+                  <span>5 min read</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Post 2 -->
+          <div class="flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+            <div class="flex-shrink-0">
+              <img class="h-48 w-full object-cover" src="https://picsum.photos/600/300?random=bps2" alt="Blog post 2 image">
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-6">
+              <div class="flex-1">
+                <p class="text-sm font-medium text-primary">
+                  <a href="#" class="hover:underline">Design</a>
+                </p>
+                <a href="#" class="mt-2 block">
+                  <p class="text-xl font-semibold text-card-foreground">UI Trends for 2024</p>
+                  <p class="mt-3 text-base text-muted-foreground">Explore the latest design trends shaping user interfaces this year.</p>
+                </a>
+              </div>
+               <div class="mt-6 flex items-center">
+                <div class="text-sm text-muted-foreground">
+                  <time datetime="2023-04-28">April 28, 2023</time>
+                  <span aria-hidden="true"> &middot; </span>
+                  <span>7 min read</span>
+                </div>
+              </div>
+            </div>
+          </div>
+           <!-- Post 3 -->
+          <div class="flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+            <div class="flex-shrink-0">
+              <img class="h-48 w-full object-cover" src="https://picsum.photos/600/300?random=bps3" alt="Blog post 3 image">
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-6">
+              <div class="flex-1">
+                <p class="text-sm font-medium text-primary">
+                  <a href="#" class="hover:underline">Technology</a>
+                </p>
+                <a href="#" class="mt-2 block">
+                  <p class="text-xl font-semibold text-card-foreground">The Rise of Server Components</p>
+                  <p class="mt-3 text-base text-muted-foreground">Understand the impact of React Server Components on modern web development.</p>
+                </a>
+              </div>
+               <div class="mt-6 flex items-center">
+                <div class="text-sm text-muted-foreground">
+                  <time datetime="2023-04-15">April 15, 2023</time>
+                  <span aria-hidden="true"> &middot; </span>
+                  <span>10 min read</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination -->
+        <nav class="mt-12 flex items-center justify-between border-t border-border px-4 py-3 sm:px-0">
+          <div class="-mt-px flex w-0 flex-1">
+            <a href="#" class="inline-flex items-center border-t-2 border-transparent pt-4 pr-1 text-sm font-medium text-muted-foreground hover:border-border hover:text-foreground">
+              <svg class="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd" /></svg>
+              Previous
+            </a>
+          </div>
+          <div class="hidden md:-mt-px md:flex">
+            <a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-muted-foreground hover:border-border hover:text-foreground">1</a>
+            <a href="#" class="inline-flex items-center border-t-2 border-primary px-4 pt-4 text-sm font-medium text-primary" aria-current="page">2</a>
+            <a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-muted-foreground hover:border-border hover:text-foreground">3</a>
+            <span class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-muted-foreground">...</span>
+            <a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-muted-foreground hover:border-border hover:text-foreground">8</a>
+          </div>
+          <div class="-mt-px flex w-0 flex-1 justify-end">
+            <a href="#" class="inline-flex items-center border-t-2 border-transparent pt-4 pl-1 text-sm font-medium text-muted-foreground hover:border-border hover:text-foreground">
+              Next
+              <svg class="ml-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z" clip-rule="evenodd" /></svg>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="mt-12 lg:mt-0 lg:col-span-1">
+        <div class="sticky top-28 space-y-8">
+          <!-- Search -->
+          <div>
+            <label for="search-blog" class="block text-sm font-medium text-foreground">Search</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <input type="text" name="search-blog" id="search-blog" class="block w-full rounded-md border-input bg-background py-2 px-3 focus:border-primary focus:ring-primary sm:text-sm" placeholder="Search articles...">
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" /></svg>
+              </div>
+            </div>
+          </div>
+          <!-- Categories -->
+          <div>
+            <h3 class="text-sm font-medium text-foreground">Categories</h3>
+            <ul role="list" class="mt-2 space-y-1">
+              <li><a href="#" class="text-base text-muted-foreground hover:text-primary">Development</a></li>
+              <li><a href="#" class="text-base text-muted-foreground hover:text-primary">Design</a></li>
+              <li><a href="#" class="text-base text-muted-foreground hover:text-primary">Technology</a></li>
+              <li><a href="#" class="text-base text-muted-foreground hover:text-primary">Business</a></li>
+            </ul>
+          </div>
+          <!-- Recent Posts -->
+          <div>
+            <h3 class="text-sm font-medium text-foreground">Recent Posts</h3>
+            <ul role="list" class="mt-2 space-y-3">
+              <li><a href="#" class="text-base font-medium text-muted-foreground hover:text-primary">Mastering Tailwind CSS</a></li>
+              <li><a href="#" class="text-base font-medium text-muted-foreground hover:text-primary">UI Trends for 2024</a></li>
+              <li><a href="#" class="text-base font-medium text-muted-foreground hover:text-primary">The Rise of Server Components</a></li>
+            </ul>
+          </div>
+           <!-- Tags -->
+           <div>
+            <h3 class="text-sm font-medium text-foreground">Tags</h3>
+             <div class="mt-2 flex flex-wrap gap-2">
+               <a href="#" class="inline-flex items-center rounded-full bg-secondary px-3 py-0.5 text-sm font-medium text-secondary-foreground hover:bg-secondary/80">CSS</a>
+               <a href="#" class="inline-flex items-center rounded-full bg-secondary px-3 py-0.5 text-sm font-medium text-secondary-foreground hover:bg-secondary/80">React</a>
+               <a href="#" class="inline-flex items-center rounded-full bg-secondary px-3 py-0.5 text-sm font-medium text-secondary-foreground hover:bg-secondary/80">Next.js</a>
+               <a href="#" class="inline-flex items-center rounded-full bg-secondary px-3 py-0.5 text-sm font-medium text-secondary-foreground hover:bg-secondary/80">UI/UX</a>
+             </div>
+           </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
