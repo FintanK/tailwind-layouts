@@ -9,9 +9,15 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import LayoutPreview from '@/components/layout-preview';
-import { getLayoutNames } from '@/lib/layouts'; // Keep getLayoutNames as it's server-side safe
+import { getLayoutNames } from '@/lib/layouts';
 import type { Metadata } from 'next';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
   title: 'Tailwind Layout Preview',
@@ -44,11 +50,63 @@ async function fetchInitialLayoutContent(name: string): Promise<string> {
   }
 }
 
+// Function to categorize layout names
+const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
+  const categories: { [key: string]: string[] } = {};
+  const knownCategories = [
+    'Hero Section', 'Feature Section', 'Pricing', 'Testimonial', 'CTA', 'Contact', 'Footer',
+    'Navigation Bar', 'Blog Post', 'E-commerce', 'FAQ', 'Team', 'Portfolio', 'About Us',
+    'Services', 'Form', 'Utility', 'Overlay', 'Modal', 'Content', 'Gallery', 'Table',
+    'Pagination', 'Progress', 'Status', 'Card', 'Alert', 'Notification', 'Dashboard', 'Login',
+    'Sign Up', 'Stats', 'User Profile', 'Settings'
+    // Add more prefixes as needed
+  ];
+
+  names.forEach(name => {
+     // Handle placeholder separately
+     if (name.toLowerCase() === 'placeholder layout') {
+        if (!categories['Other']) categories['Other'] = [];
+        categories['Other'].push(name);
+        return;
+     }
+
+    let foundCategory = false;
+    for (const catPrefix of knownCategories) {
+      if (name.startsWith(catPrefix)) {
+        if (!categories[catPrefix]) {
+          categories[catPrefix] = [];
+        }
+        categories[catPrefix].push(name);
+        foundCategory = true;
+        break;
+      }
+    }
+    if (!foundCategory) {
+      if (!categories['Other']) {
+        categories['Other'] = [];
+      }
+      categories['Other'].push(name);
+    }
+  });
+
+   // Ensure Other category is last if it exists
+   if (categories['Other']) {
+     const otherLayouts = categories['Other'];
+     delete categories['Other'];
+     categories['Other'] = otherLayouts;
+   }
+
+
+  return categories;
+};
+
 
 export default async function Home() {
-  const layoutNames = await getLayoutNames(); // Names are now sorted alphabetically by getLayoutNames
-  // Fetch the first layout's content (alphabetically first, excluding Placeholder if others exist)
-  const initialLayoutName = layoutNames.length > 0 ? layoutNames[0] : 'Placeholder Layout'; // Use the first name from sorted list
+  const allLayoutNames = await getLayoutNames();
+  const categorizedLayouts = categorizeLayouts(allLayoutNames);
+  // Fetch the first layout's content (alphabetically first from the first category, excluding Placeholder if others exist)
+  const firstCategory = Object.keys(categorizedLayouts)[0] || 'Other';
+  const initialLayoutName = categorizedLayouts[firstCategory]?.[0] || 'Placeholder Layout';
   const initialLayoutContent = await fetchInitialLayoutContent(initialLayoutName);
 
 
@@ -56,24 +114,36 @@ export default async function Home() {
     <SidebarProvider defaultOpen={true}>
       <Sidebar collapsible="icon" side="left">
         <SidebarHeader>
-          <h2 className="text-lg font-semibold">Layouts</h2>
+          <h2 className="text-lg font-semibold">Layout Categories</h2>
         </SidebarHeader>
         <SidebarContent>
           <ScrollArea className="h-[calc(100vh-theme(spacing.20))]"> {/* Adjust height based on header */}
-            <SidebarMenu>
-              {layoutNames.map((name) => (
-                <SidebarMenuItem key={name}>
-                  {/* Button triggers client-side state update and fetch in LayoutPreview */}
-                  <SidebarMenuButton
-                     className="layout-selector-button w-full justify-start truncate"
-                     data-layout-name={name}
-                     // Active state is handled client-side in LayoutPreview useEffect
-                  >
-                    {name}
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+             {/* Use Accordion for categories */}
+             <Accordion type="multiple" className="w-full px-2">
+                {Object.entries(categorizedLayouts).map(([category, names]) => (
+                  <AccordionItem value={category} key={category} className="border-b-0">
+                     <AccordionTrigger className="py-2 px-2 text-sm font-medium hover:bg-sidebar-accent rounded-md [&[data-state=open]>svg]:rotate-180">
+                        {category} ({names.length})
+                     </AccordionTrigger>
+                     <AccordionContent className="pb-0 pl-4"> {/* Remove padding bottom, add left padding */}
+                       <SidebarMenu className="ml-2 border-l border-sidebar-border pl-2"> {/* Add indent */}
+                         {names.map((name) => (
+                           <SidebarMenuItem key={name} className="py-1">
+                             <SidebarMenuButton
+                                className="layout-selector-button h-7 w-full justify-start truncate rounded-md px-2 py-1 text-xs hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent" // Adjusted styling
+                                data-layout-name={name}
+                                // Active state is handled client-side in LayoutPreview useEffect
+                             >
+                               {/* Optionally remove category prefix from display name if desired */}
+                               {name.replace(category + ' ', '')}
+                             </SidebarMenuButton>
+                           </SidebarMenuItem>
+                         ))}
+                       </SidebarMenu>
+                     </AccordionContent>
+                  </AccordionItem>
+                ))}
+             </Accordion>
           </ScrollArea>
         </SidebarContent>
       </Sidebar>

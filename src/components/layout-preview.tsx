@@ -15,7 +15,7 @@ interface LayoutPreviewProps {
 
 // Function to generate iframe content. Now takes theme as an argument.
 const generateIframeContent = (htmlContent: string, theme: 'light' | 'dark' | 'system' | undefined) => {
-  const effectiveTheme = theme === 'system' ? 'light' : theme || 'light'; // Default to light if undefined or system (can refine system detection later if needed)
+  const effectiveTheme = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme || 'light'; // Detect system preference
   const strippedContent = htmlContent.replace(/<!--.*?-->/gs, ''); // Strip comments before injecting
 
   return `
@@ -153,6 +153,9 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
   const { resolvedTheme } = useTheme(); // Use resolvedTheme
   const [iframeSrcDoc, setIframeSrcDoc] = useState('');
 
+   // Ref to track current layout name to prevent redundant fetches from rapid clicks
+   const layoutNameRef = useRef<string>(initialLayoutName);
+
   const stripHtmlComments = (html: string) => {
     return html.replace(/<!--.*?-->/gs, '');
   };
@@ -185,7 +188,8 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
 
   const fetchAndSetLayout = useCallback(async (name: string) => {
     setIsLoading(true);
-    setLayoutName(name);
+    setLayoutName(name); // Update displayed name
+    layoutNameRef.current = name; // Update ref to track current name
     setLayoutContent(''); // Clear previous content immediately
     setIframeSrcDoc(''); // Clear iframe immediately
     try {
@@ -215,13 +219,14 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
   useEffect(() => {
     const handleLayoutSelection = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      const button = target.closest('.layout-selector-button');
+      const button = target.closest('.layout-selector-button'); // Target the specific button class
+
       if (button instanceof HTMLButtonElement) {
         const name = button.dataset.layoutName;
-         // Check name exists and is different from the current layout name
-         if (name && name !== layoutNameRef.current) { // Use ref for current name check
-          layoutNameRef.current = name; // Update ref immediately
-          fetchAndSetLayout(name);
+
+         // Check name exists and is different from the current layout name in the ref
+         if (name && name !== layoutNameRef.current) {
+          fetchAndSetLayout(name); // Fetch and update state, ref is updated inside fetchAndSetLayout
            // Update active state visually
            document.querySelectorAll('.layout-selector-button').forEach(btn => btn.removeAttribute('data-active'));
            button.setAttribute('data-active', 'true');
@@ -230,13 +235,17 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
     };
 
     // Use event delegation on the sidebar content area
-    const sidebarContentElement = document.querySelector('[data-sidebar="content"]');
+     // Select the direct parent of the accordion items or the scroll area content
+     const sidebarContentElement = document.querySelector('[data-radix-scroll-area-viewport]'); // More specific selector
     sidebarContentElement?.addEventListener('click', handleLayoutSelection);
 
-     // Ref to track current layout name to prevent redundant fetches from rapid clicks
-     const layoutNameRef = { current: initialLayoutName };
 
      // Set initial active state
+     // Need to ensure the initial element might be inside a closed accordion,
+     // so querySelector might fail if it's not visible initially.
+     // It's safer to set it when the button is actually clicked the first time,
+     // or ensure the initial accordion item is open by default if possible.
+     // For now, let's try setting it optimistically.
     const initialButton = document.querySelector(`.layout-selector-button[data-layout-name="${initialLayoutName}"]`);
     initialButton?.setAttribute('data-active', 'true');
 
@@ -244,8 +253,8 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
     return () => {
       sidebarContentElement?.removeEventListener('click', handleLayoutSelection);
     };
-    // initialLayoutName ensures the initial active state is set correctly on mount
     // fetchAndSetLayout is stable due to useCallback
+    // initialLayoutName helps set initial state but active class might need adjustment based on accordion state
   }, [fetchAndSetLayout, initialLayoutName]);
 
 
@@ -298,5 +307,3 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
     </div>
   );
 }
-
-    
