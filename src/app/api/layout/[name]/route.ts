@@ -1,6 +1,7 @@
 // src/app/api/layout/[name]/route.ts
 import { NextResponse } from 'next/server';
-import { getLayoutContent } from '@/lib/layouts';
+// Import the specific function for API use
+import { getLayoutContentForApi } from '@/lib/layouts';
 
 export async function GET(
   request: Request,
@@ -13,14 +14,18 @@ export async function GET(
   }
 
   try {
-    const content = await getLayoutContent(decodeURIComponent(name)); // Decode name potentially URL encoded
-     // Basic check if content indicates an error from lib/layouts
-    if (content.includes('Error loading layout') || content.includes('Layout') && content.includes('not found')) {
-       return NextResponse.json({ error: `Layout '${name}' not found or failed to load.` }, { status: 404 });
-    }
+    // Use the dedicated function for API routes
+    const decodedName = decodeURIComponent(name); // Decode name potentially URL encoded
+    const content = await getLayoutContentForApi(decodedName);
     return NextResponse.json({ content });
-  } catch (error) {
+  } catch (error: any) {
+    // Handle specific 'Layout not found' error from getLayoutContentForApi
+    if (error.message.includes('not found')) {
+        console.warn(`API: Layout '${name}' not found.`);
+        return NextResponse.json({ error: `Layout '${name}' not found.` }, { status: 404 });
+    }
+    // Handle other potential errors during file reading
     console.error(`API error fetching layout ${name}:`, error);
-    return NextResponse.json({ error: 'Failed to fetch layout content' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch layout content. Check server logs.' }, { status: 500 });
   }
 }
