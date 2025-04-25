@@ -131,3 +131,7 @@ body {
     scrollbar-color: hsl(var(--primary) / 0.7) hsl(var(--secondary));
   }
 }
+
+.bg-sidebar {
+    margin-top: 60px;
+}
