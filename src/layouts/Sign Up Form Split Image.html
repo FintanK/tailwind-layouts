@@ -1,0 +1,61 @@
+<!-- Sign Up Form Split Image -->
+<div class="flex min-h-screen bg-background">
+  <!-- Form Section -->
+  <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <div>
+         <!-- Placeholder Logo -->
+         <svg class="h-12 w-auto text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+         </svg>
+        <h2 class="mt-6 text-3xl font-bold tracking-tight text-foreground">Get started for free</h2>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Already have an account?
+          <a href="#" class="font-medium text-primary hover:text-primary/90"> Sign in </a>
+        </p>
+      </div>
+
+      <div class="mt-8">
+        <div class="mt-6">
+          <form action="#" method="POST" class="space-y-6">
+            <div>
+              <label for="full-name" class="block text-sm font-medium text-foreground"> Full Name </label>
+              <div class="mt-1">
+                <input id="full-name" name="full-name" type="text" autocomplete="name" required class="block w-full appearance-none rounded-md border border-input px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label for="email-signup" class="block text-sm font-medium text-foreground"> Email address </label>
+              <div class="mt-1">
+                <input id="email-signup" name="email" type="email" autocomplete="email" required class="block w-full appearance-none rounded-md border border-input px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm">
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label for="password-signup" class="block text-sm font-medium text-foreground"> Password </label>
+              <div class="mt-1">
+                <input id="password-signup" name="password" type="password" autocomplete="new-password" required class="block w-full appearance-none rounded-md border border-input px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm">
+              </div>
+            </div>
+
+             <div class="flex items-center">
+                <input id="terms-agreement" name="terms-agreement" type="checkbox" required class="h-4 w-4 rounded border-border text-primary focus:ring-primary">
+                <label for="terms-agreement" class="ml-2 block text-sm text-muted-foreground"> I agree to the <a href="#" class="font-medium text-primary hover:text-primary/90">Terms</a> and <a href="#" class="font-medium text-primary hover:text-primary/90">Privacy Policy</a>. </label>
+             </div>
+
+
+            <div>
+              <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Sign up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Section -->
+  <div class="relative hidden w-0 flex-1 lg:block">
+    <img class="absolute inset-0 h-full w-full object-cover" src="https://picsum.photos/1000/1200?random=signup" alt="Sign up background image">
+  </div>
+</div>

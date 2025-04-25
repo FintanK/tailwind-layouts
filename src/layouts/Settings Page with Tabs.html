@@ -1,0 +1,118 @@
+<!-- Settings Page with Tabs -->
+<div class="bg-background py-10">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header>
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">Settings</h1>
+    </header>
+    <div class="mt-8">
+      <!-- Replace with ShadCN Tabs component -->
+      <div x-data="{ activeTab: 'profile' }" class="sm:hidden">
+        <label for="tabs" class="sr-only">Select a tab</label>
+        <select id="tabs" name="tabs" class="block w-full rounded-md border-border focus:border-primary focus:ring-primary" @change="activeTab = $event.target.value">
+          <option value="profile" :selected="activeTab === 'profile'">My Profile</option>
+          <option value="account" :selected="activeTab === 'account'">Account</option>
+          <option value="notifications" :selected="activeTab === 'notifications'">Notifications</option>
+          <option value="billing" :selected="activeTab === 'billing'">Billing</option>
+        </select>
+      </div>
+      <div class="hidden sm:block">
+        <div class="border-b border-border">
+          <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <button @click="activeTab = 'profile'" :class="{ 'border-primary text-primary': activeTab === 'profile', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'profile' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+              My Profile
+            </button>
+            <button @click="activeTab = 'account'" :class="{ 'border-primary text-primary': activeTab === 'account', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'account' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+              Account
+            </button>
+            <button @click="activeTab = 'notifications'" :class="{ 'border-primary text-primary': activeTab === 'notifications', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'notifications' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+              Notifications
+            </button>
+             <button @click="activeTab = 'billing'" :class="{ 'border-primary text-primary': activeTab === 'billing', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'billing' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+              Billing
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="mt-6">
+        <div x-show="activeTab === 'profile'">
+           <div class="rounded-lg border bg-card p-6 shadow-sm">
+             <h2 class="text-lg font-medium text-card-foreground">Profile Information</h2>
+             <p class="mt-1 text-sm text-muted-foreground">Update your personal details here.</p>
+             <!-- Profile Form Fields Go Here -->
+             <div class="mt-4 space-y-4">
+                <div>
+                  <label for="profile-name" class="block text-sm font-medium text-foreground">Name</label>
+                  <input type="text" id="profile-name" class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="Your Name">
+                </div>
+                <div>
+                  <label for="profile-email" class="block text-sm font-medium text-foreground">Email</label>
+                  <input type="email" id="profile-email" class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="your.email@example.com">
+                </div>
+             </div>
+           </div>
+        </div>
+        <div x-show="activeTab === 'account'">
+          <div class="rounded-lg border bg-card p-6 shadow-sm">
+             <h2 class="text-lg font-medium text-card-foreground">Account Settings</h2>
+             <p class="mt-1 text-sm text-muted-foreground">Manage your account preferences.</p>
+             <!-- Account Form Fields Go Here -->
+             <div class="mt-4">
+                <label class="block text-sm font-medium text-foreground">Change Password</label>
+                <button class="mt-2 inline-flex items-center rounded-md border border-transparent bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                  Set New Password
+                </button>
+             </div>
+          </div>
+        </div>
+        <div x-show="activeTab === 'notifications'">
+           <div class="rounded-lg border bg-card p-6 shadow-sm">
+             <h2 class="text-lg font-medium text-card-foreground">Notification Preferences</h2>
+             <p class="mt-1 text-sm text-muted-foreground">Control how you receive notifications.</p>
+             <!-- Notification Toggles Go Here -->
+              <div class="mt-4 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="flex flex-grow flex-col">
+                    <span class="text-sm font-medium text-foreground">Email Notifications</span>
+                    <span class="text-sm text-muted-foreground">Receive important updates via email.</span>
+                  </span>
+                  <!-- Replace with ShadCN Switch -->
+                  <button type="button" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" role="switch" aria-checked="true">
+                    <span class="sr-only">Use setting</span>
+                    <span aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-background shadow ring-0 transition duration-200 ease-in-out"></span>
+                  </button>
+                </div>
+                 <div class="flex items-center justify-between">
+                  <span class="flex flex-grow flex-col">
+                    <span class="text-sm font-medium text-foreground">Push Notifications</span>
+                    <span class="text-sm text-muted-foreground">Get notified directly on your device.</span>
+                  </span>
+                   <button type="button" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-input transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" role="switch" aria-checked="false">
+                    <span class="sr-only">Use setting</span>
+                    <span aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 translate-x-0 transform rounded-full bg-background shadow ring-0 transition duration-200 ease-in-out"></span>
+                  </button>
+                </div>
+              </div>
+           </div>
+        </div>
+         <div x-show="activeTab === 'billing'">
+          <div class="rounded-lg border bg-card p-6 shadow-sm">
+             <h2 class="text-lg font-medium text-card-foreground">Billing Information</h2>
+             <p class="mt-1 text-sm text-muted-foreground">Manage your subscription and payment methods.</p>
+             <!-- Billing Details Go Here -->
+             <div class="mt-4">
+                 <p class="text-sm text-foreground">Current Plan: <span class="font-medium text-primary">Pro</span></p>
+                 <button class="mt-2 inline-flex items-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                   Manage Subscription
+                 </button>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Alpine.js for basic tab functionality (replace with React state logic) -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
