@@ -98,15 +98,7 @@ export default function LandingPage() {
                   <p className="flex-auto">Built with Next.js and Tailwind CSS for optimal performance and development speed.</p>
                 </dd>
               </div>
-               <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="m12 12-2-2 2-2"/><path d="m17 8 2 2-2 2"/></svg>
-                  3D Background
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
-                  <p className="flex-auto">Includes a subtle, animated particle background using Three.js for visual appeal.</p>
-                </dd>
-              </div>
+              {/* Removed 3D Background Feature Card */}
             </dl>
           </div>
         </div>
