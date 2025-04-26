@@ -1,0 +1,56 @@
+<!-- Contact Split Two Tone -->
+<div class="relative bg-background">
+  <div class="lg:absolute lg:inset-0">
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+      <img class="h-56 w-full object-cover lg:absolute lg:h-full" src="https://picsum.photos/900/1200?random=contact_split" alt="Contact image">
+    </div>
+  </div>
+  <div class="relative py-16 px-4 sm:py-24 sm:px-6 lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:px-8 lg:py-32">
+    <div class="lg:pr-8">
+      <div class="mx-auto max-w-md sm:max-w-lg lg:mx-0">
+        <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Work with us</h2>
+        <p class="mt-4 text-lg text-muted-foreground sm:mt-3">
+          We’d love to hear from you! Send us a message using the form opposite, or email us. We’d be happy to answer your questions.
+        </p>
+        <form action="#" method="POST" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+          <div>
+            <label for="split-first-name" class="block text-sm font-medium text-foreground">First name</label>
+            <div class="mt-1">
+              <input type="text" name="split-first-name" id="split-first-name" autocomplete="given-name" class="block w-full rounded-md border-input bg-background shadow-sm py-3 px-4 focus:border-primary focus:ring-primary">
+            </div>
+          </div>
+          <div>
+            <label for="split-last-name" class="block text-sm font-medium text-foreground">Last name</label>
+            <div class="mt-1">
+              <input type="text" name="split-last-name" id="split-last-name" autocomplete="family-name" class="block w-full rounded-md border-input bg-background shadow-sm py-3 px-4 focus:border-primary focus:ring-primary">
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="split-email" class="block text-sm font-medium text-foreground">Email</label>
+            <div class="mt-1">
+              <input id="split-email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-input bg-background shadow-sm py-3 px-4 focus:border-primary focus:ring-primary">
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="split-company" class="block text-sm font-medium text-foreground">Company</label>
+            <div class="mt-1">
+              <input type="text" name="split-company" id="split-company" autocomplete="organization" class="block w-full rounded-md border-input bg-background shadow-sm py-3 px-4 focus:border-primary focus:ring-primary">
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <div class="flex justify-between">
+              <label for="split-message" class="block text-sm font-medium text-foreground">How can we help you?</label>
+              <span id="split-message-max" class="text-sm text-muted-foreground">Max. 500 characters</span>
+            </div>
+            <div class="mt-1">
+              <textarea id="split-message" name="message" rows="4" class="block w-full rounded-md border-input bg-background shadow-sm py-3 px-4 focus:border-primary focus:ring-primary" aria-describedby="split-message-max"></textarea>
+            </div>
+          </div>
+          <div class="text-right sm:col-span-2">
+            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-6 text-base font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
