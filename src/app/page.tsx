@@ -153,7 +153,7 @@ export default async function Home() {
     <SidebarProvider defaultOpen={true}>
       <Sidebar collapsible="icon" side="left">
         <SidebarHeader>
-          <h2 class="text-lg font-semibold">Layout Categories</h2>
+          <h2 className="text-lg font-semibold">Layout Categories</h2>
         </SidebarHeader>
         <SidebarContent>
           <ScrollArea className="h-[calc(100vh-theme(spacing.20))]"> {/* Adjust height based on header */}
