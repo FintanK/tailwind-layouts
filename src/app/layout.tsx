@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
-import { Geist_Sans, Geist_Mono } from 'geist/font'; // Correct import path
+import { GeistSans, GeistMono } from 'geist/font'; // Corrected import name
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/header'; // Keep Header import if used site-wide
 import ThreeBackground from '@/components/three-background';
 import './globals.css';
 
-const geistSans = Geist_Sans({
+// Initialize the fonts by calling the imported functions
+const geistSans = GeistSans({ // Use corrected name here
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = GeistMono({ // Use corrected name here
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
@@ -30,9 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+    // Apply the font variables to the html tag
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}> {/* Use corrected name here */}
       <body
-        className={`antialiased font-sans`} // Removed font variables from here as they are applied on html tag
+        // Use Tailwind's font-sans utility, CSS variables from html tag handle the specific font
+        className={`antialiased font-sans`}
       >
         <ThemeProvider
           attribute="class"
