@@ -80,15 +80,7 @@ export default function LandingPage() {
                   <p className="flex-auto">Easily find the layout you need with well-organized categories in the sidebar.</p>
                 </dd>
               </div>
-               <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
-                  <Zap className="h-6 w-6 text-primary" aria-hidden="true" />
-                  Fast & Efficient
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
-                  <p className="flex-auto">Built with Next.js and Tailwind CSS for optimal performance and development speed.</p>
-                </dd>
-              </div>
+               {/* Removed Fast & Efficient Feature Card */}
               {/* Removed Theme Support Feature Card */}
               {/* Removed 3D Background Feature Card */}
             </dl>
