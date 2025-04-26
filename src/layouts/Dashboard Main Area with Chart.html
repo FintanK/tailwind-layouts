@@ -1,0 +1,39 @@
+<!-- Dashboard Main Area with Chart -->
+<div class="bg-background p-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Main Chart Area -->
+        <div class="lg:col-span-2 rounded-lg border bg-card shadow-sm p-6">
+            <h3 class="text-lg font-medium text-card-foreground mb-4">Sales Performance</h3>
+            <div class="h-64 bg-muted rounded flex items-center justify-center text-muted-foreground">
+                [Chart Placeholder - e.g., Line Chart]
+                <!-- Insert ShadCN Chart component here -->
+            </div>
+        </div>
+
+        <!-- Sidebar/Widgets Area -->
+        <div class="space-y-6">
+            <!-- Widget 1: Key Metric -->
+            <div class="rounded-lg border bg-card shadow-sm p-4">
+                <h4 class="text-sm font-medium text-muted-foreground">Conversion Rate</h4>
+                <p class="mt-1 text-2xl font-semibold text-foreground">3.8%</p>
+                <p class="text-xs text-green-600 mt-1">+0.2%</p>
+            </div>
+            <!-- Widget 2: Quick Links -->
+            <div class="rounded-lg border bg-card shadow-sm p-4">
+                <h4 class="text-sm font-medium text-card-foreground mb-2">Quick Links</h4>
+                <ul class="space-y-1">
+                    <li><a href="#" class="text-sm text-primary hover:underline">Create New Report</a></li>
+                    <li><a href="#" class="text-sm text-primary hover:underline">View User List</a></li>
+                    <li><a href="#" class="text-sm text-primary hover:underline">Manage Settings</a></li>
+                </ul>
+            </div>
+             <!-- Widget 3: Recent Item -->
+             <div class="rounded-lg border bg-card shadow-sm p-4">
+                <h4 class="text-sm font-medium text-card-foreground mb-2">Latest Order</h4>
+                <p class="text-sm text-muted-foreground">ID: #ORD-1056</p>
+                <p class="text-sm text-muted-foreground">Amount: $128.50</p>
+                <a href="#" class="mt-2 inline-block text-xs font-medium text-primary hover:underline">View Details &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>

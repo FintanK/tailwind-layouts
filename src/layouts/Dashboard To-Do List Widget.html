@@ -1,0 +1,40 @@
+<!-- Dashboard To-Do List Widget -->
+<div class="bg-background p-4">
+    <div class="rounded-lg border bg-card shadow-sm w-full max-w-sm">
+        <div class="p-4 border-b border-border flex justify-between items-center">
+            <h3 class="text-lg font-medium text-card-foreground">My Tasks</h3>
+            <button class="text-primary hover:text-primary/90 text-sm font-medium">Add Task</button>
+        </div>
+        <div class="p-4 max-h-60 overflow-y-auto">
+            <ul role="list" class="space-y-3">
+                <li class="flex items-center">
+                     <input id="todo-1" name="todo-1" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mr-3">
+                    <label for="todo-1" class="text-sm text-foreground flex-1">Finalize Q3 report presentation</label>
+                     <span class="text-xs text-muted-foreground ml-2">Due Today</span>
+                </li>
+                 <li class="flex items-center">
+                     <input id="todo-2" name="todo-2" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mr-3">
+                    <label for="todo-2" class="text-sm text-foreground flex-1">Review design mockups for Project Beta</label>
+                    <span class="text-xs text-muted-foreground ml-2">Due Tomorrow</span>
+                </li>
+                <li class="flex items-center opacity-50"> <!-- Example Completed Task -->
+                     <input id="todo-3" name="todo-3" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mr-3">
+                    <label for="todo-3" class="text-sm text-foreground flex-1 line-through">Schedule team sync meeting</label>
+                </li>
+                 <li class="flex items-center">
+                     <input id="todo-4" name="todo-4" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mr-3">
+                    <label for="todo-4" class="text-sm text-foreground flex-1">Respond to client feedback email</label>
+                      <span class="text-xs text-red-500 ml-2">Overdue</span>
+                </li>
+                <li class="flex items-center">
+                     <input id="todo-5" name="todo-5" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mr-3">
+                    <label for="todo-5" class="text-sm text-foreground flex-1">Prepare agenda for marketing kickoff</label>
+                     <span class="text-xs text-muted-foreground ml-2">Due Friday</span>
+                </li>
+            </ul>
+        </div>
+        <div class="p-4 border-t border-border text-center">
+             <a href="#" class="text-sm font-medium text-primary hover:underline">View All Tasks</a>
+         </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<!-- Dashboard Activity Feed Widget -->
+<div class="bg-background p-4">
+    <div class="rounded-lg border bg-card shadow-sm w-full max-w-md">
+        <div class="p-4 border-b border-border">
+            <h3 class="text-lg font-medium text-card-foreground">Recent Activity</h3>
+        </div>
+        <div class="p-4 max-h-60 overflow-y-auto">
+            <ul role="list" class="divide-y divide-border">
+                <li class="py-3">
+                    <div class="flex items-center space-x-3">
+                        <img class="h-8 w-8 rounded-full object-cover" src="https://picsum.photos/40/40?random=act1" alt="User 1">
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm text-foreground">
+                                <span class="font-medium">Alex Johnson</span> commented on <span class="font-medium text-primary">Project Alpha</span>
+                            </p>
+                            <p class="text-xs text-muted-foreground">"Looks great! Just one minor suggestion..."</p>
+                        </div>
+                        <time class="flex-shrink-0 whitespace-nowrap text-xs text-muted-foreground">5m ago</time>
+                    </div>
+                </li>
+                <li class="py-3">
+                     <div class="flex items-center space-x-3">
+                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg>
+                         </span>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm text-foreground">
+                               <span class="font-medium">Maria Garcia</span> joined the team.
+                            </p>
+                        </div>
+                        <time class="flex-shrink-0 whitespace-nowrap text-xs text-muted-foreground">1h ago</time>
+                    </div>
+                </li>
+                <li class="py-3">
+                     <div class="flex items-center space-x-3">
+                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                         </span>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm text-foreground">
+                                File <span class="font-medium text-primary">report-final.pdf</span> uploaded.
+                            </p>
+                        </div>
+                        <time class="flex-shrink-0 whitespace-nowrap text-xs text-muted-foreground">3h ago</time>
+                    </div>
+                </li>
+                 <li class="py-3">
+                    <div class="flex items-center space-x-3">
+                        <img class="h-8 w-8 rounded-full object-cover" src="https://picsum.photos/40/40?random=act2" alt="User 2">
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm text-foreground">
+                                <span class="font-medium">Chris Lee</span> updated task <span class="font-medium text-primary">"Implement Login"</span>
+                            </p>
+                             <p class="text-xs text-muted-foreground">Status changed to "Completed".</p>
+                        </div>
+                        <time class="flex-shrink-0 whitespace-nowrap text-xs text-muted-foreground">Yesterday</time>
+                    </div>
+                </li>
+            </ul>
+        </div>
+         <div class="p-4 border-t border-border text-center">
+             <a href="#" class="text-sm font-medium text-primary hover:underline">View All Activity</a>
+         </div>
+    </div>
+</div>
