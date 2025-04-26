@@ -125,3 +125,4 @@ export async function getLayoutContentForApi(name: string): Promise<string> {
     throw error instanceof Error ? error : new Error(`Failed to retrieve layout content for '${name}'.`);
   }
 }
+
