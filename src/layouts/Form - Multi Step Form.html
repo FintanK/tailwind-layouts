@@ -1,0 +1,106 @@
+<!-- Form - Multi Step Form -->
+<!-- Note: Requires JavaScript (e.g., Alpine.js) for step handling -->
+<div class="bg-background p-8 flex items-center justify-center">
+  <div class="w-full max-w-xl rounded-lg border bg-card p-6 shadow-lg" x-data="{ step: 1, totalSteps: 3 }">
+    <!-- Step Indicator -->
+    <nav aria-label="Progress" class="mb-8">
+      <ol role="list" class="flex items-center">
+        <template x-for="i in totalSteps" :key="i">
+          <li class="relative flex-1" :class="{ 'pr-8 sm:pr-20': i < totalSteps }">
+            <!-- Completed Step -->
+            <template x-if="i < step">
+              <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="h-0.5 w-full bg-primary"></div>
+              </div>
+              <a href="#" @click.prevent="step = i" class="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary hover:bg-primary/90">
+                <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+                 <span class="sr-only" x-text="`Step ${i} - Completed`"></span>
+              </a>
+            </template>
+            <!-- Current Step -->
+            <template x-if="i === step">
+               <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="h-0.5 w-full bg-border"></div>
+              </div>
+              <a href="#" class="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-background" aria-current="step">
+                <span class="h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true"></span>
+                 <span class="sr-only" x-text="`Step ${i} - Current`"></span>
+              </a>
+            </template>
+            <!-- Upcoming Step -->
+            <template x-if="i > step">
+               <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="h-0.5 w-full bg-border"></div>
+              </div>
+              <a href="#" @click.prevent="step = i" class="group relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-border bg-background hover:border-muted-foreground">
+                <span class="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" aria-hidden="true"></span>
+                 <span class="sr-only" x-text="`Step ${i} - Upcoming`"></span>
+              </a>
+            </template>
+          </li>
+        </template>
+      </ol>
+    </nav>
+
+    <!-- Form Steps -->
+    <form action="#" method="POST">
+      <!-- Step 1 Content -->
+      <div x-show="step === 1" class="space-y-6">
+        <h2 class="text-lg font-medium text-card-foreground">Personal Information</h2>
+        <div>
+          <label for="ms-name" class="block text-sm font-medium text-foreground">Full Name</label>
+          <input type="text" name="ms-name" id="ms-name" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+        </div>
+        <div>
+          <label for="ms-email" class="block text-sm font-medium text-foreground">Email Address</label>
+          <input type="email" name="ms-email" id="ms-email" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+        </div>
+      </div>
+
+      <!-- Step 2 Content -->
+      <div x-show="step === 2" class="space-y-6">
+        <h2 class="text-lg font-medium text-card-foreground">Account Details</h2>
+        <div>
+          <label for="ms-username" class="block text-sm font-medium text-foreground">Username</label>
+          <input type="text" name="ms-username" id="ms-username" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+        </div>
+        <div>
+          <label for="ms-password" class="block text-sm font-medium text-foreground">Password</label>
+          <input type="password" name="ms-password" id="ms-password" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+        </div>
+      </div>
+
+      <!-- Step 3 Content -->
+      <div x-show="step === 3" class="space-y-6">
+        <h2 class="text-lg font-medium text-card-foreground">Review & Submit</h2>
+        <p class="text-sm text-muted-foreground">Please review your information before submitting.</p>
+        <!-- Display summary of previous steps here -->
+        <div class="rounded-md border border-border p-4 text-sm text-muted-foreground bg-muted">
+          Summary of information entered in previous steps...
+        </div>
+        <div class="flex items-center">
+           <input id="ms-terms" name="ms-terms" type="checkbox" required class="h-4 w-4 rounded border-border text-primary focus:ring-primary">
+           <label for="ms-terms" class="ml-2 block text-sm text-foreground">I agree to the terms and conditions</label>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="mt-8 flex justify-between">
+        <button type="button" @click="step--" x-show="step > 1" class="inline-flex items-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+          Previous
+        </button>
+        <div x-show="step === 1"></div> <!-- Spacer for alignment -->
+
+        <button type="button" @click="step++" x-show="step < totalSteps" class="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+          Next
+        </button>
+        <button type="submit" x-show="step === totalSteps" class="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Include Alpine.js for functionality -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

@@ -5,75 +5,83 @@ import path from 'path';
 // Reading file system ('fs') is not available in client-side components.
 
 const layoutsDirectory = path.join(process.cwd(), 'src/layouts');
+const placeholderFileName = 'Placeholder Layout.md';
+const placeholderLayoutName = 'Placeholder Layout';
 
 // Simulates fetching layout names (e.g., from a Firestore collection index)
 // This function is safe to run on the server (e.g., in page.tsx or API routes)
 export async function getLayoutNames(): Promise<string[]> {
   try {
-    // Ensure the directory exists, create if not (useful for initial setup)
+    // Ensure the directory exists, create if not
     try {
       await fs.access(layoutsDirectory);
     } catch {
       await fs.mkdir(layoutsDirectory, { recursive: true });
-      // Optional: Create a placeholder file if the directory was just created
-       await fs.writeFile(path.join(layoutsDirectory, 'Placeholder Layout.md'), '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Select a layout from the sidebar to preview it here.</p></div>', 'utf8');
+       // Create placeholder file if directory was just created
+       await fs.writeFile(path.join(layoutsDirectory, placeholderFileName), '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Select a layout from the sidebar to preview it here.</p></div>', 'utf8');
        console.log(`Created layouts directory and placeholder file at: ${layoutsDirectory}`);
+       return [placeholderLayoutName]; // Return only placeholder initially
     }
 
     const filenames = await fs.readdir(layoutsDirectory);
-    const layoutNames = filenames
-      .filter((filename) => /\.(html|md)$/.test(filename)) // Allow .html or .md
+    let layoutNames = filenames
+      .filter((filename) => /\.(html|md)$/.test(filename) && filename !== placeholderFileName) // Exclude placeholder for now
       .map((filename) => filename.replace(/\.(html|md)$/, '')) // Remove extension
       .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
 
-    // Ensure 'Placeholder Layout' is included if the directory was initially empty or only contains it.
-    if (layoutNames.length === 0 && filenames.includes('Placeholder Layout.md')) {
-        return ['Placeholder Layout'];
+    // Check if placeholder file exists and add it to the end if it does
+    try {
+        await fs.access(path.join(layoutsDirectory, placeholderFileName));
+        layoutNames.push(placeholderLayoutName); // Add placeholder to the end
+    } catch {
+        // Placeholder file doesn't exist, do nothing
+        if (layoutNames.length === 0) {
+             console.warn('No layout files found and placeholder is missing.');
+        }
+    }
+
+
+    // If the directory is empty except for potentially the placeholder, ensure placeholder is returned
+    if (layoutNames.length === 0 && filenames.includes(placeholderFileName)) {
+        return [placeholderLayoutName];
     }
      if (layoutNames.length === 0) {
-        // If still empty after filtering (e.g., directory exists but no .html/.md files)
-        console.warn('No .html or .md layout files found in src/layouts. Serving placeholder.');
-        // Attempt to create placeholder if it doesn't exist for some reason
-         try {
-            await fs.access(path.join(layoutsDirectory, 'Placeholder Layout.md'));
-         } catch {
-            await fs.writeFile(path.join(layoutsDirectory, 'Placeholder Layout.md'), '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Select a layout from the sidebar to preview it here.</p></div>', 'utf8');
-         }
-        return ['Placeholder Layout'];
+        console.warn('No .html or .md layout files found in src/layouts. Returning empty.');
+        return []; // Return empty if no files found at all
     }
-
-
-    // Ensure 'Placeholder Layout' is last if it exists
-    const placeholderIndex = layoutNames.indexOf('Placeholder Layout');
-    if (placeholderIndex > -1) {
-      layoutNames.splice(placeholderIndex, 1);
-      layoutNames.push('Placeholder Layout');
-    }
-
 
     return layoutNames;
   } catch (error) {
     console.error('Error reading layout directory:', error);
-    // Attempt to return placeholder on error
+    // Attempt to return placeholder on error if it exists
     try {
-       await fs.access(path.join(layoutsDirectory, 'Placeholder Layout.md'));
-       return ['Placeholder Layout'];
+       await fs.access(path.join(layoutsDirectory, placeholderFileName));
+       return [placeholderLayoutName];
     } catch (placeholderError) {
-       console.error('Placeholder layout file also not found.');
+       console.error('Placeholder layout file also not found on error.');
        return []; // Return empty array as a last resort
     }
   }
 }
 
 
-// Removed getLayoutContent function.
-// Its functionality is now handled by the API route src/app/api/layout/[name]/route.ts
-// This prevents the 'fs' module from being bundled in client-side code.
-
 // Function to read content specifically for the API route (server-side only)
 export async function getLayoutContentForApi(name: string): Promise<string> {
   const potentialHtmlPath = path.join(layoutsDirectory, `${name}.html`);
   const potentialMdPath = path.join(layoutsDirectory, `${name}.md`);
+  const placeholderPath = path.join(layoutsDirectory, placeholderFileName);
+
+
+   // Handle request for placeholder explicitly
+   if (name === placeholderLayoutName) {
+      try {
+         return await fs.readFile(placeholderPath, 'utf8');
+      } catch (e) {
+         console.error(`Error reading placeholder layout file:`, e);
+         throw new Error(`Layout '${name}' not found.`); // Treat as not found if placeholder file missing
+      }
+   }
+
 
   try {
     // Try reading HTML first

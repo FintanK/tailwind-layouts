@@ -71,8 +71,9 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
      }
 
     let foundCategory = false;
-    for (const catPrefix of knownCategories) {
-      if (name.startsWith(catPrefix)) {
+    // Iterate through known categories and check if the name starts with the category prefix
+    for (const catPrefix of knownCategories.sort((a, b) => b.length - a.length)) { // Sort by length descending to match longer prefixes first
+      if (name.toLowerCase().startsWith(catPrefix.toLowerCase() + ' ')) { // Check with a space for better matching
         if (!categories[catPrefix]) {
           categories[catPrefix] = [];
         }
@@ -81,6 +82,22 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
         break;
       }
     }
+
+     // Fallback check without space if no match with space was found
+     if (!foundCategory) {
+      for (const catPrefix of knownCategories.sort((a, b) => b.length - a.length)) {
+        if (name.toLowerCase().startsWith(catPrefix.toLowerCase())) {
+           if (!categories[catPrefix]) {
+            categories[catPrefix] = [];
+           }
+           categories[catPrefix].push(name);
+           foundCategory = true;
+           break;
+        }
+      }
+     }
+
+
     if (!foundCategory) {
       if (!categories['Other']) {
         categories['Other'] = [];
@@ -89,15 +106,22 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     }
   });
 
-   // Ensure Other category is last if it exists
-   if (categories['Other']) {
-     const otherLayouts = categories['Other'];
-     delete categories['Other'];
-     categories['Other'] = otherLayouts;
-   }
+    // Sort categories alphabetically, keeping 'Other' last
+    const sortedCategories = Object.keys(categories)
+        .filter(cat => cat !== 'Other')
+        .sort((a, b) => a.localeCompare(b));
+
+    const finalCategories: { [key: string]: string[] } = {};
+    sortedCategories.forEach(cat => {
+        finalCategories[cat] = categories[cat].sort((a, b) => a.localeCompare(b)); // Sort names within category
+    });
+
+    if (categories['Other']) {
+        finalCategories['Other'] = categories['Other'].sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
+    }
 
 
-  return categories;
+  return finalCategories;
 };
 
 
@@ -135,7 +159,7 @@ export default async function Home() {
                                 // Active state is handled client-side in LayoutPreview useEffect
                              >
                                {/* Optionally remove category prefix from display name if desired */}
-                               {name.replace(category + ' ', '')}
+                               {name.startsWith(category + ' ') ? name.substring(category.length + 1) : name}
                              </SidebarMenuButton>
                            </SidebarMenuItem>
                          ))}
