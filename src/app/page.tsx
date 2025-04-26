@@ -86,7 +86,7 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     { keyword: ['stats section simple centered', 'stats section split with image', 'stats section with description list', 'dashboard activity feed widget', 'dashboard main area with chart', 'dashboard recent orders table widget', 'dashboard settings panel example', 'dashboard simple header', 'dashboard simple stat cards', 'dashboard to-do list widget', 'dashboard user profile widget', 'dashboard welcome banner', 'dashboard with mini cards and chart', 'dashboard - stats cards grid', 'dashboard layout with sidebar', 'stats section', 'dashboard layout', 'dashboard'], category: 'Dashboard/Stats' },
     { keyword: ['user profile - cover photo header', 'user profile - tabbed content', 'user profile card', 'user profile'], category: 'User Profile Layout' },
     { keyword: ['settings page with tabs', 'settings page'], category: 'Settings Layout' },
-    { keyword: ['landing page with split image', 'landing page'], category: 'Landing Page' }, // Specific page types
+    { keyword: ['landing page with split image', 'landing page feature grid', 'landing page hero with signup form', 'landing page pricing table', 'landing page testimonials', 'landing page with call to action', 'landing page'], category: 'Landing Page' }, // Specific page types
     { keyword: ['other layouts - vertical timeline', 'other layouts - horizontal scrolling', 'other layouts - fullscreen slider', 'other layouts - split screen', 'utility - cookie consent banner', 'empty state - with action button', 'empty state - simple text only', 'status page - incident history', 'split screen', 'fullscreen slider', 'vertical timeline', 'horizontal scrolling', 'snackbar bottom full width', 'notification list right sidebar', 'alert modal confirmation', 'alert banner top sticky', 'content with sidebar left fixed', ], category: 'Other Layouts' }, // Keep this broader category towards the end
      // Add more specific keywords and categories as needed
   ];
@@ -153,7 +153,7 @@ export default async function Home() {
     <SidebarProvider defaultOpen={true}>
       <Sidebar collapsible="icon" side="left">
         <SidebarHeader>
-          <h2 className="text-lg font-semibold">Layout Categories</h2>
+          <h2 class="text-lg font-semibold">Layout Categories</h2>
         </SidebarHeader>
         <SidebarContent>
           <ScrollArea className="h-[calc(100vh-theme(spacing.20))]"> {/* Adjust height based on header */}
@@ -174,7 +174,7 @@ export default async function Home() {
                                 // Active state is handled client-side in LayoutPreview useEffect
                              >
                                {/* Display full name, categorization handles grouping */}
-                               {name}
+                               {name.replace(/^(Landing Page|FAQ Section|...)\s/,'')} {/* Optionally shorten name */}
                              </SidebarMenuButton>
                            </SidebarMenuItem>
                          ))}
