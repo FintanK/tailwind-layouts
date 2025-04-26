@@ -10,11 +10,16 @@ import { useTheme } from 'next-themes';
 
 interface LayoutPreviewProps {
   initialContent: string;
-  initialLayoutName: string;
+  initialLayoutName: string | undefined; // Can be undefined if no layouts
 }
 
 // Function to generate iframe content. Now takes theme as an argument.
-const generateIframeContent = (htmlContent: string, theme: 'light' | 'dark' | 'system' | undefined) => {
+const generateIframeContent = (htmlContent: string, theme: 'light' | 'dark' | 'system' | undefined): string => {
+   // Only run on client-side
+   if (typeof window === 'undefined') {
+     return ''; // Return empty string or placeholder on server
+   }
+
   const effectiveTheme = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme || 'light'; // Detect system preference
   const strippedContent = htmlContent.replace(/<!--.*?-->/gs, ''); // Strip comments before injecting
 
@@ -144,7 +149,7 @@ const generateIframeContent = (htmlContent: string, theme: 'light' | 'dark' | 's
 
 export default function LayoutPreview({ initialContent, initialLayoutName }: LayoutPreviewProps) {
   const [layoutContent, setLayoutContent] = useState(initialContent);
-  const [layoutName, setLayoutName] = useState(initialLayoutName);
+  const [layoutName, setLayoutName] = useState(initialLayoutName || 'No Layout Selected'); // Handle undefined initial name
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
@@ -154,7 +159,7 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
   const [iframeSrcDoc, setIframeSrcDoc] = useState('');
 
    // Ref to track current layout name to prevent redundant fetches from rapid clicks
-   const layoutNameRef = useRef<string>(initialLayoutName);
+   const layoutNameRef = useRef<string | undefined>(initialLayoutName);
 
   const stripHtmlComments = (html: string) => {
     return html.replace(/<!--.*?-->/gs, '');
@@ -163,7 +168,7 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
   const copyToClipboard = async () => {
      // Ensure layoutContent is up-to-date before copying
     const currentLayout = layoutContent; // Read from state directly
-    if (!currentLayout || currentLayout.startsWith('<p class="p-4 text-destructive">')) {
+    if (!currentLayout || currentLayout.startsWith('<p class="p-4 text-destructive">') || currentLayout.startsWith('<p class="p-4 text-muted-foreground">')) {
         toast({ title: 'Nothing to copy', description: 'Load a valid layout first.', variant: 'destructive' });
         return;
     }
@@ -186,7 +191,16 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
     }
   };
 
-  const fetchAndSetLayout = useCallback(async (name: string) => {
+  const fetchAndSetLayout = useCallback(async (name: string | undefined) => {
+     if (!name) {
+       console.warn("Attempted to fetch layout with undefined name.");
+       setLayoutName("No Layout Selected");
+       setLayoutContent('<p class="p-4 text-muted-foreground">No layout selected.</p>');
+       setIframeSrcDoc('');
+       setIsLoading(false);
+       return;
+     }
+
     setIsLoading(true);
     setLayoutName(name); // Update displayed name
     layoutNameRef.current = name; // Update ref to track current name
@@ -217,6 +231,8 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
 
   // Handle clicks on layout selector buttons (Client-side only)
   useEffect(() => {
+     if (typeof document === 'undefined') return; // Guard for server-side
+
     const handleLayoutSelection = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       const button = target.closest('.layout-selector-button'); // Target the specific button class
@@ -240,14 +256,11 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
     sidebarContentElement?.addEventListener('click', handleLayoutSelection);
 
 
-     // Set initial active state
-     // Need to ensure the initial element might be inside a closed accordion,
-     // so querySelector might fail if it's not visible initially.
-     // It's safer to set it when the button is actually clicked the first time,
-     // or ensure the initial accordion item is open by default if possible.
-     // For now, let's try setting it optimistically.
-    const initialButton = document.querySelector(`.layout-selector-button[data-layout-name="${initialLayoutName}"]`);
-    initialButton?.setAttribute('data-active', 'true');
+     // Set initial active state only if initialLayoutName is defined
+     if (initialLayoutName) {
+        const initialButton = document.querySelector(`.layout-selector-button[data-layout-name="${initialLayoutName}"]`);
+        initialButton?.setAttribute('data-active', 'true');
+     }
 
 
     return () => {
@@ -260,12 +273,20 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
 
   // Effect to update iframe srcDoc when layoutContent or theme changes (Client-side only)
   useEffect(() => {
-    // Only run on client
+    // Only run on client and if window is available
     if (typeof window !== 'undefined') {
        const newSrcDoc = generateIframeContent(layoutContent, resolvedTheme as 'light' | 'dark');
        setIframeSrcDoc(newSrcDoc); // Update state, which triggers iframe update
     }
   }, [layoutContent, resolvedTheme]);
+
+
+  // Generate initial iframe content only on the client
+  useEffect(() => {
+    if (typeof window !== 'undefined' && initialContent && !iframeSrcDoc) {
+        setIframeSrcDoc(generateIframeContent(initialContent, resolvedTheme as 'light' | 'dark'));
+    }
+  }, [initialContent, resolvedTheme, iframeSrcDoc]); // Add iframeSrcDoc to prevent re-running if already set
 
 
   return (
@@ -278,7 +299,7 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
              <CardDescription>Preview of the selected layout</CardDescription>
           </div>
 
-          <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={isLoading || !layoutContent || layoutContent.startsWith('<p class="p-4 text-destructive">')} aria-label="Copy HTML code">
+          <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={isLoading || !layoutContent || layoutContent.startsWith('<p class="p-4 text-destructive">') || layoutContent.startsWith('<p class="p-4 text-muted-foreground">')} aria-label="Copy HTML code">
             {copied ? <Check className="h-4 w-4 text-green-500" /> : <Clipboard className="h-4 w-4" />}
             <span className="ml-2 hidden sm:inline">Copy Code</span>
           </Button>
@@ -293,13 +314,25 @@ export default function LayoutPreview({ initialContent, initialLayoutName }: Lay
                 <span>Loading layout...</span>
               </div>
             ) : (
-              <iframe
-                ref={iframeRef}
-                title="Layout Preview"
-                className="h-full w-full border-0" // Removed bg-background, let iframe body handle it
-                sandbox="allow-scripts allow-same-origin"
-                srcDoc={iframeSrcDoc} // Set srcDoc from state
-              />
+               layoutContent.startsWith('<p class="p-4 text-muted-foreground">') ? (
+                 <div className="flex h-full items-center justify-center p-6 text-muted-foreground">
+                    {layoutContent.replace(/<\/?p[^>]*>/g, '')} {/* Display message directly */}
+                 </div>
+               ) : layoutContent.startsWith('<p class="p-4 text-destructive">') ? (
+                  <div className="flex h-full items-center justify-center p-6 text-destructive">
+                     {layoutContent.replace(/<\/?p[^>]*>/g, '')} {/* Display error message directly */}
+                  </div>
+               ) : (
+                 <iframe
+                   ref={iframeRef}
+                   title="Layout Preview"
+                   className="h-full w-full border-0" // Removed bg-background, let iframe body handle it
+                   sandbox="allow-scripts allow-same-origin"
+                   srcDoc={iframeSrcDoc || ''} // Ensure srcDoc is always a string
+                   // Use key to force iframe reload when content changes significantly if needed
+                   // key={layoutName}
+                 />
+               )
             )}
          </div>
         </CardContent>

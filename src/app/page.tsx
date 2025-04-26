@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 
 // Helper function to fetch layout content from the API route
 // This needs to run server-side or be adapted if called client-side
-async function fetchInitialLayoutContent(name: string): Promise<string> {
-  if (!name) return '<p>No layout selected.</p>';
+async function fetchInitialLayoutContent(name: string | undefined): Promise<string> {
+  if (!name) return '<p class="p-4 text-muted-foreground">No layouts available.</p>';
   try {
     // Construct the full URL for server-side fetch
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -95,16 +95,16 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     let assignedCategory = 'Other'; // Default category
     const lowerCaseName = name.toLowerCase().replace(/-/g, ' '); // Normalize name for matching
 
-     // Handle placeholder separately
-    if (lowerCaseName === 'placeholder layout') {
-      assignedCategory = 'Placeholder';
-    } else {
-      for (const { keyword, category } of categoryKeywords) {
-        if (keyword.some(k => lowerCaseName.includes(k))) {
-          assignedCategory = category;
-          break; // Assign the first matching category (most specific first)
-        }
+    for (const { keyword, category } of categoryKeywords) {
+      if (keyword.some(k => lowerCaseName.includes(k))) {
+        assignedCategory = category;
+        break; // Assign the first matching category (most specific first)
       }
+    }
+
+    // Skip the 'placeholder' layout
+    if (name.toLowerCase() === 'placeholder') {
+        return;
     }
 
     if (!categories[assignedCategory]) {
@@ -116,9 +116,9 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     }
   });
 
-  // Sort categories alphabetically, keeping 'Placeholder' and 'Other' at the end
+  // Sort categories alphabetically, keeping 'Other' at the end
   const sortedCategories = Object.keys(categories)
-    .filter(cat => cat !== 'Other' && cat !== 'Placeholder')
+    .filter(cat => cat !== 'Other')
     .sort((a, b) => a.localeCompare(b));
 
   const finalCategories: { [key: string]: string[] } = {};
@@ -126,14 +126,14 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     finalCategories[cat] = categories[cat].sort((a, b) => a.localeCompare(b)); // Sort names within category
   });
 
-   // Add Placeholder category if it exists
-   if (categories['Placeholder']) {
-        finalCategories['Placeholder'] = categories['Placeholder']; // No sorting needed for single item
-    }
 
   // Add 'Other' category at the end if it exists
   if (categories['Other']) {
-    finalCategories['Other'] = categories['Other'].sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
+    // Filter out 'placeholder' from the 'Other' category if it accidentally got in
+    const otherNames = categories['Other'].filter(name => name.toLowerCase() !== 'placeholder');
+    if (otherNames.length > 0) {
+        finalCategories['Other'] = otherNames.sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
+    }
   }
 
   return finalCategories;
@@ -143,9 +143,11 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
 export default async function Home() {
   const allLayoutNames = await getLayoutNames();
   const categorizedLayouts = categorizeLayouts(allLayoutNames);
-  // Fetch the first layout's content (from the first category, typically not 'Placeholder' or 'Other' unless they are the only ones)
-  const firstMeaningfulCategory = Object.keys(categorizedLayouts).find(cat => cat !== 'Placeholder' && cat !== 'Other') || Object.keys(categorizedLayouts)[0] || 'Placeholder';
-  const initialLayoutName = categorizedLayouts[firstMeaningfulCategory]?.[0] || 'Placeholder Layout';
+
+   // Determine the initial layout name: Use the first name from the first category, or undefined if no layouts exist.
+  const firstCategory = Object.keys(categorizedLayouts)[0];
+  const initialLayoutName = firstCategory ? categorizedLayouts[firstCategory]?.[0] : undefined;
+
   const initialLayoutContent = await fetchInitialLayoutContent(initialLayoutName);
 
 
@@ -194,4 +196,3 @@ export default async function Home() {
     </SidebarProvider>
   );
 }
-
