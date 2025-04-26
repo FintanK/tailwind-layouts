@@ -10,7 +10,7 @@ export default function Header() {
       <div className="container flex h-14 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
            <Code className="h-6 w-6 text-primary" />
-           <span className="hidden sm:inline text-lg font-semibold">Tailwind Layout Preview</span>
+           <span className="hidden sm:inline text-lg font-semibold">Tailwind Layouts</span>
         </Link>
         <nav className="flex items-center gap-2">
            <Button variant="ghost" size="sm" asChild>
