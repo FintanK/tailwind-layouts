@@ -9,7 +9,7 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import LayoutPreview from '@/components/layout-preview';
-import { getLayoutNames } from '@/lib/layouts';
+import { getLayoutNames, getLayoutContentForApi } from '@/lib/layouts'; // Import getLayoutContentForApi
 import type { Metadata } from 'next';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
@@ -24,33 +24,7 @@ export const metadata: Metadata = {
   description: 'Browse and copy Tailwind CSS layouts.',
 };
 
-// Helper function to fetch layout content from the API route
-// This needs to run server-side or be adapted if called client-side
-async function fetchInitialLayoutContent(name: string | undefined): Promise<string> {
-  if (!name) return '<p class="p-4 text-muted-foreground">No layouts available.</p>';
-  try {
-    // Construct the full URL for server-side fetch
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : 'http://localhost:9002'; // Adjust port if necessary
-    const apiUrl = `${baseUrl}/api/layout/${encodeURIComponent(name)}`;
-
-    const response = await fetch(apiUrl, { cache: 'no-store' }); // Fetch fresh data
-
-    if (!response.ok) {
-       const errorData = await response.json().catch(() => ({ error: `HTTP error! status: ${response.status}` }));
-      console.error(`API error fetching initial layout (${name}): ${errorData.error}`);
-      return `<p class="p-4 text-destructive">Error loading initial layout: ${errorData.error}</p>`;
-    }
-    const data = await response.json();
-    return data.content;
-  } catch (error: any) {
-    console.error(`Fetch error for initial layout (${name}):`, error);
-     return `<p class="p-4 text-destructive">Failed to fetch initial layout: ${error.message}</p>`;
-  }
-}
-
-// Function to categorize layout names
+// Helper function to categorize layout names (remains the same)
 const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
   const categories: { [key: string]: string[] } = {};
 
@@ -122,13 +96,9 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
   });
 
 
-  // Add 'Other' category at the end if it exists
-  if (categories['Other']) {
-    // Filter out 'placeholder' from the 'Other' category if it accidentally got in
-    const otherNames = categories['Other'];
-    if (otherNames.length > 0) {
-        finalCategories['Other'] = otherNames.sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
-    }
+  // Add 'Other' category at the end if it exists and has items
+  if (categories['Other'] && categories['Other'].length > 0) {
+        finalCategories['Other'] = categories['Other'].sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
   }
 
   return finalCategories;
@@ -143,8 +113,16 @@ export default async function PreviewPage() {
   const firstCategory = Object.keys(categorizedLayouts)[0];
   const initialLayoutName = firstCategory ? categorizedLayouts[firstCategory]?.[0] : undefined;
 
-  const initialLayoutContent = await fetchInitialLayoutContent(initialLayoutName);
-
+  // Directly fetch initial content using the server-side function
+  let initialLayoutContent = '<p class="p-4 text-muted-foreground">No layouts available.</p>';
+  if (initialLayoutName) {
+      try {
+          initialLayoutContent = await getLayoutContentForApi(initialLayoutName);
+      } catch (error: any) {
+           console.error(`Server error fetching initial layout (${initialLayoutName}):`, error);
+           initialLayoutContent = `<p class="p-4 text-destructive">Error loading initial layout: ${error.message || 'Server Error'}</p>`;
+      }
+  }
 
   return (
     <SidebarProvider defaultOpen={true}>
