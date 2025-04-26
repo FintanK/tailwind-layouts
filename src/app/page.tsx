@@ -31,9 +31,9 @@ export default function LandingPage() {
             <Button asChild size="lg">
               <Link href="/preview">Explore Layouts</Link>
             </Button>
-            <Button asChild variant="outline" size="lg">
+            {/* <Button asChild variant="outline" size="lg">
               <Link href="#features">Learn More</Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent -z-10"></div>
