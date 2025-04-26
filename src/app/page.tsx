@@ -76,7 +76,7 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     { keyword: ['login form - dark theme example', 'login form full screen background', 'login form simple', 'sign up form - minimalist', 'sign up form split image', 'form - multi step form', 'form floating label', 'form simple stacked', 'form - profile settings', 'form - registration form', 'form - forgot password', 'login form', 'registration form', 'forgot password', 'profile settings', 'user account', 'sign up form'], category: 'Form Layout' },
     { keyword: ['utility - coming soon page', 'utility - error page custom', 'utility - maintenance mode page', 'utility - newsletter signup popup', 'utility - search bar only', 'utility 404 page simple', 'utility 404 page with image', 'utility - page not found (404)', 'utility - server error (500)', 'coming soon', '404 error', 'search results', 'maintenance mode', 'empty state'], category: 'Utility Page' },
     { keyword: ['modal centered with image', 'modal simple with action', 'overlay - slide over right panel', 'modal', 'sidebar navigation', 'overlay', 'notification dropdown', 'slide over', 'newsletter signup popup'], category: 'Overlay/Modal' },
-    { keyword: ['content - article with sidebar', 'content - overlapping image section', 'content - section with heading', 'content grid images and text', 'content masonry dynamic height', 'content grid', 'content with sidebar', 'content masonry', 'content single column', 'content section'], category: 'Content Layout' },
+    { keyword: ['content - article with sidebar', 'content - overlapping image section', 'content - section with heading', 'content grid images and text', 'content masonry dynamic height', 'content grid', 'content with sidebar', 'content masonry', 'content single column', 'content section'], category: 'Content Layout' }, // Added 'Content Layout' keywords
     { keyword: ['gallery - carousel slider', 'gallery masonry layout', 'gallery - image gallery masonry', 'gallery - fullscreen image slider', 'gallery - thumbnail image gallery', 'image gallery', 'video gallery', 'mixed media gallery', 'fullscreen image slider', 'thumbnail image gallery'], category: 'Gallery Layout' },
     { keyword: ['table - compact with avatars', 'table list with filters', 'table responsive scrollable', 'table - sortable columns', 'table - striped rows', 'table - simple bordered', 'table'], category: 'Table Layout' },
     { keyword: ['breadcrumbs', 'pagination - card footer', 'pagination - showing x-y of z', 'pagination simple centered'], category: 'Navigation/Pagination' },
@@ -153,7 +153,7 @@ export default async function Home() {
     <SidebarProvider defaultOpen={true}>
       <Sidebar collapsible="icon" side="left">
         <SidebarHeader>
-          <h2 className="text-lg font-semibold">Layout Categories</h2>
+          <h2 class="text-lg font-semibold">Layout Categories</h2>
         </SidebarHeader>
         <SidebarContent>
           <ScrollArea className="h-[calc(100vh-theme(spacing.20))]"> {/* Adjust height based on header */}
