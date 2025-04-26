@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { GeistSans, GeistMono } from 'geist/font'; // Corrected import name
+import { GeistSans } from 'geist/font/sans'; // Correct import path for sans-serif
+import { GeistMono } from 'geist/font/mono'; // Correct import path for mono
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/header'; // Keep Header import if used site-wide
@@ -7,12 +8,12 @@ import ThreeBackground from '@/components/three-background';
 import './globals.css';
 
 // Initialize the fonts by calling the imported functions
-const geistSans = GeistSans({ // Use corrected name here
+const geistSans = GeistSans({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
 
-const geistMono = GeistMono({ // Use corrected name here
+const geistMono = GeistMono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
@@ -32,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     // Apply the font variables to the html tag
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}> {/* Use corrected name here */}
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <body
         // Use Tailwind's font-sans utility, CSS variables from html tag handle the specific font
         className={`antialiased font-sans`}
