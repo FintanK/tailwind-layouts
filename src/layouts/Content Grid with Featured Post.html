@@ -1,0 +1,67 @@
+<!-- Content Grid with Featured Post -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Latest Insights</h2>
+      <p class="mt-4 text-lg text-muted-foreground">Explore our featured article and recent updates.</p>
+    </div>
+
+    <!-- Featured Post -->
+    <div class="mb-12 rounded-lg border bg-card shadow-lg overflow-hidden lg:grid lg:grid-cols-2 lg:gap-8">
+      <div class="lg:aspect-none group relative">
+        <div class="aspect-w-16 aspect-h-9 lg:aspect-none lg:h-full">
+           <img src="https://picsum.photos/800/600?random=cgf1" alt="Featured Post Image" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </div>
+      </div>
+      <div class="p-6 lg:p-8 flex flex-col justify-center">
+        <h3 class="text-xl font-semibold text-card-foreground">Featured: The Future of Web Development</h3>
+        <p class="mt-3 text-sm text-muted-foreground">Dive into the trends shaping modern web development, from server components to edge computing. Explore what's next.</p>
+        <p class="mt-2 text-xs text-muted-foreground">By Jane Smith - May 28, 2023</p>
+        <a href="#" class="mt-4 inline-block text-sm font-medium text-primary hover:text-primary/90 self-start">Read Featured Article &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Regular Grid -->
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Item 1 -->
+      <div class="flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
+         <div class="aspect-w-16 aspect-h-9">
+           <img src="https://picsum.photos/500/281?random=cgf2" alt="Content 2">
+         </div>
+        <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+                <h4 class="text-base font-medium text-card-foreground">Optimizing Images</h4>
+                <p class="mt-1 text-xs text-muted-foreground">Best practices for web image formats and loading.</p>
+            </div>
+            <a href="#" class="mt-3 inline-block text-xs font-medium text-primary hover:text-primary/90 self-start">Read more &rarr;</a>
+        </div>
+      </div>
+       <!-- Item 2 -->
+      <div class="flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
+         <div class="aspect-w-16 aspect-h-9">
+           <img src="https://picsum.photos/500/281?random=cgf3" alt="Content 3">
+         </div>
+        <div class="p-4 flex-1 flex flex-col justify-between">
+           <div>
+                <h4 class="text-base font-medium text-card-foreground">CSS Grid Layouts</h4>
+                <p class="mt-1 text-xs text-muted-foreground">Mastering complex layouts with CSS Grid.</p>
+           </div>
+           <a href="#" class="mt-3 inline-block text-xs font-medium text-primary hover:text-primary/90 self-start">Read more &rarr;</a>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div class="flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
+         <div class="aspect-w-16 aspect-h-9">
+           <img src="https://picsum.photos/500/281?random=cgf4" alt="Content 4">
+         </div>
+        <div class="p-4 flex-1 flex flex-col justify-between">
+           <div>
+                <h4 class="text-base font-medium text-card-foreground">Accessibility Tips</h4>
+                <p class="mt-1 text-xs text-muted-foreground">Ensuring your websites are usable by everyone.</p>
+           </div>
+           <a href="#" class="mt-3 inline-block text-xs font-medium text-primary hover:text-primary/90 self-start">Read more &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

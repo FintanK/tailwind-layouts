@@ -1,0 +1,67 @@
+<!-- Content Section with Tabs -->
+<!-- Note: Requires JS (e.g., Alpine.js) or use ShadCN Tabs component -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold tracking-tight text-center text-foreground mb-10">Platform Features</h2>
+
+    <div x-data="{ activeTab: 'analytics' }">
+      <!-- Tabs Navigation -->
+      <div class="border-b border-border">
+        <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
+          <button @click="activeTab = 'analytics'" :class="{ 'border-primary text-primary': activeTab === 'analytics', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'analytics' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium focus:outline-none">
+            Analytics
+          </button>
+          <button @click="activeTab = 'collaboration'" :class="{ 'border-primary text-primary': activeTab === 'collaboration', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'collaboration' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium focus:outline-none">
+            Collaboration
+          </button>
+          <button @click="activeTab = 'integrations'" :class="{ 'border-primary text-primary': activeTab === 'integrations', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': activeTab !== 'integrations' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium focus:outline-none">
+            Integrations
+          </button>
+        </nav>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="mt-8 rounded-lg border bg-card p-6 shadow-sm min-h-[250px]">
+        <!-- Analytics Tab -->
+        <div x-show="activeTab === 'analytics'" x-transition>
+          <h3 class="text-lg font-medium text-card-foreground">Powerful Analytics Dashboard</h3>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Gain deep insights into your performance with customizable charts and real-time data tracking. Understand trends, identify opportunities, and make data-driven decisions to optimize your strategy. Export reports easily for sharing.
+          </p>
+           <ul class="mt-4 list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                <li>Real-time metric tracking</li>
+                <li>Customizable dashboards</li>
+                <li>Data export options</li>
+            </ul>
+        </div>
+        <!-- Collaboration Tab -->
+        <div x-show="activeTab === 'collaboration'" x-transition>
+          <h3 class="text-lg font-medium text-card-foreground">Seamless Team Collaboration</h3>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Work together effectively with features like shared workspaces, real-time commenting, version history, and role-based permissions. Keep everyone aligned and projects moving forward smoothly.
+          </p>
+           <ul class="mt-4 list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                <li>Shared project workspaces</li>
+                <li>Real-time commenting</li>
+                <li>Version control</li>
+            </ul>
+        </div>
+        <!-- Integrations Tab -->
+        <div x-show="activeTab === 'integrations'" x-transition>
+          <h3 class="text-lg font-medium text-card-foreground">Extensive Integrations</h3>
+          <p class="mt-2 text-sm text-muted-foreground">
+            Connect our platform with the tools you already use. We support integrations with popular services like Slack, Jira, Google Workspace, Zapier, and many more to create a unified workflow.
+          </p>
+           <ul class="mt-4 list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                <li>Connect popular third-party apps</li>
+                <li>Automate cross-platform tasks</li>
+                <li>Developer API available</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Alpine.js for functionality -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
