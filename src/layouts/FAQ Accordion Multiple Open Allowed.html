@@ -1,0 +1,77 @@
+<!-- FAQ Accordion Multiple Open Allowed -->
+<!-- Note: Requires JS for accordion functionality (e.g., Alpine.js or ShadCN Accordion with type='multiple') -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold tracking-tight text-center text-foreground mb-10">Common Questions</h2>
+    <div class="space-y-4" x-data="{ openSections: [] }">
+
+      <!-- Function to toggle section -->
+      <script>
+        function toggleSection(index) {
+          const isOpen = this.openSections.includes(index);
+          if (isOpen) {
+            this.openSections = this.openSections.filter(i => i !== index);
+          } else {
+            this.openSections.push(index);
+          }
+        }
+      </script>
+
+      <!-- Question 1 -->
+      <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <h3>
+          <button @click="toggleSection(1)" type="button" class="flex w-full items-center justify-between p-4 text-left text-lg font-medium text-card-foreground focus:outline-none hover:bg-accent/50" aria-expanded="false" :aria-expanded="openSections.includes(1)" aria-controls="faq-multi-content-1">
+            <span>What services do you offer?</span>
+            <svg :class="{ 'rotate-180': openSections.includes(1) }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </h3>
+        <div id="faq-multi-content-1" x-show="openSections.includes(1)" x-collapse class="px-4 pb-4 pt-0">
+          <p class="text-base text-muted-foreground">
+            We offer a range of services including web development, mobile app design, cloud solutions, and data analytics. Visit our Services page for a complete list.
+          </p>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+       <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <h3>
+          <button @click="toggleSection(2)" type="button" class="flex w-full items-center justify-between p-4 text-left text-lg font-medium text-card-foreground focus:outline-none hover:bg-accent/50" aria-expanded="false" :aria-expanded="openSections.includes(2)" aria-controls="faq-multi-content-2">
+            <span>What is your pricing structure?</span>
+             <svg :class="{ 'rotate-180': openSections.includes(2) }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </h3>
+        <div id="faq-multi-content-2" x-show="openSections.includes(2)" x-collapse class="px-4 pb-4 pt-0">
+          <p class="text-base text-muted-foreground">
+            Our pricing varies depending on the project scope and requirements. We offer customized quotes after an initial consultation. Please contact us for details.
+          </p>
+        </div>
+      </div>
+
+       <!-- Question 3 -->
+       <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <h3>
+          <button @click="toggleSection(3)" type="button" class="flex w-full items-center justify-between p-4 text-left text-lg font-medium text-card-foreground focus:outline-none hover:bg-accent/50" aria-expanded="false" :aria-expanded="openSections.includes(3)" aria-controls="faq-multi-content-3">
+            <span>How do I get started?</span>
+            <svg :class="{ 'rotate-180': openSections.includes(3) }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </h3>
+        <div id="faq-multi-content-3" x-show="openSections.includes(3)" x-collapse class="px-4 pb-4 pt-0">
+          <p class="text-base text-muted-foreground">
+           Simply reach out via our contact form or give us a call. We'll schedule a consultation to discuss your needs and how we can help achieve your goals.
+          </p>
+        </div>
+      </div>
+      <!-- More questions... -->
+    </div>
+  </div>
+</div>
+
+<!-- Include Alpine.js Collapse plugin and core -->
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
