@@ -1,0 +1,68 @@
+<!-- Feature List Expandable -->
+<!-- Note: Requires JavaScript or a library like Alpine.js for the expand/collapse functionality -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Explore Our Features</h2>
+      <p class="mt-4 text-lg text-muted-foreground">Click on a feature to learn more about its capabilities.</p>
+    </div>
+
+    <div x-data="{ openIndex: null }" class="mt-10 space-y-4">
+      <!-- Feature 1 -->
+      <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <button @click="openIndex = openIndex === 1 ? null : 1" class="flex w-full items-center justify-between p-4 text-left focus:outline-none">
+          <span class="text-lg font-medium text-card-foreground">Advanced Dashboard</span>
+          <svg :class="{ 'rotate-180': openIndex === 1 }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div x-show="openIndex === 1" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="border-t border-border p-4">
+          <p class="text-sm text-muted-foreground">Get a comprehensive overview of your key metrics and performance indicators in real-time. Customize widgets to track what matters most to your business.</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <button @click="openIndex = openIndex === 2 ? null : 2" class="flex w-full items-center justify-between p-4 text-left focus:outline-none">
+          <span class="text-lg font-medium text-card-foreground">Automated Reporting</span>
+          <svg :class="{ 'rotate-180': openIndex === 2 }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div x-show="openIndex === 2" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="border-t border-border p-4">
+          <p class="text-sm text-muted-foreground">Generate detailed reports automatically on a daily, weekly, or monthly basis. Export data in various formats for further analysis.</p>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <button @click="openIndex = openIndex === 3 ? null : 3" class="flex w-full items-center justify-between p-4 text-left focus:outline-none">
+          <span class="text-lg font-medium text-card-foreground">Seamless Integrations</span>
+          <svg :class="{ 'rotate-180': openIndex === 3 }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div x-show="openIndex === 3" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="border-t border-border p-4">
+          <p class="text-sm text-muted-foreground">Connect with your favorite third-party tools and services like Slack, Google Drive, and Zapier to enhance your workflow.</p>
+        </div>
+      </div>
+
+        <!-- Feature 4 -->
+      <div class="overflow-hidden rounded-lg border bg-card shadow-sm">
+        <button @click="openIndex = openIndex === 4 ? null : 4" class="flex w-full items-center justify-between p-4 text-left focus:outline-none">
+          <span class="text-lg font-medium text-card-foreground">Role-Based Access Control</span>
+           <svg :class="{ 'rotate-180': openIndex === 4 }" class="h-5 w-5 transform text-muted-foreground transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div x-show="openIndex === 4" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="border-t border-border p-4">
+          <p class="text-sm text-muted-foreground">Manage user permissions effectively by assigning specific roles and controlling access to different features and data sets.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Include Alpine.js for functionality -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

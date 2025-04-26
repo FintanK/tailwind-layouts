@@ -1,0 +1,46 @@
+<!-- Hero Section Parallax Effect -->
+<!-- Note: Requires JavaScript for the parallax effect. This example uses basic CSS background-attachment: fixed for a simple effect, but JS provides more control. -->
+<div class="relative h-screen min-h-[600px] overflow-hidden">
+  <!-- Background Image with Fixed Attachment -->
+  <div
+    class="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
+    style="background-image: url('https://picsum.photos/1920/1080?random=hero_parallax');"
+  >
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex h-full items-center justify-center text-center">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        Immersive Experiences
+      </h1>
+      <p class="mt-6 text-lg leading-8 text-gray-200">
+        Engage your audience with stunning visuals and dynamic scrolling effects that bring your content to life.
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <a href="#" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+          Discover More
+        </a>
+        <a href="#" class="text-sm font-semibold leading-6 text-white hover:text-gray-300">
+          View Demo <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add some extra content below to demonstrate scroll effect -->
+<div class="h-96 bg-background p-8 text-center">
+  <p class="text-muted-foreground">Scroll down to see the parallax effect on the background image.</p>
+</div>
+
+<!--
+JS Implementation Notes (Conceptual):
+- Add event listener for 'scroll' event.
+- Get the scroll position (window.scrollY).
+- Calculate a transformation value based on the scroll position (e.g., `translateY = scrollY * 0.5`).
+- Apply this transformation to the background element using `element.style.transform = 'translateY(' + translateY + 'px)'`.
+- Consider performance optimization (e.g., throttling the scroll event). Libraries like Rellax.js or Parallax.js simplify this.
+-->

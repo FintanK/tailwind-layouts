@@ -1,0 +1,46 @@
+<!-- Hero Section Animated Elements -->
+<!-- Note: Requires animation library like AOS (Animate On Scroll) or custom CSS animations -->
+<div class="relative bg-gradient-to-br from-teal-50 via-white to-cyan-50 overflow-hidden py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h1 class="text-4xl font-bold tracking-tight text-foreground sm:text-6xl" data-aos="fade-up">
+        Build Stunning Websites Faster
+      </h1>
+      <p class="mt-6 text-lg leading-8 text-muted-foreground" data-aos="fade-up" data-aos-delay="100">
+        Leverage our pre-built Tailwind CSS components and layouts to accelerate your development process and create beautiful, responsive designs.
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-x-6" data-aos="fade-up" data-aos-delay="200">
+        <a href="#" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Get started</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-foreground">Learn more <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="mt-16 flow-root sm:mt-24">
+      <div class="-m-2 rounded-xl bg-muted p-2 ring-1 ring-inset ring-border lg:-m-4 lg:rounded-2xl lg:p-4">
+        <!-- Placeholder for an animated image or video -->
+        <img src="https://picsum.photos/1200/600?random=hero_anim" alt="App screenshot" width="2432" height="1442" class="rounded-md shadow-2xl ring-1 ring-border" data-aos="zoom-in" data-aos-delay="300">
+      </div>
+    </div>
+     <!-- Floating decorative elements (Example) -->
+     <div class="absolute top-1/4 left-10 h-16 w-16 bg-primary/10 rounded-full blur-2xl animate-pulse" data-aos="fade-right" data-aos-delay="500"></div>
+     <div class="absolute bottom-1/4 right-10 h-20 w-20 bg-accent/10 rounded-lg blur-2xl animate-spin-slow" data-aos="fade-left" data-aos-delay="600"></div>
+  </div>
+</div>
+
+<!-- Add AOS library for animation (example) -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // Animation duration
+    once: true, // Whether animation should happen only once
+  });
+</script>
+<style>
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 15s linear infinite;
+  }
+</style>
