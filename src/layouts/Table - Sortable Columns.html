@@ -1,0 +1,163 @@
+<!-- Table - Sortable Columns -->
+<!-- Note: Requires JS for sorting functionality. This example provides basic structure and icons. -->
+<div class="bg-background px-4 py-8 sm:px-6 lg:px-8">
+  <h1 class="text-xl font-semibold text-foreground mb-4">User List (Sortable)</h1>
+  <div class="overflow-x-auto rounded-lg border shadow-sm">
+    <table class="min-w-full divide-y divide-border">
+      <thead class="bg-muted">
+        <tr>
+          <!-- Sortable Name Column -->
+          <th scope="col" class="py-3.5 px-4 text-left text-sm font-semibold text-muted-foreground sm:pl-6">
+            <a href="#" class="group inline-flex items-center">
+              Name
+              <!-- Sort icon placeholder (add JS to toggle asc/desc icon) -->
+              <span class="ml-2 flex-none rounded text-muted-foreground group-hover:bg-accent group-hover:text-accent-foreground">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+              </span>
+            </a>
+          </th>
+          <!-- Sortable Title Column -->
+          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">
+            <a href="#" class="group inline-flex items-center">
+              Title
+              <span class="ml-2 flex-none rounded text-muted-foreground group-hover:bg-accent group-hover:text-accent-foreground">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+              </span>
+            </a>
+          </th>
+          <!-- Sortable Status Column -->
+          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">
+            <a href="#" class="group inline-flex items-center">
+              Status
+              <span class="ml-2 flex-none rounded text-muted-foreground group-hover:bg-accent group-hover:text-accent-foreground">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+              </span>
+            </a>
+          </th>
+           <!-- Sortable Role Column -->
+           <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-muted-foreground">
+            <a href="#" class="group inline-flex items-center">
+              Role
+              <span class="ml-2 flex-none rounded text-muted-foreground group-hover:bg-accent group-hover:text-accent-foreground">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+              </span>
+            </a>
+          </th>
+          <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+            <span class="sr-only">Edit</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border bg-card">
+        <!-- Example Rows -->
+        <tr>
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">Aisha Khan</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Backend Engineer</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+             <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Developer</td>
+          <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+            <a href="#" class="text-primary hover:text-primary/90">Edit</a>
+          </td>
+        </tr>
+         <tr>
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">Ben Carter</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Product Manager</td>
+           <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+             <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Admin</td>
+          <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+            <a href="#" class="text-primary hover:text-primary/90">Edit</a>
+          </td>
+        </tr>
+        <tr>
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">Chloe Davis</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">UX Designer</td>
+           <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+             <span class="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">Inactive</span>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Designer</td>
+          <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+            <a href="#" class="text-primary hover:text-primary/90">Edit</a>
+          </td>
+        </tr>
+         <tr>
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-card-foreground sm:pl-6">David Evans</td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Marketing Specialist</td>
+           <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+             <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">Member</td>
+          <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+            <a href="#" class="text-primary hover:text-primary/90">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+   <!-- Pagination (Optional) -->
+   <nav class="mt-4 flex items-center justify-between border-t border-border px-4 py-3 sm:px-0" aria-label="Pagination">
+     <div class="hidden sm:block">
+       <p class="text-sm text-muted-foreground">
+         Showing
+         <span class="font-medium">1</span>
+         to
+         <span class="font-medium">4</span>
+         of
+         <span class="font-medium">15</span>
+         results
+       </p>
+     </div>
+     <div class="flex flex-1 justify-between sm:justify-end">
+       <a href="#" class="relative inline-flex items-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-accent">Previous</a>
+       <a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-accent">Next</a>
+     </div>
+   </nav>
+</div>
+
+<script>
+  // Basic JS to indicate sort direction (replace with actual sorting logic)
+  document.querySelectorAll('thead th a').forEach(header => {
+    let sortDirection = 'none'; // Can be 'none', 'ascending', 'descending'
+    const iconSpan = header.querySelector('span');
+    const iconSvg = iconSpan.querySelector('svg');
+
+    header.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Reset other headers
+      document.querySelectorAll('thead th a span').forEach(span => {
+         if (span !== iconSpan) {
+            span.classList.remove('bg-accent', 'text-accent-foreground');
+            span.classList.add('text-muted-foreground');
+             // Reset icon if needed
+            const otherSvg = span.querySelector('svg');
+            if (otherSvg) {
+                 otherSvg.innerHTML = `<path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path>`; // Default arrows
+            }
+         }
+      });
+
+      // Cycle through sort directions
+      if (sortDirection === 'none') {
+        sortDirection = 'ascending';
+        iconSpan.classList.add('bg-accent', 'text-accent-foreground');
+        iconSpan.classList.remove('text-muted-foreground');
+        iconSvg.innerHTML = `<path d="m7 15 5 5 5-5"></path>`; // Down arrow only
+      } else if (sortDirection === 'ascending') {
+        sortDirection = 'descending';
+        iconSpan.classList.add('bg-accent', 'text-accent-foreground');
+        iconSpan.classList.remove('text-muted-foreground');
+        iconSvg.innerHTML = `<path d="m7 9 5-5 5 5"></path>`; // Up arrow only
+      } else {
+        sortDirection = 'none';
+        iconSpan.classList.remove('bg-accent', 'text-accent-foreground');
+        iconSpan.classList.add('text-muted-foreground');
+        iconSvg.innerHTML = `<path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path>`; // Both arrows
+      }
+      console.log(`Sorting by ${header.textContent.trim()}: ${sortDirection}`);
+      // Add actual table sorting logic here based on sortDirection
+    });
+  });
+</script>

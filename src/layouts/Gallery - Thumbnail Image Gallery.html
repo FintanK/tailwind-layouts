@@ -1,0 +1,34 @@
+<!-- Gallery - Thumbnail Image Gallery -->
+<!-- Note: Requires JS for switching the main image -->
+<div class="bg-background p-4 sm:p-6 lg:p-8" x-data="{ currentImage: 'https://picsum.photos/800/600?random=tgm1' }">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-2xl font-semibold text-foreground mb-6 text-center">Product Gallery</h2>
+    <!-- Main Image -->
+    <div class="mb-4 overflow-hidden rounded-lg shadow-md border bg-muted aspect-w-16 aspect-h-10">
+      <img :src="currentImage" alt="Main product view" class="w-full h-full object-cover transition-opacity duration-300" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+      <button @click="currentImage = 'https://picsum.photos/800/600?random=tgm1'" class="aspect-w-1 aspect-h-1 block overflow-hidden rounded-md border focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" :class="{ 'ring-2 ring-primary ring-offset-2': currentImage === 'https://picsum.photos/800/600?random=tgm1' }">
+        <img src="https://picsum.photos/150/150?random=tgm1" alt="Thumbnail 1" class="w-full h-full object-cover">
+      </button>
+       <button @click="currentImage = 'https://picsum.photos/800/600?random=tgm2'" class="aspect-w-1 aspect-h-1 block overflow-hidden rounded-md border focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" :class="{ 'ring-2 ring-primary ring-offset-2': currentImage === 'https://picsum.photos/800/600?random=tgm2' }">
+        <img src="https://picsum.photos/150/150?random=tgm2" alt="Thumbnail 2" class="w-full h-full object-cover">
+      </button>
+       <button @click="currentImage = 'https://picsum.photos/800/600?random=tgm3'" class="aspect-w-1 aspect-h-1 block overflow-hidden rounded-md border focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" :class="{ 'ring-2 ring-primary ring-offset-2': currentImage === 'https://picsum.photos/800/600?random=tgm3' }">
+        <img src="https://picsum.photos/150/150?random=tgm3" alt="Thumbnail 3" class="w-full h-full object-cover">
+      </button>
+       <button @click="currentImage = 'https://picsum.photos/800/600?random=tgm4'" class="aspect-w-1 aspect-h-1 block overflow-hidden rounded-md border focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" :class="{ 'ring-2 ring-primary ring-offset-2': currentImage === 'https://picsum.photos/800/600?random=tgm4' }">
+        <img src="https://picsum.photos/150/150?random=tgm4" alt="Thumbnail 4" class="w-full h-full object-cover">
+      </button>
+       <button @click="currentImage = 'https://picsum.photos/800/600?random=tgm5'" class="aspect-w-1 aspect-h-1 block overflow-hidden rounded-md border focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" :class="{ 'ring-2 ring-primary ring-offset-2': currentImage === 'https://picsum.photos/800/600?random=tgm5' }">
+        <img src="https://picsum.photos/150/150?random=tgm5" alt="Thumbnail 5" class="w-full h-full object-cover">
+      </button>
+      <!-- Add more thumbnails -->
+    </div>
+  </div>
+</div>
+
+<!-- Include Alpine.js for functionality -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

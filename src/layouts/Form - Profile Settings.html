@@ -1,0 +1,90 @@
+<!-- Form - Profile Settings -->
+<div class="bg-background py-12 px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-2xl font-bold text-foreground mb-6">Profile Settings</h2>
+    <form action="#" method="POST" class="space-y-8 divide-y divide-border">
+      <!-- Personal Information Section -->
+      <div class="pt-8">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-foreground">Personal Information</h3>
+          <p class="mt-1 text-sm text-muted-foreground">Update your personal details.</p>
+        </div>
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-3">
+            <label for="first-name-settings" class="block text-sm font-medium text-foreground">First name</label>
+            <div class="mt-1">
+              <input type="text" name="first-name-settings" id="first-name-settings" autocomplete="given-name" class="block w-full rounded-md border-input bg-background shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label for="last-name-settings" class="block text-sm font-medium text-foreground">Last name</label>
+            <div class="mt-1">
+              <input type="text" name="last-name-settings" id="last-name-settings" autocomplete="family-name" class="block w-full rounded-md border-input bg-background shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <label for="email-settings" class="block text-sm font-medium text-foreground">Email address</label>
+            <div class="mt-1">
+              <input id="email-settings" name="email-settings" type="email" autocomplete="email" class="block w-full rounded-md border-input bg-background shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+            </div>
+          </div>
+          <div class="sm:col-span-6">
+            <label for="photo-settings" class="block text-sm font-medium text-foreground">Photo</label>
+            <div class="mt-1 flex items-center">
+              <span class="inline-block h-12 w-12 overflow-hidden rounded-full bg-muted">
+                <img class="h-full w-full object-cover" src="https://picsum.photos/100/100?random=profilephoto" alt="Current profile photo">
+              </span>
+              <button type="button" class="ml-5 rounded-md border border-input bg-background py-2 px-3 text-sm font-medium leading-4 text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Change</button>
+            </div>
+          </div>
+          <div class="sm:col-span-6">
+            <label for="bio-settings" class="block text-sm font-medium text-foreground">Bio</label>
+            <div class="mt-1">
+              <textarea id="bio-settings" name="bio-settings" rows="3" class="block w-full rounded-md border-input bg-background shadow-sm focus:border-primary focus:ring-primary sm:text-sm"></textarea>
+            </div>
+            <p class="mt-2 text-sm text-muted-foreground">Brief description for your profile. URLs are hyperlinked.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy Section -->
+      <div class="pt-8">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-foreground">Privacy</h3>
+          <p class="mt-1 text-sm text-muted-foreground">Manage your privacy settings.</p>
+        </div>
+        <fieldset class="mt-6">
+          <legend class="sr-only">Privacy Settings</legend>
+          <div class="space-y-4">
+            <div class="relative flex items-start">
+              <div class="flex h-5 items-center">
+                <input id="profile-visible" name="profile-visible" type="checkbox" class="h-4 w-4 rounded border-input text-primary focus:ring-primary">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="profile-visible" class="font-medium text-foreground">Make profile public</label>
+                <p class="text-muted-foreground">Allow others to view your profile information.</p>
+              </div>
+            </div>
+            <div class="relative flex items-start">
+              <div class="flex h-5 items-center">
+                <input id="activity-visible" name="activity-visible" type="checkbox" class="h-4 w-4 rounded border-input text-primary focus:ring-primary">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="activity-visible" class="font-medium text-foreground">Show activity status</label>
+                <p class="text-muted-foreground">Let others know when you are active on the platform.</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-5">
+        <div class="flex justify-end">
+          <button type="button" class="rounded-md border border-input bg-background py-2 px-4 text-sm font-medium text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Cancel</button>
+          <button type="submit" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<!-- Progress - Circle with Percentage -->
+<!-- Note: Requires JS or SVG manipulation for accurate circle progress -->
+<div class="bg-background p-8 flex items-center justify-center">
+  <div class="relative h-32 w-32">
+    <!-- Background Circle -->
+    <svg class="h-full w-full" width="120" height="120" viewBox="0 0 120 120">
+      <circle
+        class="text-secondary"
+        stroke-width="10"
+        stroke="currentColor"
+        fill="transparent"
+        r="50"
+        cx="60"
+        cy="60"
+      />
+      <!-- Progress Circle -->
+      <circle
+        class="text-primary"
+        stroke-width="10"
+        stroke-dasharray="314" /* 2 * PI * r (2 * 3.14 * 50) */
+        stroke-dashoffset="78.5" /* 314 * (1 - progress_fraction) -> 314 * (1 - 0.75) = 78.5 */
+        stroke-linecap="round"
+        stroke="currentColor"
+        fill="transparent"
+        r="50"
+        cx="60"
+        cy="60"
+        transform="rotate(-90 60 60)"
+      />
+    </svg>
+    <!-- Percentage Text -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <span class="text-2xl font-bold text-primary">75%</span>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Add transition for smooth animation */
+svg circle:last-child {
+  transition: stroke-dashoffset 0.5s ease-out;
+}
+</style>
+
+<!--
+JS Logic (Conceptual):
+- Get the progress value (e.g., 75 for 75%).
+- Calculate the circumference: 2 * Math.PI * radius (e.g., 2 * Math.PI * 50 = 314.159).
+- Calculate the dash offset: circumference * (1 - progressValue / 100).
+- Update the `stroke-dashoffset` style/attribute of the progress circle SVG element.
+- Update the text content of the percentage span.
+-->

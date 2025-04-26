@@ -1,0 +1,87 @@
+<!-- Gallery - Fullscreen Image Slider -->
+<!-- Note: Requires JS library like Swiper.js for slider functionality -->
+<div class="relative h-screen w-screen overflow-hidden bg-black">
+  <!-- Swiper -->
+  <div class="swiper-container fullscreen-slider h-full w-full">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=fs1" alt="Fullscreen Slide 1" class="block h-full w-full object-contain">
+      </div>
+      <!-- Slide 2 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=fs2" alt="Fullscreen Slide 2" class="block h-full w-full object-contain">
+      </div>
+      <!-- Slide 3 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=fs3" alt="Fullscreen Slide 3" class="block h-full w-full object-contain">
+      </div>
+       <!-- Slide 4 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=fs4" alt="Fullscreen Slide 4" class="block h-full w-full object-contain">
+      </div>
+       <!-- Slide 5 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=fs5" alt="Fullscreen Slide 5" class="block h-full w-full object-contain">
+      </div>
+    </div>
+    <!-- Navigation Buttons -->
+    <div class="swiper-button-prev fs-prev text-white bg-black/30 hover:bg-black/50 transition-colors"></div>
+    <div class="swiper-button-next fs-next text-white bg-black/30 hover:bg-black/50 transition-colors"></div>
+     <!-- Optional Pagination -->
+    <div class="swiper-pagination fs-pagination"></div>
+     <!-- Close Button -->
+     <button class="absolute top-4 right-4 z-20 rounded-full bg-black/40 p-2 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white">
+        <span class="sr-only">Close gallery</span>
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+     </button>
+  </div>
+</div>
+
+<!-- Include Swiper.js -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.fullscreen-slider', {
+      loop: true,
+      grabCursor: true,
+      slidesPerView: 1,
+      keyboard: {
+        enabled: true,
+      },
+      navigation: {
+        nextEl: '.fs-next',
+        prevEl: '.fs-prev',
+      },
+      pagination: {
+        el: '.fs-pagination',
+        type: 'fraction', // Example: 1 / 5
+      },
+       zoom: true, // Optional: Allow zooming
+    });
+  });
+</script>
+
+<style>
+.fullscreen-slider { background-color: #000; }
+.fs-prev, .fs-next {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+.fs-prev::after, .fs-next::after { font-size: 20px; }
+.fs-pagination {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    z-index: 10;
+}
+</style>

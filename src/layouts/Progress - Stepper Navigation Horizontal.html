@@ -1,0 +1,36 @@
+<!-- Progress - Stepper Navigation Horizontal -->
+<!-- Note: Requires JS for state management -->
+<div class="bg-background p-6 sm:p-8 lg:p-10">
+  <nav aria-label="Progress">
+    <ol role="list" class="flex items-center space-x-4 sm:space-x-8">
+      <!-- Step 1: Completed -->
+      <li class="flex-1">
+        <a href="#" class="group flex flex-col items-center border-t-4 border-primary py-2 pt-4 transition-colors duration-200 ease-in-out hover:border-primary/80">
+          <span class="text-xs font-semibold uppercase tracking-wide text-primary">Step 1</span>
+          <span class="text-sm font-medium text-foreground">Details</span>
+        </a>
+      </li>
+      <!-- Step 2: Current -->
+      <li class="flex-1">
+        <a href="#" class="flex flex-col items-center border-t-4 border-primary py-2 pt-4 transition-colors duration-200 ease-in-out" aria-current="step">
+          <span class="text-xs font-semibold uppercase tracking-wide text-primary">Step 2</span>
+          <span class="text-sm font-medium text-primary">Address</span>
+        </a>
+      </li>
+      <!-- Step 3: Upcoming -->
+      <li class="flex-1">
+        <a href="#" class="group flex flex-col items-center border-t-4 border-border py-2 pt-4 transition-colors duration-200 ease-in-out hover:border-muted-foreground">
+          <span class="text-xs font-semibold uppercase tracking-wide text-muted-foreground group-hover:text-foreground">Step 3</span>
+          <span class="text-sm font-medium text-muted-foreground group-hover:text-foreground">Payment</span>
+        </a>
+      </li>
+       <!-- Step 4: Upcoming -->
+       <li class="flex-1">
+        <a href="#" class="group flex flex-col items-center border-t-4 border-border py-2 pt-4 transition-colors duration-200 ease-in-out hover:border-muted-foreground">
+          <span class="text-xs font-semibold uppercase tracking-wide text-muted-foreground group-hover:text-foreground">Step 4</span>
+          <span class="text-sm font-medium text-muted-foreground group-hover:text-foreground">Confirm</span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
