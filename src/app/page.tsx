@@ -55,6 +55,7 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
   const categories: { [key: string]: string[] } = {};
 
   // Define keywords and their associated categories. Order matters for specificity.
+  // Expanded list to cover new components
   const categoryKeywords: { keyword: string[], category: string }[] = [
     // Most specific first
     { keyword: ['hero section animated elements', 'hero section full width image', 'hero section gradient background', 'hero section left align text', 'hero section minimalist', 'hero section parallax effect', 'hero section right align text', 'hero section simple centered', 'hero section with call to action buttons (two)', 'hero section with search bar', 'hero section with app screenshot', 'hero section split with signup', 'hero section with image', 'hero section'], category: 'Hero Section' },
@@ -64,7 +65,7 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     { keyword: ['cta section - dark background', 'cta simple justified', 'call to action full width banner', 'call to action minimal text only', 'call to action with form integrated', 'call to action with icon and text', 'call to action with image background left', 'cta - section with gradient background', 'cta - section image left text right', 'call to action', 'cta'], category: 'CTA Section' },
     { keyword: ['contact form centered', 'contact form side by side map', 'utility - contact form inline', 'contact form', 'contact details', 'contact map'], category: 'Contact Section' },
     { keyword: ['footer - sitemap columns', 'footer simple copyright left', 'footer'], category: 'Footer Section' },
-    { keyword: ['navigation bar bottom fixed mobile', 'navigation bar sticky top', 'navigation bar - simple centered', 'navigation bar with search', 'navigation bar', 'navbar'], category: 'Navigation Bar' },
+    { keyword: ['navigation bar bottom fixed mobile', 'navigation bar sticky top', 'navigation bar - simple centered', 'navigation bar with search', 'navigation bar', 'navbar', 'header with centered search bar'], category: 'Navigation Bar' },
     { keyword: ['blog post - compact list', 'blog post - featured image top', 'blog post list with sidebar right', 'blog post simple layout', 'blog post - simple image left', 'blog post - grid view three columns', 'blog post list', 'blog post single', 'blog post'], category: 'Blog Layout' },
     { keyword: ['e-commerce - product detail simple', 'e-commerce - product quick view modal', 'e-commerce - shopping cart panel', 'e-commerce product grid four column small', 'product page with image gallery', 'product grid', 'product details', 'checkout form', 'shopping cart', 'order confirmation', 'product listing', 'product quick view'], category: 'E-commerce Layout' },
     { keyword: ['faq list simple questions', 'faq section accordion', 'faq'], category: 'FAQ Section' },
@@ -74,7 +75,7 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     { keyword: ['services section with icons', 'services list', 'services grid', 'services carousel', 'services section'], category: 'Services Section' },
     { keyword: ['login form - dark theme example', 'login form full screen background', 'login form simple', 'sign up form - minimalist', 'sign up form split image', 'form - multi step form', 'form floating label', 'form simple stacked', 'form - profile settings', 'form - registration form', 'form - forgot password', 'login form', 'registration form', 'forgot password', 'profile settings', 'user account', 'sign up form'], category: 'Form Layout' },
     { keyword: ['utility - coming soon page', 'utility - error page custom', 'utility - maintenance mode page', 'utility - newsletter signup popup', 'utility - search bar only', 'utility 404 page simple', 'utility 404 page with image', 'utility - page not found (404)', 'utility - server error (500)', 'coming soon', '404 error', 'search results', 'maintenance mode', 'empty state'], category: 'Utility Page' },
-    { keyword: ['modal centered with image', 'modal simple with action', 'overlay - slide over right panel', 'modal', 'sidebar navigation', 'overlay', 'notification dropdown', 'slide over'], category: 'Overlay/Modal' },
+    { keyword: ['modal centered with image', 'modal simple with action', 'overlay - slide over right panel', 'modal', 'sidebar navigation', 'overlay', 'notification dropdown', 'slide over', 'newsletter signup popup'], category: 'Overlay/Modal' },
     { keyword: ['content - article with sidebar', 'content - overlapping image section', 'content - section with heading', 'content grid images and text', 'content masonry dynamic height', 'content grid', 'content with sidebar', 'content masonry', 'content single column', 'content section'], category: 'Content Layout' },
     { keyword: ['gallery - carousel slider', 'gallery masonry layout', 'gallery - image gallery masonry', 'gallery - fullscreen image slider', 'gallery - thumbnail image gallery', 'image gallery', 'video gallery', 'mixed media gallery', 'fullscreen image slider', 'thumbnail image gallery'], category: 'Gallery Layout' },
     { keyword: ['table - compact with avatars', 'table list with filters', 'table responsive scrollable', 'table - sortable columns', 'table - striped rows', 'table - simple bordered', 'table'], category: 'Table Layout' },
@@ -85,14 +86,14 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     { keyword: ['stats section simple centered', 'stats section split with image', 'stats section with description list', 'dashboard - stats cards grid', 'dashboard layout with sidebar', 'stats section', 'dashboard layout', 'dashboard'], category: 'Dashboard/Stats' },
     { keyword: ['user profile - cover photo header', 'user profile - tabbed content', 'user profile card', 'user profile'], category: 'User Profile Layout' },
     { keyword: ['settings page with tabs', 'settings page'], category: 'Settings Layout' },
-    { keyword: ['utility - cookie consent banner', 'empty state - with action button', 'empty state - simple text only', 'status page - incident history', 'split screen', 'fullscreen slider', 'vertical timeline', 'horizontal scrolling'], category: 'Other Layouts' }, // Keep this broader category towards the end
     { keyword: ['landing page with split image', 'landing page'], category: 'Landing Page' }, // Specific page types
+    { keyword: ['other layouts - vertical timeline', 'other layouts - horizontal scrolling', 'other layouts - fullscreen slider', 'other layouts - split screen', 'utility - cookie consent banner', 'empty state - with action button', 'empty state - simple text only', 'status page - incident history', 'split screen', 'fullscreen slider', 'vertical timeline', 'horizontal scrolling'], category: 'Other Layouts' }, // Keep this broader category towards the end
      // Add more specific keywords and categories as needed
   ];
 
   names.forEach(name => {
     let assignedCategory = 'Other'; // Default category
-    const lowerCaseName = name.toLowerCase();
+    const lowerCaseName = name.toLowerCase().replace(/-/g, ' '); // Normalize name for matching
 
      // Handle placeholder separately
     if (lowerCaseName === 'placeholder layout') {
@@ -109,7 +110,10 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
     if (!categories[assignedCategory]) {
       categories[assignedCategory] = [];
     }
-    categories[assignedCategory].push(name);
+    // Avoid duplicates if a name matches multiple keywords leading to the same category
+    if (!categories[assignedCategory].includes(name)) {
+        categories[assignedCategory].push(name);
+    }
   });
 
   // Sort categories alphabetically, keeping 'Placeholder' and 'Other' at the end

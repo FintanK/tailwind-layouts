@@ -1,0 +1,57 @@
+<!-- Other Layouts - Fullscreen Slider -->
+<!-- Note: This uses the same component as Gallery - Fullscreen Image Slider -->
+<!-- Requires JS library like Swiper.js for slider functionality -->
+<div class="relative h-screen w-screen overflow-hidden bg-black">
+  <!-- Swiper -->
+  <div class="swiper-container fullscreen-slider h-full w-full">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=ofs1" alt="Fullscreen Slide 1" class="block h-full w-full object-contain">
+      </div>
+      <!-- Slide 2 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=ofs2" alt="Fullscreen Slide 2" class="block h-full w-full object-contain">
+      </div>
+      <!-- Slide 3 -->
+      <div class="swiper-slide flex items-center justify-center">
+        <img src="https://picsum.photos/1920/1080?random=ofs3" alt="Fullscreen Slide 3" class="block h-full w-full object-contain">
+      </div>
+    </div>
+    <!-- Navigation Buttons -->
+    <div class="swiper-button-prev fs-prev text-white bg-black/30 hover:bg-black/50 transition-colors"></div>
+    <div class="swiper-button-next fs-next text-white bg-black/30 hover:bg-black/50 transition-colors"></div>
+     <!-- Pagination -->
+    <div class="swiper-pagination fs-pagination"></div>
+  </div>
+</div>
+
+<!-- Include Swiper.js -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.fullscreen-slider', {
+      loop: true,
+      grabCursor: true,
+      slidesPerView: 1,
+      keyboard: { enabled: true },
+      navigation: { nextEl: '.fs-next', prevEl: '.fs-prev' },
+      pagination: { el: '.fs-pagination', clickable: true },
+       autoplay: { delay: 5000, disableOnInteraction: false },
+       effect: 'fade', // Example effect
+    });
+  });
+</script>
+
+<style>
+.fullscreen-slider { background-color: #000; }
+.fs-prev, .fs-next {
+    width: 44px; height: 44px; border-radius: 50%;
+}
+.fs-prev::after, .fs-next::after { font-size: 20px; }
+.fs-pagination .swiper-pagination-bullet { background: white; opacity: 0.5; }
+.fs-pagination .swiper-pagination-bullet-active { background: hsl(var(--primary)); opacity: 1; }
+.fs-pagination { bottom: 20px !important; }
+</style>
