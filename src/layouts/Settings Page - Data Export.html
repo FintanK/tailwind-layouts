@@ -1,0 +1,69 @@
+<!-- Settings Page - Data Export -->
+<div class="bg-background p-8">
+  <div class="mx-auto max-w-3xl">
+    <h1 class="text-2xl font-semibold text-foreground mb-6">Data Export</h1>
+    <p class="text-sm text-muted-foreground mb-8">Download your account data or specific project information.</p>
+
+    <div class="space-y-8">
+      <!-- Export Account Data -->
+      <div class="rounded-lg border bg-card p-6 shadow-sm">
+        <h2 class="text-lg font-medium text-card-foreground">Export Account Data</h2>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Download a complete archive of your account information, including profile details, settings, and activity logs. This may take a few minutes to prepare.
+        </p>
+        <div class="mt-4">
+           <button class="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90">
+            <!-- Lucide Icon: Download -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-ml-1 mr-2 h-4 w-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+            Request Account Archive
+          </button>
+        </div>
+      </div>
+
+      <!-- Export Project Data -->
+      <div class="rounded-lg border bg-card p-6 shadow-sm">
+        <h2 class="text-lg font-medium text-card-foreground">Export Project Data</h2>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Select a project and data type to download specific information.
+        </p>
+        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div>
+            <label for="export-project" class="block text-xs font-medium text-muted-foreground">Project</label>
+            <!-- Replace with ShadCN Select -->
+            <select id="export-project" name="export-project" class="mt-1 block w-full rounded-md border-input bg-background py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-primary">
+              <option>Project Alpha</option>
+              <option>Project Beta</option>
+              <option>Marketing Campaign Q2</option>
+            </select>
+          </div>
+           <div>
+            <label for="export-type" class="block text-xs font-medium text-muted-foreground">Data Type</label>
+            <select id="export-type" name="export-type" class="mt-1 block w-full rounded-md border-input bg-background py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-primary">
+              <option>Tasks</option>
+              <option>Comments</option>
+              <option>Files</option>
+               <option>All Project Data</option>
+            </select>
+          </div>
+           <div class="flex items-end">
+            <button class="w-full sm:w-auto inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-ml-1 mr-2 h-4 w-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+              Export Project Data
+            </button>
+           </div>
+        </div>
+      </div>
+
+       <!-- Export History (Optional) -->
+       <div class="rounded-lg border bg-card p-6 shadow-sm">
+         <h2 class="text-lg font-medium text-card-foreground">Recent Exports</h2>
+         <p class="mt-2 text-sm text-muted-foreground">
+           Your requested data exports will appear here once ready for download.
+         </p>
+         <div class="mt-4 text-center text-sm text-muted-foreground italic">
+            No recent exports found.
+         </div>
+       </div>
+    </div>
+  </div>
+</div>

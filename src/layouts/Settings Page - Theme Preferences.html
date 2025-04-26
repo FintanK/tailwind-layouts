@@ -1,0 +1,68 @@
+<!-- Settings Page - Theme Preferences -->
+<!-- Note: Requires JS to handle theme changes -->
+<div class="bg-background p-8" x-data="{ theme: 'system' }">
+  <div class="mx-auto max-w-xl">
+    <h1 class="text-2xl font-semibold text-foreground mb-6">Appearance</h1>
+    <p class="text-sm text-muted-foreground mb-8">Customize the look and feel of the application.</p>
+
+    <div class="rounded-lg border bg-card p-6 shadow-sm">
+      <h2 class="text-lg font-medium text-card-foreground">Theme</h2>
+      <p class="mt-1 text-sm text-muted-foreground">Select your preferred interface theme.</p>
+
+      <fieldset class="mt-4">
+        <legend class="sr-only">Theme selection</legend>
+        <div class="grid grid-cols-3 gap-4">
+          <!-- Light Theme Option -->
+          <div>
+            <label @click="theme = 'light'" :class="{ 'ring-2 ring-primary ring-offset-2': theme === 'light' }" class="relative block cursor-pointer rounded-lg border bg-background p-4 focus:outline-none hover:bg-accent/50">
+              <input type="radio" name="theme-option" value="light" class="sr-only" aria-labelledby="theme-light-label" aria-describedby="theme-light-description">
+              <span class="flex items-center">
+                 <!-- Lucide Icon: Sun -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-foreground"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                 <span class="ml-3 font-medium text-foreground" id="theme-light-label">Light</span>
+              </span>
+              <span class="mt-2 block text-xs text-muted-foreground" id="theme-light-description">Standard light interface.</span>
+              <span x-show="theme === 'light'" class="pointer-events-none absolute -inset-px rounded-lg border-2 border-primary" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <!-- Dark Theme Option -->
+           <div>
+             <label @click="theme = 'dark'" :class="{ 'ring-2 ring-primary ring-offset-2': theme === 'dark' }" class="relative block cursor-pointer rounded-lg border bg-gray-800 p-4 focus:outline-none hover:bg-gray-700/50">
+              <input type="radio" name="theme-option" value="dark" class="sr-only" aria-labelledby="theme-dark-label" aria-describedby="theme-dark-description">
+               <span class="flex items-center">
+                 <!-- Lucide Icon: Moon -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                 <span class="ml-3 font-medium text-gray-300" id="theme-dark-label">Dark</span>
+              </span>
+              <span class="mt-2 block text-xs text-gray-400" id="theme-dark-description">Dark mode interface.</span>
+               <span x-show="theme === 'dark'" class="pointer-events-none absolute -inset-px rounded-lg border-2 border-primary" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <!-- System Theme Option -->
+           <div>
+             <label @click="theme = 'system'" :class="{ 'ring-2 ring-primary ring-offset-2': theme === 'system' }" class="relative block cursor-pointer rounded-lg border bg-background p-4 focus:outline-none hover:bg-accent/50">
+              <input type="radio" name="theme-option" value="system" class="sr-only" aria-labelledby="theme-system-label" aria-describedby="theme-system-description">
+               <span class="flex items-center">
+                  <!-- Lucide Icon: MonitorSmartphone -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-foreground"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg>
+                 <span class="ml-3 font-medium text-foreground" id="theme-system-label">System</span>
+              </span>
+              <span class="mt-2 block text-xs text-muted-foreground" id="theme-system-description">Follow system preference.</span>
+               <span x-show="theme === 'system'" class="pointer-events-none absolute -inset-px rounded-lg border-2 border-primary" aria-hidden="true"></span>
+            </label>
+          </div>
+
+        </div>
+      </fieldset>
+
+       <div class="mt-6 text-right">
+         <button class="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90">Save Preferences</button>
+       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Alpine.js -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

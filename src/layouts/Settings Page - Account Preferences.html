@@ -1,0 +1,52 @@
+<!-- Settings Page - Account Preferences -->
+<div class="bg-background p-8">
+  <div class="mx-auto max-w-2xl">
+    <h1 class="text-2xl font-semibold text-foreground mb-6">Account Preferences</h1>
+    <form action="#" method="POST" class="space-y-8">
+      <!-- Username Section -->
+      <div class="border-b border-border pb-8">
+        <h2 class="text-lg font-medium text-foreground">Username</h2>
+        <p class="mt-1 text-sm text-muted-foreground">Your public username.</p>
+        <div class="mt-4">
+          <label for="settings-username" class="sr-only">Username</label>
+          <input type="text" name="settings-username" id="settings-username" value="johndoe" class="block w-full max-w-xs rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+        </div>
+      </div>
+
+      <!-- Email Section -->
+      <div class="border-b border-border pb-8">
+        <h2 class="text-lg font-medium text-foreground">Email Address</h2>
+        <p class="mt-1 text-sm text-muted-foreground">The email associated with your account.</p>
+        <div class="mt-4">
+          <label for="settings-email" class="sr-only">Email</label>
+          <input type="email" name="settings-email" id="settings-email" value="john.doe@example.com" class="block w-full max-w-xs rounded-md border-input bg-background px-3 py-2 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+           <button type="button" class="mt-2 text-sm font-medium text-primary hover:underline">Change Email</button>
+        </div>
+      </div>
+
+      <!-- Password Section -->
+       <div class="border-b border-border pb-8">
+        <h2 class="text-lg font-medium text-foreground">Password</h2>
+        <p class="mt-1 text-sm text-muted-foreground">Update your account password.</p>
+        <div class="mt-4">
+           <button type="button" class="rounded-md border border-input bg-background px-3 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground">Change Password</button>
+           <p class="mt-2 text-xs text-muted-foreground">Last updated: 3 months ago</p>
+        </div>
+      </div>
+
+       <!-- Delete Account Section -->
+       <div class="pt-8">
+         <h2 class="text-lg font-medium text-destructive">Delete Account</h2>
+         <p class="mt-1 text-sm text-muted-foreground">Permanently delete your account and all associated data. This action cannot be undone.</p>
+         <div class="mt-4">
+           <button type="button" class="rounded-md border border-transparent bg-destructive px-3 py-2 text-sm font-medium text-destructive-foreground shadow-sm hover:bg-destructive/90">Delete My Account</button>
+         </div>
+       </div>
+
+       <!-- Save Button -->
+       <div class="pt-8 border-t border-border flex justify-end">
+         <button type="submit" class="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90">Save Changes</button>
+       </div>
+    </form>
+  </div>
+</div>
