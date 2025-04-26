@@ -1,198 +1,144 @@
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarHeader,
-  SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarInset,
-} from '@/components/ui/sidebar';
-import LayoutPreview from '@/components/layout-preview';
-import { getLayoutNames } from '@/lib/layouts';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Code, Copy, Eye, Palette, Zap, Layers } from 'lucide-react';
 import type { Metadata } from 'next';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
-  title: 'Tailwind Layout Preview',
-  description: 'Browse and copy Tailwind CSS layouts.',
+  title: 'Tailwind Layout Preview - Home',
+  description: 'Discover and preview Tailwind CSS layouts effortlessly.',
 };
 
-// Helper function to fetch layout content from the API route
-// This needs to run server-side or be adapted if called client-side
-async function fetchInitialLayoutContent(name: string | undefined): Promise<string> {
-  if (!name) return '<p class="p-4 text-muted-foreground">No layouts available.</p>';
-  try {
-    // Construct the full URL for server-side fetch
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : 'http://localhost:9002'; // Adjust port if necessary
-    const apiUrl = `${baseUrl}/api/layout/${encodeURIComponent(name)}`;
-
-    const response = await fetch(apiUrl, { cache: 'no-store' }); // Fetch fresh data
-
-    if (!response.ok) {
-       const errorData = await response.json().catch(() => ({ error: `HTTP error! status: ${response.status}` }));
-      console.error(`API error fetching initial layout (${name}): ${errorData.error}`);
-      return `<p class="p-4 text-destructive">Error loading initial layout: ${errorData.error}</p>`;
-    }
-    const data = await response.json();
-    return data.content;
-  } catch (error: any) {
-    console.error(`Fetch error for initial layout (${name}):`, error);
-     return `<p class="p-4 text-destructive">Failed to fetch initial layout: ${error.message}</p>`;
-  }
-}
-
-// Function to categorize layout names
-const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
-  const categories: { [key: string]: string[] } = {};
-
-  // Define keywords and their associated categories. Order matters for specificity.
-  // Expanded list to cover new components
-  const categoryKeywords: { keyword: string[], category: string }[] = [
-    // Most specific first
-    { keyword: ['hero section animated elements', 'hero section full width image', 'hero section gradient background', 'hero section left align text', 'hero section minimalist', 'hero section parallax effect', 'hero section right align text', 'hero section simple centered', 'hero section with call to action buttons (two)', 'hero section with search bar', 'hero section with app screenshot', 'hero section split with signup', 'hero section with image', 'hero section'], category: 'Hero Section' },
-    { keyword: ['feature blocks overlapping', 'feature comparison table', 'feature grid circular icons', 'feature grid four column minimal', 'feature grid three column icons left', 'feature grid three column icons top', 'feature grid two column split', 'feature grid with call to action', 'feature grid with numbering', 'feature grid with shadow effect', 'feature list expandable', 'feature list stacked', 'feature list with bullet points', 'feature list with progress bars', 'feature section - alternating image text', 'feature section gradient cards', 'feature section image left text right', 'feature section with image collage', 'feature section with side image', 'feature section zigzag layout', 'feature showcase carousel', 'feature grid', 'feature list', 'feature section', 'feature comparison', 'feature showcase', 'feature blocks'], category: 'Feature Section' },
-    { keyword: ['pricing cards basic highlighted', 'pricing cards full width row', 'pricing cards minimalist design', 'pricing cards monthly yearly switch', 'pricing cards stacked mobile', 'pricing cards with discount badge', 'pricing cards with feature comparison', 'pricing cards with trial offer', 'pricing table simple', 'pricing cards', 'pricing table'], category: 'Pricing Section' },
-    { keyword: ['testimonial section simple centered', 'testimonials - alternating backgrounds', 'testimonials blockquote style', 'testimonials carousel full width', 'testimonials grid three column avatar top', 'testimonials grid two column quote style', 'testimonials list simple quotes', 'testimonials slider with arrows', 'testimonials slider with dots', 'testimonials with company logos', 'testimonials with star ratings', 'testimonial card', 'testimonials grid', 'testimonials list', 'testimonials carousel', 'testimonials slider', 'testimonial section', 'testimonials with'], category: 'Testimonial Section' },
-    { keyword: ['cta section - dark background', 'cta simple justified', 'call to action full width banner', 'call to action minimal text only', 'call to action with form integrated', 'call to action with icon and text', 'call to action with image background left', 'cta - section with gradient background', 'cta - section image left text right', 'call to action', 'cta'], category: 'CTA Section' },
-    { keyword: ['contact details list icons', 'contact details with opening hours', 'contact form centered', 'contact form side by side map', 'utility - contact form inline', 'contact simple with map background', 'contact section with social links', 'contact split two tone', 'contact form', 'contact details', 'contact map', 'contact section'], category: 'Contact Section' },
-    { keyword: ['footer - sitemap columns', 'footer simple copyright left', 'footer'], category: 'Footer Section' },
-    { keyword: ['navigation bar bottom fixed mobile', 'navigation bar sticky top', 'navigation bar - simple centered', 'navigation bar with search', 'navigation bar', 'navbar', 'header with centered search bar'], category: 'Navigation Bar' },
-    { keyword: ['blog post - compact list', 'blog post - featured image top', 'blog post list with sidebar right', 'blog post simple layout', 'blog post - simple image left', 'blog post - grid view three columns', 'blog post list', 'blog post single', 'blog post'], category: 'Blog Layout' },
-    { keyword: ['e-commerce - product detail simple', 'e-commerce - product quick view modal', 'e-commerce - shopping cart panel', 'e-commerce product grid four column small', 'e-commerce - wishlist view', 'e-commerce - order confirmation', 'e-commerce - product listing filter sidebar', 'product page with image gallery', 'product grid', 'product details', 'checkout form', 'shopping cart', 'order confirmation', 'product listing', 'product quick view', 'wishlist'], category: 'E-commerce Layout' },
-    { keyword: ['faq accordion basic single', 'faq accordion multiple open allowed', 'faq grid two column question answer', 'faq searchable section', 'faq section basic', 'faq list simple questions', 'faq section accordion', 'faq'], category: 'FAQ Section' },
-    { keyword: ['team list with photo and bio', 'team section 4 columns', 'team section with job titles', 'team grid', 'team list', 'team carousel', 'team section'], category: 'Team Section' },
-    { keyword: ['portfolio - centered text grid', 'portfolio grid hover effects', 'portfolio masonry with lightbox', 'portfolio grid', 'portfolio masonry', 'portfolio carousel', 'portfolio list'], category: 'Portfolio Section' },
-    { keyword: ['about us with company history timeline', 'about us with mission and values', 'about us with stats and numbers', 'about us with team introduction', 'about us with video presentation', 'about us section with image', 'about us'], category: 'About Us Section' },
-    { keyword: ['services comparison table', 'services large icon grid', 'services process steps section', 'services section with card links', 'services section with split image', 'services section with testimonial', 'services section with icons', 'services list', 'services grid', 'services carousel', 'services section'], category: 'Services Section' },
-    { keyword: ['login form - dark theme example', 'login form full screen background', 'login form simple', 'sign up form - minimalist', 'sign up form split image', 'form - multi step form', 'form floating label', 'form simple stacked', 'form - profile settings', 'form - registration form', 'form - forgot password', 'login form', 'registration form', 'forgot password', 'profile settings', 'user account', 'sign up form'], category: 'Form Layout' },
-    { keyword: ['utility - coming soon page', 'utility - error page custom', 'utility - maintenance mode page', 'utility - newsletter signup popup', 'utility - search bar only', 'utility 404 page simple', 'utility 404 page with image', 'utility - page not found (404)', 'utility - server error (500)', 'coming soon', '404 error', 'search results', 'maintenance mode', 'empty state'], category: 'Utility Page' },
-    { keyword: ['modal centered with image', 'modal simple with action', 'overlay - slide over right panel', 'modal', 'sidebar navigation', 'overlay', 'notification dropdown', 'slide over', 'newsletter signup popup'], category: 'Overlay/Modal' },
-    { keyword: ['content - article with sidebar', 'content - overlapping image section', 'content - section with heading', 'content grid images and text', 'content masonry dynamic height', 'content grid with featured post', 'content section with author bio', 'content section with callout quote', 'content section with tabs', 'content two columns with images', 'content with image gallery inline', 'content with sidebar left fixed', 'content grid', 'content with sidebar', 'content masonry', 'content single column', 'content section'], category: 'Content Layout' },
-    { keyword: ['gallery - carousel slider', 'gallery masonry layout', 'gallery - image gallery masonry', 'gallery - fullscreen image slider', 'gallery - thumbnail image gallery', 'image gallery', 'video gallery', 'mixed media gallery', 'fullscreen image slider', 'thumbnail image gallery'], category: 'Gallery Layout' },
-    { keyword: ['table - compact with avatars', 'table list with filters', 'table responsive scrollable', 'table - sortable columns', 'table - striped rows', 'table - simple bordered', 'table'], category: 'Table Layout' },
-    { keyword: ['breadcrumbs with separators', 'pagination numbered links', 'pagination infinite scroll', 'pagination previous next buttons', 'pagination dropdown select', 'breadcrumbs', 'pagination - card footer', 'pagination - showing x-y of z', 'pagination simple centered', 'pagination'], category: 'Navigation/Pagination' },
-    { keyword: ['progress - linear bar with steps', 'progress - step indicator', 'progress bar with percentage', 'progress - loading spinner centered', 'progress - stepper navigation horizontal', 'progress - circle with percentage', 'progress bar', 'progress circle', 'stepper navigation', 'loading spinner'], category: 'Progress/Status Indicator' },
-    { keyword: ['alert - action buttons', 'alert - dismissible banner', 'alert - floating top right dismissible', 'alert - simple accent border', 'alert - top banner fixed', 'alert - with description', 'notification - floating alerts', 'notification - simple banner', 'notification - toast style bottom right', 'status indicator with text', 'status badges', 'alert banner', 'alert modal', 'notification list', 'toast notification', 'snackbar', 'alert', 'notification'], category: 'Alert/Notification' },
-    { keyword: ['card - announcement card', 'card - blog post card', 'card - image overlay card', 'card - product card horizontal', 'card - profile card with stats', 'card - testimonial card', 'card - user profile small', 'card grid 3 columns', 'card'], category: 'Card Layout' },
-    { keyword: ['stats section simple centered', 'stats section split with image', 'stats section with description list', 'dashboard activity feed widget', 'dashboard main area with chart', 'dashboard recent orders table widget', 'dashboard settings panel example', 'dashboard simple header', 'dashboard simple stat cards', 'dashboard to-do list widget', 'dashboard user profile widget', 'dashboard welcome banner', 'dashboard with mini cards and chart', 'dashboard - stats cards grid', 'dashboard layout with sidebar', 'stats section', 'dashboard layout', 'dashboard'], category: 'Dashboard/Stats' },
-    { keyword: ['user profile - cover photo header', 'user profile - tabbed content', 'user profile card', 'user profile'], category: 'User Profile Layout' },
-    { keyword: ['settings page - account preferences', 'settings page - billing history', 'settings page - connected apps', 'settings page - data export', 'settings page - theme preferences', 'settings page with tabs', 'settings page'], category: 'Settings Layout' },
-    { keyword: ['landing page with split image', 'landing page feature grid', 'landing page hero with signup form', 'landing page pricing table', 'landing page testimonials', 'landing page with call to action', 'landing page'], category: 'Landing Page' }, // Specific page types
-    { keyword: ['other layouts - vertical timeline', 'other layouts - horizontal scrolling', 'other layouts - fullscreen slider', 'other layouts - split screen', 'utility - cookie consent banner', 'empty state - with action button', 'empty state - simple text only', 'status page - incident history', 'split screen', 'fullscreen slider', 'vertical timeline', 'horizontal scrolling', 'snackbar bottom full width', 'notification list right sidebar', 'alert modal confirmation', 'alert banner top sticky', ], category: 'Other Layouts' }, // Keep this broader category towards the end
-     // Add more specific keywords and categories as needed
-  ];
-
-  names.forEach(name => {
-    let assignedCategory = 'Other'; // Default category
-    const lowerCaseName = name.toLowerCase().replace(/-/g, ' '); // Normalize name for matching
-
-    for (const { keyword, category } of categoryKeywords) {
-      if (keyword.some(k => lowerCaseName.includes(k))) {
-        assignedCategory = category;
-        break; // Assign the first matching category (most specific first)
-      }
-    }
-
-    // Skip the 'placeholder' layout
-    if (name.toLowerCase() === 'placeholder') {
-        return;
-    }
-
-    if (!categories[assignedCategory]) {
-      categories[assignedCategory] = [];
-    }
-    // Avoid duplicates if a name matches multiple keywords leading to the same category
-    if (!categories[assignedCategory].includes(name)) {
-        categories[assignedCategory].push(name);
-    }
-  });
-
-  // Sort categories alphabetically, keeping 'Other' at the end
-  const sortedCategories = Object.keys(categories)
-    .filter(cat => cat !== 'Other')
-    .sort((a, b) => a.localeCompare(b));
-
-  const finalCategories: { [key: string]: string[] } = {};
-  sortedCategories.forEach(cat => {
-    finalCategories[cat] = categories[cat].sort((a, b) => a.localeCompare(b)); // Sort names within category
-  });
-
-
-  // Add 'Other' category at the end if it exists
-  if (categories['Other']) {
-    // Filter out 'placeholder' from the 'Other' category if it accidentally got in
-    const otherNames = categories['Other'].filter(name => name.toLowerCase() !== 'placeholder');
-    if (otherNames.length > 0) {
-        finalCategories['Other'] = otherNames.sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
-    }
-  }
-
-  return finalCategories;
-};
-
-
-export default async function Home() {
-  const allLayoutNames = await getLayoutNames();
-  const categorizedLayouts = categorizeLayouts(allLayoutNames);
-
-   // Determine the initial layout name: Use the first name from the first category, or undefined if no layouts exist.
-  const firstCategory = Object.keys(categorizedLayouts)[0];
-  const initialLayoutName = firstCategory ? categorizedLayouts[firstCategory]?.[0] : undefined;
-
-  const initialLayoutContent = await fetchInitialLayoutContent(initialLayoutName);
-
-
+export default function LandingPage() {
   return (
-    <SidebarProvider defaultOpen={true}>
-      <Sidebar collapsible="icon" side="left">
-        <SidebarHeader>
-          <h2 className="text-lg font-semibold">Layout Categories</h2>
-        </SidebarHeader>
-        <SidebarContent>
-          <ScrollArea className="h-[calc(100vh-theme(spacing.20))]"> {/* Adjust height based on header */}
-             {/* Use Accordion for categories */}
-             <Accordion type="multiple" className="w-full px-2">
-                {Object.entries(categorizedLayouts).map(([category, names]) => (
-                  <AccordionItem value={category} key={category} className="border-b-0">
-                     <AccordionTrigger className="py-2 px-2 text-sm font-medium hover:bg-sidebar-accent rounded-md [&[data-state=open]>svg]:rotate-180">
-                        {category} ({names.length})
-                     </AccordionTrigger>
-                     <AccordionContent className="pb-0 pl-4"> {/* Remove padding bottom, add left padding */}
-                       <SidebarMenu className="ml-2 border-l border-sidebar-border pl-2"> {/* Add indent */}
-                         {names.map((name) => (
-                           <SidebarMenuItem key={name} className="py-1">
-                             <SidebarMenuButton
-                                className="layout-selector-button h-7 w-full justify-start truncate rounded-md px-2 py-1 text-xs hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent" // Adjusted styling
-                                data-layout-name={name}
-                                // Active state is handled client-side in LayoutPreview useEffect
-                             >
-                               {/* Display full name, categorization handles grouping */}
-                               {name.replace(/^(Landing Page|FAQ Section|...)\s/,'')} {/* Optionally shorten name */}
-                             </SidebarMenuButton>
-                           </SidebarMenuItem>
-                         ))}
-                       </SidebarMenu>
-                     </AccordionContent>
-                  </AccordionItem>
-                ))}
-             </Accordion>
-          </ScrollArea>
-        </SidebarContent>
-      </Sidebar>
-      <SidebarInset>
-        {/* Pass initial fetched data to the client component
-            LayoutPreview now controls its own height and scrolling */}
-        <LayoutPreview initialContent={initialLayoutContent} initialLayoutName={initialLayoutName} />
-      </SidebarInset>
-    </SidebarProvider>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-10 md:pt-32 md:pb-20 text-center overflow-hidden">
+        {/* Background Elements (optional, keep subtle) */}
+         <div className="absolute inset-x-0 top-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+            <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[48rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary/30 to-accent/30 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72rem]" style={{clipPath: "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",}}></div>
+        </div>
+
+        <div className="mx-auto max-w-3xl px-4">
+          <Code className="h-12 w-12 text-primary mx-auto mb-4" />
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            Preview & Copy Tailwind Layouts Instantly
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-muted-foreground">
+            Accelerate your development with a curated library of ready-to-use Tailwind CSS layouts. Browse, preview, and copy clean HTML with ease.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Button asChild size="lg">
+              <Link href="/preview">Explore Layouts</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="#features">Learn More</Link>
+            </Button>
+          </div>
+        </div>
+         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent -z-10"></div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-16 sm:py-24 bg-background">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-base font-semibold leading-7 text-primary">Features</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Everything you need to build faster
+            </p>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              Our platform provides essential tools to streamline your frontend development process.
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+              <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
+                  <Eye className="h-6 w-6 text-primary" aria-hidden="true" />
+                  Live Preview
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
+                  <p className="flex-auto">Instantly visualize layouts in an isolated iframe environment, ensuring accurate rendering.</p>
+                </dd>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
+                  <Copy className="h-6 w-6 text-primary" aria-hidden="true" />
+                  Easy Code Copying
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
+                  <p className="flex-auto">Grab clean, ready-to-use HTML for any layout with a single click.</p>
+                </dd>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
+                  <Layers className="h-6 w-6 text-primary" aria-hidden="true" />
+                  Categorized Library
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
+                  <p className="flex-auto">Easily find the layout you need with well-organized categories in the sidebar.</p>
+                </dd>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
+                  <Palette className="h-6 w-6 text-primary" aria-hidden="true" />
+                   Theme Support
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
+                  <p className="flex-auto">Supports light, dark, and system themes for comfortable viewing, reflected in previews.</p>
+                </dd>
+              </div>
+               <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
+                  <Zap className="h-6 w-6 text-primary" aria-hidden="true" />
+                  Fast & Efficient
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
+                  <p className="flex-auto">Built with Next.js and Tailwind CSS for optimal performance and development speed.</p>
+                </dd>
+              </div>
+               <div className="flex flex-col items-center text-center p-6 border rounded-lg bg-card shadow-sm hover:shadow-lg transition-shadow">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-foreground">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="m12 12-2-2 2-2"/><path d="m17 8 2 2-2 2"/></svg>
+                  3D Background
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-muted-foreground">
+                  <p className="flex-auto">Includes a subtle, animated particle background using Three.js for visual appeal.</p>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+       <section className="py-16 sm:py-24 bg-muted">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Ready to accelerate your workflow?
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              Start browsing our extensive layout library and copy the code you need in seconds.
+            </p>
+            <div className="mt-10">
+              <Button asChild size="lg">
+                <Link href="/preview">Start Exploring Now</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-background border-t border-border">
+        <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+          <p className="text-center text-xs leading-5 text-muted-foreground">
+            &copy; {new Date().getFullYear()} Tailwind Layout Preview. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 }

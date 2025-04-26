@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist_Sans, Geist_Mono } from 'geist/font'; // Correct import path
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
-import Header from '@/components/header';
-import ThreeBackground from '@/components/three-background'; // Import the 3D background component
+import Header from '@/components/header'; // Keep Header import if used site-wide
+import ThreeBackground from '@/components/three-background';
 import './globals.css';
 
-const geistSans = Geist({
+const geistSans = Geist_Sans({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Tailwind Layout Preview',
+  title: { // Allow individual pages to set their own title
+    template: '%s | Tailwind Layout Preview',
+    default: 'Tailwind Layout Preview',
+  },
   description: 'Preview Tailwind CSS layouts and copy the code.',
 };
 
@@ -27,9 +30,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
+        className={`antialiased font-sans`} // Removed font variables from here as they are applied on html tag
       >
         <ThemeProvider
           attribute="class"
@@ -37,10 +40,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ThreeBackground /> {/* Add the 3D background */}
+          <ThreeBackground /> {/* Background for all pages */}
           <div className="relative z-10 flex min-h-screen flex-col">
+             {/* Header is rendered here so it's present on all pages derived from this layout */}
             <Header />
-            <main className="flex-1">{children}</main>
+            {/* main tag is now part of individual page layouts or the landing page */}
+            {children}
           </div>
           <Toaster />
         </ThemeProvider>
