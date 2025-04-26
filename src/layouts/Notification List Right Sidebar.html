@@ -1,0 +1,63 @@
+<!-- Notification List Right Sidebar -->
+<!-- Note: Assumes a main content area exists to the left. This shows only the sidebar. -->
+<div class="bg-background p-4 flex justify-end">
+  <aside class="w-full max-w-sm border-l border-border bg-card h-[600px] flex flex-col shadow-md rounded-lg">
+    <header class="p-4 border-b border-border">
+      <h2 class="text-lg font-medium text-card-foreground">Notifications</h2>
+    </header>
+    <div class="flex-1 overflow-y-auto p-4 space-y-4">
+      <!-- Notification Item 1 -->
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 pt-1">
+          <span class="inline-block h-2 w-2 rounded-full bg-blue-500"></span>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-foreground">New comment on your post</p>
+          <p class="text-sm text-muted-foreground">"Great insights! Thanks for sharing."</p>
+          <time class="text-xs text-muted-foreground/70">2 minutes ago</time>
+        </div>
+        <button class="text-xs text-primary hover:underline flex-shrink-0">View</button>
+      </div>
+       <!-- Notification Item 2 -->
+      <div class="flex items-start gap-3 opacity-70"> <!-- Example: Read notification -->
+        <div class="flex-shrink-0 pt-1">
+           <span class="inline-block h-2 w-2 rounded-full bg-transparent border border-muted-foreground"></span>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm text-foreground">Password changed successfully</p>
+          <p class="text-sm text-muted-foreground">Your password was updated on May 20th.</p>
+          <time class="text-xs text-muted-foreground/70">5 hours ago</time>
+        </div>
+         <button class="text-xs text-primary hover:underline flex-shrink-0">Details</button>
+      </div>
+       <!-- Notification Item 3 -->
+       <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 pt-1">
+          <span class="inline-block h-2 w-2 rounded-full bg-green-500"></span>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-foreground">Deployment successful</p>
+          <p class="text-sm text-muted-foreground">Project 'Phoenix' v1.2 deployed to production.</p>
+          <time class="text-xs text-muted-foreground/70">1 day ago</time>
+        </div>
+         <button class="text-xs text-primary hover:underline flex-shrink-0">Logs</button>
+      </div>
+        <!-- Notification Item 4 -->
+       <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 pt-1">
+          <span class="inline-block h-2 w-2 rounded-full bg-red-500"></span>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-foreground">Action required: Subscription</p>
+          <p class="text-sm text-muted-foreground">Your subscription payment failed. Update payment method.</p>
+          <time class="text-xs text-muted-foreground/70">2 days ago</time>
+        </div>
+         <button class="text-xs text-primary hover:underline flex-shrink-0">Update</button>
+      </div>
+      <!-- More notifications -->
+    </div>
+     <footer class="p-4 border-t border-border text-center">
+       <a href="#" class="text-sm font-medium text-primary hover:underline">View all notifications</a>
+     </footer>
+  </aside>
+</div>

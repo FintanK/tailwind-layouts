@@ -1,0 +1,26 @@
+<!-- Snackbar Bottom Full Width -->
+<!-- Note: Requires JS for timed display/dismissal -->
+<div class="fixed inset-x-0 bottom-0 z-50 pb-4 px-4 sm:pb-6 sm:px-6 lg:px-8"
+     x-data="{ open: true }" x-show="open" x-init="setTimeout(() => open = false, 6000)"
+     x-transition:enter="transform ease-out duration-300 transition"
+     x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+     x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+     x-transition:leave="transition ease-in duration-200"
+     x-transition:leave-start="opacity-100"
+     x-transition:leave-end="opacity-0">
+  <div class="pointer-events-auto mx-auto max-w-xl rounded-lg bg-foreground p-4 shadow-lg">
+    <div class="flex items-center justify-between gap-4">
+      <p class="text-sm font-medium text-background">
+        Your profile has been updated successfully.
+      </p>
+      <button @click="open = false" type="button" class="inline-flex rounded-md p-1.5 text-muted hover:text-background focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-foreground">
+        <span class="sr-only">Dismiss</span>
+        <!-- Lucide Icon: X -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Requires Alpine.js for this example -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
