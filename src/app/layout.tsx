@@ -7,16 +7,8 @@ import Header from '@/components/header'; // Keep Header import if used site-wid
 import ThreeBackground from '@/components/three-background';
 import './globals.css';
 
-// Initialize the fonts by calling the imported functions
-const geistSans = GeistSans({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = GeistMono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+// The imported GeistSans and GeistMono objects contain the necessary config like variable names.
+// No need to call them as functions here.
 
 export const metadata: Metadata = {
   title: { // Allow individual pages to set their own title
@@ -32,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Apply the font variables to the html tag
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+    // Apply the font variables directly from the imported objects
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body
         // Use Tailwind's font-sans utility, CSS variables from html tag handle the specific font
         className={`antialiased font-sans`}
