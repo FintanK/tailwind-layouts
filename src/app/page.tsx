@@ -53,73 +53,86 @@ async function fetchInitialLayoutContent(name: string): Promise<string> {
 // Function to categorize layout names
 const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
   const categories: { [key: string]: string[] } = {};
-  const knownCategories = [
-    'Hero Section', 'Feature Section', 'Pricing', 'Testimonial', 'CTA', 'Contact', 'Footer',
-    'Navigation Bar', 'Blog Post', 'E-commerce', 'FAQ', 'Team', 'Portfolio', 'About Us',
-    'Services', 'Form', 'Utility', 'Overlay', 'Modal', 'Content', 'Gallery', 'Table',
-    'Pagination', 'Progress', 'Status', 'Card', 'Alert', 'Notification', 'Dashboard', 'Login',
-    'Sign Up', 'Stats', 'User Profile', 'Settings'
-    // Add more prefixes as needed
-  ];
+
+  // Expanded list of keywords and potential categories
+  const categoryKeywords: { [key: string]: string[] } = {
+    'Hero Section': ['hero'],
+    'Feature Section': ['feature', 'advantages', 'benefits'],
+    'Pricing': ['pricing', 'plans'],
+    'Testimonial': ['testimonial', 'review', 'quote'],
+    'CTA': ['cta', 'call to action'],
+    'Contact': ['contact'],
+    'Footer': ['footer'],
+    'Navigation': ['navigation', 'nav', 'header', 'menu'],
+    'Blog': ['blog', 'article', 'post'],
+    'E-commerce': ['ecommerce', 'product', 'shop', 'cart'],
+    'FAQ': ['faq', 'questions'],
+    'Team': ['team', 'member', 'staff'],
+    'Portfolio': ['portfolio', 'gallery', 'work', 'showcase'],
+    'About Us': ['about'],
+    'Services': ['service'],
+    'Form': ['form', 'input', 'signup', 'login', 'subscribe'],
+    'Utility': ['utility', 'misc', '404', '500', 'maintenance', 'coming soon', 'search'],
+    'Overlay': ['overlay', 'modal', 'popup', 'slide over', 'dialog'],
+    'Content': ['content', 'text', 'image', 'masonry'],
+    'Table': ['table', 'grid', 'list'],
+    'Pagination': ['pagination', 'paging'],
+    'Progress': ['progress', 'step', 'indicator'],
+    'Status': ['status', 'alert', 'badge', 'indicator', 'notification', 'banner', 'toast'],
+    'Card': ['card'],
+    'Dashboard': ['dashboard', 'stats', 'panel'],
+    'Login/Sign Up': ['login', 'signin', 'signup', 'register', 'auth'],
+    'Stats': ['stats', 'metric', 'kpi'],
+    'User Profile': ['profile', 'user', 'account'],
+    'Settings': ['setting'],
+    'Gallery': ['gallery', 'carousel', 'slider', 'images']
+  };
 
   names.forEach(name => {
-     // Handle placeholder separately
-     if (name.toLowerCase() === 'placeholder layout') {
-        if (!categories['Other']) categories['Other'] = [];
-        categories['Other'].push(name);
-        return;
-     }
+    let assignedCategory = 'Other'; // Default category
 
-    let foundCategory = false;
-    // Iterate through known categories and check if the name starts with the category prefix
-    for (const catPrefix of knownCategories.sort((a, b) => b.length - a.length)) { // Sort by length descending to match longer prefixes first
-      if (name.toLowerCase().startsWith(catPrefix.toLowerCase() + ' ')) { // Check with a space for better matching
-        if (!categories[catPrefix]) {
-          categories[catPrefix] = [];
+    // Handle placeholder separately
+    if (name.toLowerCase() === 'placeholder layout') {
+      assignedCategory = 'Placeholder'; // Assign specific category
+    } else {
+        const lowerCaseName = name.toLowerCase();
+        // Iterate through categories to find the best match based on keywords
+        for (const [categoryName, keywords] of Object.entries(categoryKeywords)) {
+          if (keywords.some(keyword => lowerCaseName.includes(keyword))) {
+             // Prioritize longer matches or more specific keywords if needed
+             // For now, first match assigns the category
+             assignedCategory = categoryName;
+             break; // Exit loop once a category is found
+          }
         }
-        categories[catPrefix].push(name);
-        foundCategory = true;
-        break;
-      }
     }
 
-     // Fallback check without space if no match with space was found
-     if (!foundCategory) {
-      for (const catPrefix of knownCategories.sort((a, b) => b.length - a.length)) {
-        if (name.toLowerCase().startsWith(catPrefix.toLowerCase())) {
-           if (!categories[catPrefix]) {
-            categories[catPrefix] = [];
-           }
-           categories[catPrefix].push(name);
-           foundCategory = true;
-           break;
-        }
-      }
-     }
 
-
-    if (!foundCategory) {
-      if (!categories['Other']) {
-        categories['Other'] = [];
-      }
-      categories['Other'].push(name);
+    if (!categories[assignedCategory]) {
+      categories[assignedCategory] = [];
     }
+    categories[assignedCategory].push(name);
   });
 
-    // Sort categories alphabetically, keeping 'Other' last
-    const sortedCategories = Object.keys(categories)
-        .filter(cat => cat !== 'Other')
-        .sort((a, b) => a.localeCompare(b));
+  // Sort categories alphabetically, keeping 'Placeholder' and 'Other' at the end
+  const sortedCategories = Object.keys(categories)
+    .filter(cat => cat !== 'Other' && cat !== 'Placeholder')
+    .sort((a, b) => a.localeCompare(b));
 
-    const finalCategories: { [key: string]: string[] } = {};
-    sortedCategories.forEach(cat => {
-        finalCategories[cat] = categories[cat].sort((a, b) => a.localeCompare(b)); // Sort names within category
-    });
+  const finalCategories: { [key: string]: string[] } = {};
+  sortedCategories.forEach(cat => {
+    finalCategories[cat] = categories[cat].sort((a, b) => a.localeCompare(b)); // Sort names within category
+  });
 
-    if (categories['Other']) {
-        finalCategories['Other'] = categories['Other'].sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
+   // Add Placeholder category if it exists
+   if (categories['Placeholder']) {
+        finalCategories['Placeholder'] = categories['Placeholder']; // No sorting needed for single item
     }
 
+  // Add 'Other' category at the end if it exists
+  if (categories['Other']) {
+    finalCategories['Other'] = categories['Other'].sort((a, b) => a.localeCompare(b)); // Sort names within 'Other'
+  }
 
   return finalCategories;
 };
@@ -128,9 +141,9 @@ const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
 export default async function Home() {
   const allLayoutNames = await getLayoutNames();
   const categorizedLayouts = categorizeLayouts(allLayoutNames);
-  // Fetch the first layout's content (alphabetically first from the first category, excluding Placeholder if others exist)
-  const firstCategory = Object.keys(categorizedLayouts)[0] || 'Other';
-  const initialLayoutName = categorizedLayouts[firstCategory]?.[0] || 'Placeholder Layout';
+  // Fetch the first layout's content (from the first category, typically not 'Placeholder' or 'Other' unless they are the only ones)
+  const firstMeaningfulCategory = Object.keys(categorizedLayouts).find(cat => cat !== 'Placeholder' && cat !== 'Other') || Object.keys(categorizedLayouts)[0] || 'Placeholder';
+  const initialLayoutName = categorizedLayouts[firstMeaningfulCategory]?.[0] || 'Placeholder Layout';
   const initialLayoutContent = await fetchInitialLayoutContent(initialLayoutName);
 
 
@@ -158,8 +171,8 @@ export default async function Home() {
                                 data-layout-name={name}
                                 // Active state is handled client-side in LayoutPreview useEffect
                              >
-                               {/* Optionally remove category prefix from display name if desired */}
-                               {name.startsWith(category + ' ') ? name.substring(category.length + 1) : name}
+                               {/* Display full name, categorization handles grouping */}
+                               {name}
                              </SidebarMenuButton>
                            </SidebarMenuItem>
                          ))}
@@ -179,3 +192,4 @@ export default async function Home() {
     </SidebarProvider>
   );
 }
+

@@ -1,0 +1,91 @@
+<!-- E-commerce - Product Quick View Modal -->
+<!-- Trigger button (for demonstration) -->
+<div class="p-8 text-center">
+  <button onclick="document.getElementById('quick-view-modal').classList.remove('hidden')" class="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+    Quick View Product
+  </button>
+</div>
+
+<!-- Modal container -->
+<div id="quick-view-modal" class="relative z-10 hidden" aria-labelledby="modal-title-quick-view" role="dialog" aria-modal="true">
+  <!-- Background backdrop -->
+  <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
+
+  <div class="fixed inset-0 z-10 overflow-y-auto">
+    <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+      <!-- Modal panel -->
+      <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+        <div class="relative flex w-full items-center overflow-hidden bg-card px-4 pt-14 pb-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8 rounded-lg">
+          <button type="button" class="absolute top-4 right-4 text-muted-foreground hover:text-foreground sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8" onclick="document.getElementById('quick-view-modal').classList.add('hidden')">
+            <span class="sr-only">Close</span>
+            <!-- Lucide Icon: X -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+          </button>
+
+          <div class="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
+            <div class="aspect-w-2 aspect-h-3 overflow-hidden rounded-lg bg-muted sm:col-span-4 lg:col-span-5">
+              <img src="https://picsum.photos/600/900?random=quickview" alt="Product image for quick view" class="object-cover object-center">
+            </div>
+            <div class="sm:col-span-8 lg:col-span-7">
+              <h2 class="text-2xl font-bold text-foreground sm:pr-12" id="modal-title-quick-view">Premium Hoodie</h2>
+              <section aria-labelledby="information-heading" class="mt-2">
+                <h3 id="information-heading" class="sr-only">Product information</h3>
+                <p class="text-2xl text-muted-foreground">$99.00</p>
+                <!-- Reviews -->
+                <div class="mt-6">
+                  <h4 class="sr-only">Reviews</h4>
+                  <div class="flex items-center">
+                    <div class="flex items-center">
+                       <!-- Replace with actual star rating logic/component -->
+                       <svg class="text-primary h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" /></svg>
+                       <svg class="text-primary h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" /></svg>
+                       <svg class="text-primary h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" /></svg>
+                       <svg class="text-primary h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" /></svg>
+                       <svg class="text-gray-200 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" /></svg>
+                    </div>
+                    <p class="sr-only">3.9 out of 5 stars</p>
+                    <a href="#" class="ml-3 text-sm font-medium text-primary hover:text-primary/90">117 reviews</a>
+                  </div>
+                </div>
+              </section>
+
+              <section aria-labelledby="options-heading" class="mt-10">
+                <h3 id="options-heading" class="sr-only">Product options</h3>
+                <form>
+                  <!-- Colors -->
+                  <div>
+                    <h4 class="text-sm font-medium text-foreground">Color</h4>
+                     <!-- Add color swatches or radio buttons here -->
+                     <div class="flex items-center space-x-2 mt-2">
+                         <button type="button" class="h-6 w-6 rounded-full bg-gray-700 border-2 border-transparent ring-2 ring-offset-1 ring-primary focus:outline-none"></button>
+                         <button type="button" class="h-6 w-6 rounded-full bg-blue-600 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-primary"></button>
+                         <button type="button" class="h-6 w-6 rounded-full bg-green-500 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-primary"></button>
+                     </div>
+                  </div>
+
+                  <!-- Sizes -->
+                  <div class="mt-10">
+                    <div class="flex items-center justify-between">
+                      <h4 class="text-sm font-medium text-foreground">Size</h4>
+                      <a href="#" class="text-sm font-medium text-primary hover:text-primary/90">Size guide</a>
+                    </div>
+                     <!-- Add size selection radios/buttons here -->
+                     <div class="grid grid-cols-4 gap-4 mt-2 sm:grid-cols-8 lg:grid-cols-4">
+                        <button type="button" class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-muted focus:outline-none sm:flex-1 sm:py-6 cursor-pointer">S</button>
+                        <button type="button" class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-muted focus:outline-none sm:flex-1 sm:py-6 cursor-pointer ring-2 ring-primary">M</button>
+                        <button type="button" class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-muted focus:outline-none sm:flex-1 sm:py-6 cursor-pointer">L</button>
+                         <button type="button" class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-muted focus:outline-none sm:flex-1 sm:py-6 cursor-not-allowed opacity-25">XL</button>
+                     </div>
+                  </div>
+
+                  <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-primary py-3 px-8 text-base font-medium text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Add to bag</button>
+                   <p class="text-center mt-4"><a href="#" class="text-sm font-medium text-primary hover:text-primary/90">View full details</a></p>
+                </form>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

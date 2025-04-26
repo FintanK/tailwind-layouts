@@ -1,0 +1,52 @@
+<!-- Progress - Linear Bar with Steps -->
+<div class="bg-background p-8">
+  <nav aria-label="Progress">
+    <ol role="list" class="divide-y divide-border rounded-md border md:flex md:divide-y-0">
+      <!-- Step 1: Completed -->
+      <li class="relative md:flex md:flex-1">
+        <a href="#" class="group flex w-full items-center">
+          <span class="flex items-center px-6 py-4 text-sm font-medium">
+            <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary group-hover:bg-primary/90">
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+            </span>
+            <span class="ml-4 text-sm font-medium text-foreground">Step 1: Details</span>
+          </span>
+        </a>
+        <!-- Arrow separator for lg screens and up -->
+        <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
+          <svg class="h-full w-full text-border" viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
+            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
+          </svg>
+        </div>
+      </li>
+
+      <!-- Step 2: Current -->
+      <li class="relative md:flex md:flex-1">
+        <a href="#" class="flex items-center px-6 py-4 text-sm font-medium" aria-current="step">
+          <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-primary">
+            <span class="text-primary">02</span>
+          </span>
+          <span class="ml-4 text-sm font-medium text-primary">Step 2: Address</span>
+        </a>
+        <!-- Arrow separator -->
+         <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
+          <svg class="h-full w-full text-border" viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
+            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
+          </svg>
+        </div>
+      </li>
+
+      <!-- Step 3: Upcoming -->
+       <li class="relative md:flex md:flex-1">
+        <a href="#" class="group flex items-center">
+          <span class="flex items-center px-6 py-4 text-sm font-medium">
+            <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-border group-hover:border-muted-foreground">
+              <span class="text-muted-foreground group-hover:text-foreground">03</span>
+            </span>
+            <span class="ml-4 text-sm font-medium text-muted-foreground group-hover:text-foreground">Step 3: Payment</span>
+          </span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>

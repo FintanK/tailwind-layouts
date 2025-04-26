@@ -1,0 +1,88 @@
+<!-- E-commerce - Shopping Cart Panel -->
+<!-- Note: This simulates a panel, often used with a slide-over. Needs JS for interaction. -->
+<div class="bg-background p-8 flex justify-end">
+  <div class="flex h-full max-h-[80vh] w-full max-w-md flex-col overflow-y-scroll bg-card shadow-xl border rounded-lg">
+    <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
+      <div class="flex items-start justify-between">
+        <h2 class="text-lg font-medium text-foreground" id="slide-over-title-cart">Shopping cart</h2>
+        <div class="ml-3 flex h-7 items-center">
+          <button type="button" class="-m-2 p-2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+            <span class="sr-only">Close panel</span>
+            <!-- Lucide Icon: X -->
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="flow-root">
+          <ul role="list" class="-my-6 divide-y divide-border">
+            <!-- Cart Item 1 -->
+            <li class="flex py-6">
+              <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-border">
+                <img src="https://picsum.photos/150/150?random=cart1" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+              </div>
+              <div class="ml-4 flex flex-1 flex-col">
+                <div>
+                  <div class="flex justify-between text-base font-medium text-foreground">
+                    <h3><a href="#">Throwback Hip Bag</a></h3>
+                    <p class="ml-4">$90.00</p>
+                  </div>
+                  <p class="mt-1 text-sm text-muted-foreground">Salmon</p>
+                </div>
+                <div class="flex flex-1 items-end justify-between text-sm">
+                  <p class="text-muted-foreground">Qty 1</p>
+                  <div class="flex">
+                    <button type="button" class="font-medium text-primary hover:text-primary/90">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+             <!-- Cart Item 2 -->
+            <li class="flex py-6">
+              <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-border">
+                <img src="https://picsum.photos/150/150?random=cart2" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="h-full w-full object-cover object-center">
+              </div>
+              <div class="ml-4 flex flex-1 flex-col">
+                <div>
+                  <div class="flex justify-between text-base font-medium text-foreground">
+                    <h3><a href="#">Medium Stuff Satchel</a></h3>
+                    <p class="ml-4">$32.00</p>
+                  </div>
+                  <p class="mt-1 text-sm text-muted-foreground">Blue</p>
+                </div>
+                 <div class="flex flex-1 items-end justify-between text-sm">
+                  <p class="text-muted-foreground">Qty 2</p>
+                  <div class="flex">
+                    <button type="button" class="font-medium text-primary hover:text-primary/90">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- More products... -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-border py-6 px-4 sm:px-6">
+      <div class="flex justify-between text-base font-medium text-foreground">
+        <p>Subtotal</p>
+        <p>$154.00</p>
+      </div>
+      <p class="mt-0.5 text-sm text-muted-foreground">Shipping and taxes calculated at checkout.</p>
+      <div class="mt-6">
+        <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow-sm hover:bg-primary/90">Checkout</a>
+      </div>
+      <div class="mt-6 flex justify-center text-center text-sm text-muted-foreground">
+        <p>
+          or
+          <button type="button" class="font-medium text-primary hover:text-primary/90">
+            Continue Shopping
+            <span aria-hidden="true"> &rarr;</span>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

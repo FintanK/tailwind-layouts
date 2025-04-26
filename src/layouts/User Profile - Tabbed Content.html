@@ -1,0 +1,80 @@
+<!-- User Profile - Tabbed Content -->
+<!-- Note: Requires JS for tab switching (e.g., Alpine.js) or use ShadCN Tabs -->
+<div class="bg-background py-10">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <!-- Profile Header -->
+    <div class="flex items-center space-x-5 mb-8">
+      <div class="flex-shrink-0">
+        <div class="relative">
+          <img class="h-20 w-20 rounded-full object-cover" src="https://picsum.photos/100/100?random=usertab" alt="User Avatar">
+          <span class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-foreground">Jenna Simmons</h1>
+        <p class="text-sm font-medium text-muted-foreground">Product Manager</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div x-data="{ currentTab: 'profile' }">
+      <div class="border-b border-border">
+        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+          <button @click="currentTab = 'profile'" :class="{ 'border-primary text-primary': currentTab === 'profile', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': currentTab !== 'profile' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium focus:outline-none">
+            Profile
+          </button>
+          <button @click="currentTab = 'activity'" :class="{ 'border-primary text-primary': currentTab === 'activity', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': currentTab !== 'activity' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium focus:outline-none">
+            Activity
+          </button>
+          <button @click="currentTab = 'settings'" :class="{ 'border-primary text-primary': currentTab === 'settings', 'border-transparent text-muted-foreground hover:border-border hover:text-foreground': currentTab !== 'settings' }" class="whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium focus:outline-none">
+            Settings
+          </button>
+        </nav>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="mt-6">
+        <div x-show="currentTab === 'profile'">
+          <div class="rounded-lg border bg-card p-6 shadow-sm">
+            <h3 class="text-lg font-medium text-card-foreground">About Me</h3>
+            <p class="mt-2 text-sm text-muted-foreground">
+              Passionate product leader with a knack for building user-centric experiences. Lover of coffee and clean code.
+            </p>
+            <dl class="mt-4 space-y-2 text-sm">
+               <div class="flex">
+                <dt class="w-20 flex-shrink-0 font-medium text-foreground">Location</dt>
+                <dd class="text-muted-foreground">San Francisco, CA</dd>
+               </div>
+                <div class="flex">
+                <dt class="w-20 flex-shrink-0 font-medium text-foreground">Website</dt>
+                <dd class="text-muted-foreground"><a href="#" class="text-primary hover:underline">jennasimmons.com</a></dd>
+               </div>
+            </dl>
+          </div>
+        </div>
+         <div x-show="currentTab === 'activity'">
+           <div class="rounded-lg border bg-card p-6 shadow-sm">
+             <h3 class="text-lg font-medium text-card-foreground">Recent Activity</h3>
+             <ul class="mt-4 divide-y divide-border">
+                <li class="py-3 text-sm text-muted-foreground">Commented on 'New Feature Proposal' - <time>2 hours ago</time></li>
+                <li class="py-3 text-sm text-muted-foreground">Updated project 'Phoenix' status - <time>Yesterday</time></li>
+                <li class="py-3 text-sm text-muted-foreground">Joined 'Design Systems' channel - <time>3 days ago</time></li>
+             </ul>
+           </div>
+        </div>
+        <div x-show="currentTab === 'settings'">
+           <div class="rounded-lg border bg-card p-6 shadow-sm">
+             <h3 class="text-lg font-medium text-card-foreground">Account Settings</h3>
+             <p class="mt-2 text-sm text-muted-foreground">Manage your account preferences and security.</p>
+              <button class="mt-4 inline-flex items-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                Edit Profile
+              </button>
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Alpine.js for functionality -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

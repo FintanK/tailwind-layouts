@@ -1,0 +1,122 @@
+<!-- Gallery - Carousel Slider -->
+<!-- Note: Requires a JS library like Swiper.js, Flickity, or Slick for carousel functionality -->
+<div class="bg-background py-12">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-center text-foreground mb-8">Featured Images</h2>
+    <!-- Carousel container -->
+    <div class="swiper-container overflow-hidden relative rounded-lg shadow-lg">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+          <img src="https://picsum.photos/1000/600?random=carousel1" alt="Slide 1" class="w-full h-64 sm:h-80 md:h-96 object-cover">
+           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-6 text-white">
+                <h3 class="text-lg font-semibold">Image Title 1</h3>
+                <p class="text-sm mt-1">Short description for slide 1.</p>
+            </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="https://picsum.photos/1000/600?random=carousel2" alt="Slide 2" class="w-full h-64 sm:h-80 md:h-96 object-cover">
+           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+           <div class="absolute bottom-0 left-0 p-4 sm:p-6 text-white">
+                <h3 class="text-lg font-semibold">Image Title 2</h3>
+                <p class="text-sm mt-1">Another short description here.</p>
+            </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="https://picsum.photos/1000/600?random=carousel3" alt="Slide 3" class="w-full h-64 sm:h-80 md:h-96 object-cover">
+           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-6 text-white">
+                <h3 class="text-lg font-semibold">Image Title 3</h3>
+                <p class="text-sm mt-1">Description for the third slide image.</p>
+            </div>
+        </div>
+         <div class="swiper-slide">
+          <img src="https://picsum.photos/1000/600?random=carousel4" alt="Slide 4" class="w-full h-64 sm:h-80 md:h-96 object-cover">
+           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-6 text-white">
+                <h3 class="text-lg font-semibold">Image Title 4</h3>
+                <p class="text-sm mt-1">Final description example.</p>
+            </div>
+        </div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev text-white bg-black/30 rounded-full p-2 w-8 h-8 hover:bg-black/50 transition-colors"></div>
+      <div class="swiper-button-next text-white bg-black/30 rounded-full p-2 w-8 h-8 hover:bg-black/50 transition-colors"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Swiper.js CSS and JS (Example CDN links) -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper-container', {
+      // Optional parameters
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+       autoplay: {
+         delay: 5000, // 5 seconds
+         disableOnInteraction: false,
+       },
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+       breakpoints: {
+         // when window width is >= 640px
+         640: {
+           slidesPerView: 2,
+           spaceBetween: 20
+         },
+         // when window width is >= 1024px
+         1024: {
+           slidesPerView: 1.5, // Show partial next/prev slides
+           spaceBetween: 30,
+           centeredSlides: true, // Center the active slide
+         }
+       }
+    });
+  });
+</script>
+
+<style>
+/* Basic Swiper button styling adjustments */
+.swiper-button-prev, .swiper-button-next {
+  color: white; /* Arrow color */
+  width: 32px;
+  height: 32px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+.swiper-button-prev:hover, .swiper-button-next:hover {
+    background-color: rgba(0,0,0,0.5);
+}
+.swiper-button-prev::after, .swiper-button-next::after {
+    font-size: 16px; /* Adjust arrow size */
+}
+.swiper-pagination-bullet {
+    background: white;
+    opacity: 0.6;
+}
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: hsl(var(--primary)); /* Use primary color for active bullet */
+}
+</style>

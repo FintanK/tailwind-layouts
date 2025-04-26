@@ -1,0 +1,76 @@
+<!-- Status Page - Incident History -->
+<div class="bg-background py-12">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold tracking-tight text-foreground">Incident History</h1>
+      <p class="mt-2 text-sm text-muted-foreground">Past incidents and their resolutions.</p>
+    </header>
+
+    <div class="space-y-12">
+      <!-- Incident Group 1 -->
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">May 2023</h2>
+        <div class="mt-4 space-y-8 border-l-2 border-border pl-6">
+          <!-- Incident Item -->
+          <div class="relative">
+            <div class="absolute -left-[1.125rem] top-1 flex h-8 w-8 items-center justify-center rounded-full bg-green-500 ring-4 ring-background">
+              <!-- Lucide Icon: Check -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="ml-2">
+              <h3 class="text-sm font-semibold text-foreground">Minor API Latency</h3>
+              <p class="mt-1 text-sm text-muted-foreground">Increased API response times were observed. Issue identified and resolved.</p>
+              <time class="mt-1 block text-xs text-muted-foreground">May 15, 2023, 14:30 UTC - May 15, 2023, 15:15 UTC</time>
+            </div>
+          </div>
+           <!-- Incident Item (Investigating) -->
+           <div class="relative">
+             <div class="absolute -left-[1.125rem] top-1 flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500 ring-4 ring-background">
+               <!-- Lucide Icon: Search -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+             </div>
+             <div class="ml-2">
+               <h3 class="text-sm font-semibold text-foreground">Intermittent Login Issues</h3>
+               <p class="mt-1 text-sm text-muted-foreground">We are investigating reports of users experiencing login difficulties.</p>
+               <time class="mt-1 block text-xs text-muted-foreground">Started: May 10, 2023, 09:00 UTC (Ongoing)</time>
+             </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Incident Group 2 -->
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">April 2023</h2>
+        <div class="mt-4 space-y-8 border-l-2 border-border pl-6">
+           <!-- Incident Item -->
+          <div class="relative">
+            <div class="absolute -left-[1.125rem] top-1 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 ring-4 ring-background">
+               <!-- Lucide Icon: X -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+            </div>
+            <div class="ml-2">
+              <h3 class="text-sm font-semibold text-foreground">Major Service Outage</h3>
+              <p class="mt-1 text-sm text-muted-foreground">A critical database failure resulted in a significant outage. Service restored after failover.</p>
+              <time class="mt-1 block text-xs text-muted-foreground">April 22, 2023, 03:00 UTC - April 22, 2023, 05:45 UTC</time>
+            </div>
+          </div>
+           <!-- Incident Item (Resolved) -->
+           <div class="relative">
+             <div class="absolute -left-[1.125rem] top-1 flex h-8 w-8 items-center justify-center rounded-full bg-green-500 ring-4 ring-background">
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="20 6 9 17 4 12"></polyline></svg>
+             </div>
+             <div class="ml-2">
+               <h3 class="text-sm font-semibold text-foreground">Website Performance Degradation</h3>
+               <p class="mt-1 text-sm text-muted-foreground">Users experienced slower loading times. Issue traced to CDN configuration and fixed.</p>
+               <time class="mt-1 block text-xs text-muted-foreground">April 5, 2023, 11:00 UTC - April 5, 2023, 11:30 UTC</time>
+             </div>
+           </div>
+        </div>
+      </div>
+      <!-- More incident groups -->
+    </div>
+     <div class="mt-12 text-center text-sm text-muted-foreground">
+       <a href="#" class="hover:text-primary">View Current Status &rarr;</a>
+     </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<!-- Utility - Error Page Custom -->
+<div class="flex min-h-[70vh] flex-col items-center justify-center bg-gradient-to-br from-red-50 via-background to-orange-50 px-4 py-12 text-center">
+  <main class="mx-auto w-full max-w-lg">
+     <!-- Lucide Icon: AlertOctagon -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-destructive mb-4"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+    <p class="text-base font-semibold text-destructive">Oops!</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Something went wrong.</h1>
+    <p class="mt-4 text-base text-muted-foreground">
+      We encountered an unexpected error. Please try again later or contact support if the problem persists.
+    </p>
+     <p class="mt-2 text-sm text-muted-foreground">Error code: <code class="bg-muted px-1 rounded">ERR_UNEXPECTED</code></p>
+    <div class="mt-8 flex justify-center gap-x-4">
+      <a href="#" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+        Go back home
+      </a>
+      <a href="#" class="rounded-md border border-input bg-background px-3.5 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:bg-accent">
+        Contact support <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </main>
+</div>
