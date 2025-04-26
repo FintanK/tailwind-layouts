@@ -1,0 +1,145 @@
+<!-- Testimonials Slider With Arrows -->
+<!-- Note: Requires a JS library like Swiper.js -->
+<div class="bg-background py-16 sm:py-24">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
+    <div class="mx-auto max-w-2xl lg:text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Trusted by Creators</h2>
+      <p class="mt-4 text-lg leading-8 text-muted-foreground">Don't just take our word for it. Hear from our amazing community.</p>
+    </div>
+
+    <!-- Swiper -->
+    <div class="swiper-container testimonial-slider mt-16">
+      <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <figure class="rounded-2xl bg-card border p-8 text-sm leading-6 shadow-sm">
+            <blockquote class="text-muted-foreground">
+              <p>“Vitae aliquet nec ullamcorper sit amet risus nullam eget felis semper quis lectus nulla at volutpat diam ut venenatis tellus—in ornare.”</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsa1" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Brenna Goyette</div>
+                <div class="text-muted-foreground">@brennagoyette</div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+           <figure class="rounded-2xl bg-card border p-8 text-sm leading-6 shadow-sm">
+            <blockquote class="text-muted-foreground">
+              <p>“Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsa2" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Tom Cook</div>
+                <div class="text-muted-foreground">@tomcook</div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+           <figure class="rounded-2xl bg-card border p-8 text-sm leading-6 shadow-sm">
+            <blockquote class="text-muted-foreground">
+              <p>“Semper quis lectus nulla at volutpat diam ut venenatis tellus—in ornare. Nemo expedita voluptas culpa sapiente alias molestiae.”</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsa3" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Lindsay Walton</div>
+                <div class="text-muted-foreground">@lindsaywalton</div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+         <!-- Slide 4 -->
+         <div class="swiper-slide">
+           <figure class="rounded-2xl bg-card border p-8 text-sm leading-6 shadow-sm">
+            <blockquote class="text-muted-foreground">
+              <p>“Aliquip reprehenderit incididunt amet quis fugiat ut velit labore. Commodo mollit enim qui sunt enim reprehenderit nisi.”</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsa4" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Michael Foster</div>
+                <div class="text-muted-foreground">@michaelfoster</div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+      <!-- Navigation Buttons -->
+       <div class="swiper-button-prev testimonial-prev -left-4 text-primary hover:bg-primary/10"></div>
+       <div class="swiper-button-next testimonial-next -right-4 text-primary hover:bg-primary/10"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Swiper.js CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.testimonial-slider', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 16,
+       autoplay: {
+         delay: 7000,
+         disableOnInteraction: false,
+       },
+      navigation: {
+        nextEl: '.testimonial-next',
+        prevEl: '.testimonial-prev',
+      },
+       breakpoints: {
+         640: { // sm
+           slidesPerView: 2,
+           spaceBetween: 24,
+         },
+         1024: { // lg
+           slidesPerView: 3,
+           spaceBetween: 32,
+         }
+       }
+    });
+  });
+</script>
+
+<style>
+.testimonial-slider {
+    padding-left: 40px; /* Space for prev button */
+    padding-right: 40px; /* Space for next button */
+}
+.testimonial-prev, .testimonial-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+.testimonial-prev::after, .testimonial-next::after {
+    font-size: 20px; /* Adjust icon size */
+    font-weight: bold;
+}
+.testimonial-prev { left: 0; }
+.testimonial-next { right: 0; }
+
+@media (max-width: 640px) {
+    .testimonial-prev { left: -10px; }
+    .testimonial-next { right: -10px; }
+    .testimonial-slider { padding-left: 10px; padding-right: 10px; }
+}
+
+</style>

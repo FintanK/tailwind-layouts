@@ -1,0 +1,110 @@
+<!-- Testimonials Slider With Dots -->
+<!-- Note: Requires a JS library like Swiper.js -->
+<div class="bg-muted py-16 sm:py-24">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
+    <div class="mx-auto max-w-xl text-center">
+      <h2 class="text-lg font-semibold leading-8 tracking-tight text-primary">Testimonials</h2>
+      <p class="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Our clients love our work</p>
+    </div>
+
+    <!-- Swiper -->
+    <div class="swiper-container testimonial-slider-dots mt-16 max-w-2xl mx-auto lg:max-w-4xl">
+      <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <figure class="rounded-2xl bg-card p-8 text-sm leading-6 shadow-sm">
+             <figcaption class="mb-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsd1" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Brenna Goyette</div>
+                <div class="text-muted-foreground">@brennagoyette</div>
+              </div>
+            </figcaption>
+            <blockquote class="text-muted-foreground">
+              <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”</p>
+            </blockquote>
+          </figure>
+        </div>
+         <!-- Slide 2 -->
+        <div class="swiper-slide">
+           <figure class="rounded-2xl bg-card p-8 text-sm leading-6 shadow-sm">
+            <figcaption class="mb-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsd2" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Tom Cook</div>
+                <div class="text-muted-foreground">@tomcook</div>
+              </div>
+            </figcaption>
+            <blockquote class="text-muted-foreground">
+              <p>“Vitae aliquet nec ullamcorper sit amet risus nullam eget felis semper quis lectus nulla at volutpat diam ut venenatis tellus—in ornare.”</p>
+            </blockquote>
+          </figure>
+        </div>
+         <!-- Slide 3 -->
+        <div class="swiper-slide">
+           <figure class="rounded-2xl bg-card p-8 text-sm leading-6 shadow-sm">
+             <figcaption class="mb-6 flex items-center gap-x-4">
+              <img class="h-10 w-10 rounded-full bg-muted object-cover" src="https://picsum.photos/50/50?random=tsd3" alt="">
+              <div>
+                <div class="font-semibold text-foreground">Judith Black</div>
+                <div class="text-muted-foreground">@judithblack</div>
+              </div>
+            </figcaption>
+            <blockquote class="text-muted-foreground">
+              <p>“Molestiae nemo expedita voluptas culpa sapiente alias. Numquam corrupti in laborum sed rerum et corporis. Nemo expedita voluptas culpa sapiente.”</p>
+            </blockquote>
+          </figure>
+        </div>
+      </div>
+      <!-- Pagination Dots -->
+      <div class="swiper-pagination testimonial-dots mt-8 text-center"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Swiper.js CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.testimonial-slider-dots', {
+      loop: true,
+      grabCursor: true,
+      slidesPerView: 1,
+      spaceBetween: 30,
+       autoplay: {
+         delay: 5000,
+         disableOnInteraction: true,
+       },
+      pagination: {
+        el: '.testimonial-dots',
+        clickable: true,
+        bulletClass: 'swiper-pagination-bullet testimonial-dot',
+        bulletActiveClass: 'swiper-pagination-bullet-active testimonial-dot-active'
+      },
+        breakpoints: {
+         1024: { // lg
+           slidesPerView: 2, // Show two testimonials side-by-side on larger screens
+           spaceBetween: 40,
+         }
+       }
+    });
+  });
+</script>
+<style>
+.testimonial-dots .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: hsl(var(--border));
+    opacity: 0.7;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+.testimonial-dots .swiper-pagination-bullet-active {
+    background-color: hsl(var(--primary));
+    opacity: 1;
+}
+.testimonial-slider-dots {
+    padding-bottom: 40px; /* Make space for pagination dots */
+}
+</style>

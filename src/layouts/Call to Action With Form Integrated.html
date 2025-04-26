@@ -1,0 +1,42 @@
+<!-- Call to Action With Form Integrated -->
+<div class="bg-muted py-16 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="relative isolate overflow-hidden bg-card px-6 py-16 shadow-xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:py-24 lg:px-24 border border-border">
+      <svg viewBox="0 0 1024 1024" class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0" aria-hidden="true">
+        <circle cx="512" cy="512" r="512" fill="url(#gradient-cta-form)" fill-opacity="0.7" />
+        <defs>
+          <radialGradient id="gradient-cta-form">
+            <stop stop-color="#7775D6" />
+            <stop offset="1" stop-color="#0d9488" />
+          </radialGradient>
+        </defs>
+      </svg>
+      <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+        <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Boost your productivity.<br>Start using our app today.</h2>
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">Ac euismod vel sit maecenas id pellentesque eu sed consectetur. Malesuada adipiscing sagittis vel nulla.</p>
+        <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+          <a href="#" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Learn more</a>
+          <a href="#" class="text-sm font-semibold leading-6 text-foreground">Contact Us <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="relative mt-16 h-80 lg:mt-8">
+         <form action="#" method="POST" class="space-y-4 w-full max-w-sm mx-auto lg:mx-0 lg:mt-10">
+            <h3 class="text-lg font-medium text-foreground mb-4 text-center lg:text-left">Request a Demo</h3>
+            <div>
+              <label for="cta-name" class="sr-only">Name</label>
+              <input type="text" name="name" id="cta-name" autocomplete="name" required class="block w-full rounded-md border-input bg-background px-3 py-2 text-sm placeholder-muted-foreground shadow-sm focus:border-primary focus:ring-primary" placeholder="Full Name">
+            </div>
+            <div>
+              <label for="cta-email" class="sr-only">Email</label>
+              <input type="email" name="email" id="cta-email" autocomplete="email" required class="block w-full rounded-md border-input bg-background px-3 py-2 text-sm placeholder-muted-foreground shadow-sm focus:border-primary focus:ring-primary" placeholder="Email Address">
+            </div>
+            <div>
+               <label for="cta-company" class="sr-only">Company</label>
+               <input type="text" name="company" id="cta-company" autocomplete="organization" class="block w-full rounded-md border-input bg-background px-3 py-2 text-sm placeholder-muted-foreground shadow-sm focus:border-primary focus:ring-primary" placeholder="Company Name">
+            </div>
+            <button type="submit" class="w-full rounded-md border border-transparent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-card">Request Demo</button>
+         </form>
+      </div>
+    </div>
+  </div>
+</div>

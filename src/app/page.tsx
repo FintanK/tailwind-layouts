@@ -54,59 +54,57 @@ async function fetchInitialLayoutContent(name: string): Promise<string> {
 const categorizeLayouts = (names: string[]): { [key: string]: string[] } => {
   const categories: { [key: string]: string[] } = {};
 
-  // Expanded list of keywords and potential categories
-  const categoryKeywords: { [key: string]: string[] } = {
-    'Hero Section': ['hero'],
-    'Feature Section': ['feature', 'advantages', 'benefits'],
-    'Pricing': ['pricing', 'plans'],
-    'Testimonial': ['testimonial', 'review', 'quote'],
-    'CTA': ['cta', 'call to action'],
-    'Contact': ['contact'],
-    'Footer': ['footer'],
-    'Navigation': ['navigation', 'nav', 'header', 'menu'],
-    'Blog': ['blog', 'article', 'post'],
-    'E-commerce': ['ecommerce', 'product', 'shop', 'cart'],
-    'FAQ': ['faq', 'questions'],
-    'Team': ['team', 'member', 'staff'],
-    'Portfolio': ['portfolio', 'gallery', 'work', 'showcase'],
-    'About Us': ['about'],
-    'Services': ['service'],
-    'Form': ['form', 'input', 'signup', 'login', 'subscribe'],
-    'Utility': ['utility', 'misc', '404', '500', 'maintenance', 'coming soon', 'search'],
-    'Overlay': ['overlay', 'modal', 'popup', 'slide over', 'dialog'],
-    'Content': ['content', 'text', 'image', 'masonry'],
-    'Table': ['table', 'grid', 'list'],
-    'Pagination': ['pagination', 'paging'],
-    'Progress': ['progress', 'step', 'indicator'],
-    'Status': ['status', 'alert', 'badge', 'indicator', 'notification', 'banner', 'toast'],
-    'Card': ['card'],
-    'Dashboard': ['dashboard', 'stats', 'panel'],
-    'Login/Sign Up': ['login', 'signin', 'signup', 'register', 'auth'],
-    'Stats': ['stats', 'metric', 'kpi'],
-    'User Profile': ['profile', 'user', 'account'],
-    'Settings': ['setting'],
-    'Gallery': ['gallery', 'carousel', 'slider', 'images']
-  };
+  // Define keywords and their associated categories. Order matters for specificity.
+  const categoryKeywords: { keyword: string[], category: string }[] = [
+    // Most specific first
+    { keyword: ['hero section with', 'hero section'], category: 'Hero Section' },
+    { keyword: ['feature grid', 'feature list', 'feature section', 'feature comparison', 'feature showcase', 'feature blocks'], category: 'Feature Section' },
+    { keyword: ['pricing cards', 'pricing table'], category: 'Pricing Section' },
+    { keyword: ['testimonials grid', 'testimonials list', 'testimonials carousel', 'testimonials slider', 'testimonial section', 'testimonials with'], category: 'Testimonial Section' },
+    { keyword: ['call to action', 'cta'], category: 'CTA Section' },
+    { keyword: ['contact form', 'contact details', 'contact map'], category: 'Contact Section' },
+    { keyword: ['footer'], category: 'Footer Section' },
+    { keyword: ['navigation bar', 'navbar'], category: 'Navigation Bar' },
+    { keyword: ['blog post list', 'blog post single', 'blog post'], category: 'Blog Layout' },
+    { keyword: ['product grid', 'product details', 'checkout form', 'shopping cart', 'order confirmation', 'product listing', 'product quick view'], category: 'E-commerce Layout' },
+    { keyword: ['faq'], category: 'FAQ Section' },
+    { keyword: ['team grid', 'team list', 'team carousel', 'team section'], category: 'Team Section' },
+    { keyword: ['portfolio grid', 'portfolio masonry', 'portfolio carousel', 'portfolio list'], category: 'Portfolio Section' },
+    { keyword: ['about us'], category: 'About Us Section' },
+    { keyword: ['services list', 'services grid', 'services carousel', 'services section'], category: 'Services Section' },
+    { keyword: ['login form', 'registration form', 'forgot password', 'profile settings', 'user account', 'sign up form'], category: 'Form Layout' },
+    { keyword: ['coming soon', '404 error', 'search results', 'maintenance mode', 'empty state'], category: 'Utility Page' },
+    { keyword: ['modal', 'sidebar navigation', 'overlay', 'notification dropdown', 'slide over'], category: 'Overlay/Modal' },
+    { keyword: ['content grid', 'content with sidebar', 'content masonry', 'content single column', 'content section'], category: 'Content Layout' },
+    { keyword: ['image gallery', 'video gallery', 'mixed media gallery', 'fullscreen image slider', 'thumbnail image gallery'], category: 'Gallery Layout' },
+    { keyword: ['table'], category: 'Table Layout' },
+    { keyword: ['breadcrumbs', 'pagination'], category: 'Navigation/Pagination' },
+    { keyword: ['progress bar', 'progress circle', 'stepper navigation', 'loading spinner'], category: 'Progress/Status Indicator' },
+    { keyword: ['status badges', 'alert banner', 'alert modal', 'notification list', 'toast notification', 'snackbar'], category: 'Alert/Notification' },
+    { keyword: ['card'], category: 'Card Layout' },
+    { keyword: ['stats section', 'dashboard layout', 'dashboard'], category: 'Dashboard/Stats' },
+    { keyword: ['user profile'], category: 'User Profile Layout' },
+    { keyword: ['settings page'], category: 'Settings Layout' },
+    { keyword: ['split screen', 'fullscreen slider', 'vertical timeline', 'horizontal scrolling'], category: 'Other Layouts' }, // Keep this broader category towards the end
+    { keyword: ['landing page'], category: 'Landing Page' }, // Specific page types
+     // Add more specific keywords and categories as needed
+  ];
 
   names.forEach(name => {
     let assignedCategory = 'Other'; // Default category
+    const lowerCaseName = name.toLowerCase();
 
-    // Handle placeholder separately
-    if (name.toLowerCase() === 'placeholder layout') {
-      assignedCategory = 'Placeholder'; // Assign specific category
+     // Handle placeholder separately
+    if (lowerCaseName === 'placeholder layout') {
+      assignedCategory = 'Placeholder';
     } else {
-        const lowerCaseName = name.toLowerCase();
-        // Iterate through categories to find the best match based on keywords
-        for (const [categoryName, keywords] of Object.entries(categoryKeywords)) {
-          if (keywords.some(keyword => lowerCaseName.includes(keyword))) {
-             // Prioritize longer matches or more specific keywords if needed
-             // For now, first match assigns the category
-             assignedCategory = categoryName;
-             break; // Exit loop once a category is found
-          }
+      for (const { keyword, category } of categoryKeywords) {
+        if (keyword.some(k => lowerCaseName.includes(k))) {
+          assignedCategory = category;
+          break; // Assign the first matching category (most specific first)
         }
+      }
     }
-
 
     if (!categories[assignedCategory]) {
       categories[assignedCategory] = [];
@@ -192,4 +190,3 @@ export default async function Home() {
     </SidebarProvider>
   );
 }
-

@@ -1,0 +1,107 @@
+<!-- Feature Showcase Carousel -->
+<!-- Note: Requires a JS library like Swiper.js for carousel functionality -->
+<div class="bg-muted py-12 sm:py-16 lg:py-20 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Feature Highlights</h2>
+      <p class="mt-4 text-lg text-muted-foreground">Swipe through to see our key capabilities.</p>
+    </div>
+    <!-- Swiper -->
+    <div class="swiper-container feature-carousel relative">
+      <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <div class="swiper-slide flex flex-col lg:flex-row items-center gap-8 p-8 lg:p-12 bg-card rounded-lg shadow-md border">
+          <div class="lg:w-1/2">
+            <h3 class="text-2xl font-semibold text-card-foreground mb-3">Real-time Analytics</h3>
+            <p class="text-muted-foreground mb-4">Monitor key metrics and performance indicators live. Make informed decisions based on up-to-the-minute data.</p>
+            <a href="#" class="text-sm font-medium text-primary hover:text-primary/90">Learn More &rarr;</a>
+          </div>
+          <div class="lg:w-1/2">
+            <img src="https://picsum.photos/600/400?random=carousel_feat1" alt="Feature 1 illustration" class="rounded-lg shadow-lg w-full h-auto object-cover">
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="swiper-slide flex flex-col lg:flex-row items-center gap-8 p-8 lg:p-12 bg-card rounded-lg shadow-md border">
+           <div class="lg:w-1/2 lg:order-last">
+            <h3 class="text-2xl font-semibold text-card-foreground mb-3">Automated Workflows</h3>
+            <p class="text-muted-foreground mb-4">Streamline your processes by automating repetitive tasks. Connect apps and build custom workflows with ease.</p>
+            <a href="#" class="text-sm font-medium text-primary hover:text-primary/90">Explore Automation &rarr;</a>
+          </div>
+          <div class="lg:w-1/2 lg:order-first">
+            <img src="https://picsum.photos/600/400?random=carousel_feat2" alt="Feature 2 illustration" class="rounded-lg shadow-lg w-full h-auto object-cover">
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="swiper-slide flex flex-col lg:flex-row items-center gap-8 p-8 lg:p-12 bg-card rounded-lg shadow-md border">
+           <div class="lg:w-1/2">
+            <h3 class="text-2xl font-semibold text-card-foreground mb-3">Seamless Collaboration</h3>
+            <p class="text-muted-foreground mb-4">Work together effectively with shared projects, real-time commenting, and version history tracking.</p>
+            <a href="#" class="text-sm font-medium text-primary hover:text-primary/90">See Collaboration Tools &rarr;</a>
+          </div>
+          <div class="lg:w-1/2">
+            <img src="https://picsum.photos/600/400?random=carousel_feat3" alt="Feature 3 illustration" class="rounded-lg shadow-lg w-full h-auto object-cover">
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="swiper-pagination feature-pagination"></div>
+      <!-- Navigation Buttons -->
+      <div class="swiper-button-prev feature-prev text-primary"></div>
+      <div class="swiper-button-next feature-next text-primary"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Swiper.js CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.feature-carousel', {
+      loop: true,
+      grabCursor: true,
+      slidesPerView: 1,
+       autoplay: {
+         delay: 6000, // 6 seconds
+         disableOnInteraction: true,
+       },
+      pagination: {
+        el: '.feature-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.feature-next',
+        prevEl: '.feature-prev',
+      },
+    });
+  });
+</script>
+
+<style>
+.feature-carousel { padding-bottom: 50px; } /* Space for pagination */
+.feature-pagination .swiper-pagination-bullet { background: hsl(var(--muted-foreground)); opacity: 0.5; }
+.feature-pagination .swiper-pagination-bullet-active { background: hsl(var(--primary)); opacity: 1; }
+.feature-prev, .feature-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: hsla(var(--background) / 0.6);
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    color: hsl(var(--primary));
+    transition: background-color 0.3s, color 0.3s;
+}
+.feature-prev:hover, .feature-next:hover {
+    background-color: hsla(var(--primary) / 0.8);
+    color: hsl(var(--primary-foreground));
+}
+.feature-prev::after, .feature-next::after { font-size: 18px; font-weight: bold; }
+.feature-prev { left: 10px; }
+.feature-next { right: 10px; }
+@media (min-width: 1024px) {
+    .feature-prev { left: -10px; }
+    .feature-next { right: -10px; }
+}
+</style>

@@ -1,0 +1,98 @@
+<!-- Testimonials Carousel Full Width -->
+<!-- Note: Requires a JS library like Swiper.js -->
+<section class="relative isolate overflow-hidden bg-background px-6 py-16 sm:py-24 lg:px-8">
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
+  <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-card shadow-xl shadow-primary/10 ring-1 ring-border sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+
+  <div class="mx-auto max-w-2xl lg:max-w-4xl">
+     <h2 class="text-center text-3xl font-bold tracking-tight text-foreground sm:text-4xl">From the Community</h2>
+     <!-- Swiper -->
+    <div class="swiper-container testimonial-carousel-full mt-10">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+                <figure class="mt-10">
+                    <blockquote class="text-center text-xl font-semibold leading-8 text-foreground sm:text-2xl sm:leading-9">
+                        <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”</p>
+                    </blockquote>
+                    <figcaption class="mt-10">
+                        <img class="mx-auto h-10 w-10 rounded-full" src="https://picsum.photos/50/50?random=tcf1" alt="">
+                        <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+                        <div class="font-semibold text-foreground">Judith Black</div>
+                        <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-muted-foreground"><circle cx="1" cy="1" r="1" /></svg>
+                        <div class="text-muted-foreground">CEO of Tuple</div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+             <!-- Slide 2 -->
+             <div class="swiper-slide">
+                 <figure class="mt-10">
+                    <blockquote class="text-center text-xl font-semibold leading-8 text-foreground sm:text-2xl sm:leading-9">
+                        <p>“Aut suscipit nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”</p>
+                    </blockquote>
+                    <figcaption class="mt-10">
+                        <img class="mx-auto h-10 w-10 rounded-full" src="https://picsum.photos/50/50?random=tcf2" alt="">
+                        <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+                        <div class="font-semibold text-foreground">Michael Foster</div>
+                        <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-muted-foreground"><circle cx="1" cy="1" r="1" /></svg>
+                        <div class="text-muted-foreground">CTO of Example Inc</div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+            <!-- Slide 3 -->
+             <div class="swiper-slide">
+                 <figure class="mt-10">
+                    <blockquote class="text-center text-xl font-semibold leading-8 text-foreground sm:text-2xl sm:leading-9">
+                        <p>“Voluptas culpa sapiente alias molestiae. Nemo expedita. Numquam corrupti in laborum sed rerum et corporis. Lorem ipsum dolor sit.”</p>
+                    </blockquote>
+                    <figcaption class="mt-10">
+                        <img class="mx-auto h-10 w-10 rounded-full" src="https://picsum.photos/50/50?random=tcf3" alt="">
+                        <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+                        <div class="font-semibold text-foreground">Sarah Jones</div>
+                        <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-muted-foreground"><circle cx="1" cy="1" r="1" /></svg>
+                        <div class="text-muted-foreground">Lead Designer</div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination tc-full-pagination mt-12 text-center"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Include Swiper.js CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.testimonial-carousel-full', {
+      loop: true,
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 1,
+      autoplay: {
+        delay: 6000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.tc-full-pagination',
+        clickable: true,
+      },
+       effect: 'fade', // Optional: Add fade effect
+       fadeEffect: {
+           crossFade: true
+       },
+    });
+  });
+</script>
+
+<style>
+.tc-full-pagination .swiper-pagination-bullet { background: hsl(var(--muted-foreground)); opacity: 0.6; }
+.tc-full-pagination .swiper-pagination-bullet-active { background: hsl(var(--primary)); opacity: 1; }
+.testimonial-carousel-full { padding-bottom: 50px; } /* Space for pagination */
+</style>

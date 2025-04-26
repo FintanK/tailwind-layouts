@@ -5,63 +5,70 @@ import path from 'path';
 // Reading file system ('fs') is not available in client-side components.
 
 const layoutsDirectory = path.join(process.cwd(), 'src/layouts');
-const placeholderFileName = 'Placeholder Layout.md';
-const placeholderLayoutName = 'Placeholder Layout';
+const placeholderFileName = 'placeholder.md'; // Ensure consistent filename
+const placeholderLayoutName = 'Placeholder Layout'; // Match the display name
 
 // Simulates fetching layout names (e.g., from a Firestore collection index)
 // This function is safe to run on the server (e.g., in page.tsx or API routes)
 export async function getLayoutNames(): Promise<string[]> {
+  let filenames: string[];
   try {
-    // Ensure the directory exists, create if not
-    try {
-      await fs.access(layoutsDirectory);
-    } catch {
-      await fs.mkdir(layoutsDirectory, { recursive: true });
-       // Create placeholder file if directory was just created
-       await fs.writeFile(path.join(layoutsDirectory, placeholderFileName), '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Select a layout from the sidebar to preview it here.</p></div>', 'utf8');
-       console.log(`Created layouts directory and placeholder file at: ${layoutsDirectory}`);
-       return [placeholderLayoutName]; // Return only placeholder initially
-    }
-
-    const filenames = await fs.readdir(layoutsDirectory);
-    let layoutNames = filenames
-      .filter((filename) => /\.(html|md)$/.test(filename) && filename !== placeholderFileName) // Exclude placeholder for now
-      .map((filename) => filename.replace(/\.(html|md)$/, '')) // Remove extension
-      .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
-
-    // Check if placeholder file exists and add it to the end if it does
-    try {
-        await fs.access(path.join(layoutsDirectory, placeholderFileName));
-        layoutNames.push(placeholderLayoutName); // Add placeholder to the end
-    } catch {
-        // Placeholder file doesn't exist, do nothing
-        if (layoutNames.length === 0) {
-             console.warn('No layout files found and placeholder is missing.');
+    filenames = await fs.readdir(layoutsDirectory);
+  } catch (error: any) {
+     // If the directory doesn't exist, create it and the placeholder
+     if (error.code === 'ENOENT') {
+        console.log(`Layouts directory not found at ${layoutsDirectory}, creating it...`);
+        try {
+             await fs.mkdir(layoutsDirectory, { recursive: true });
+             const placeholderContent = '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Select a layout from the sidebar to preview it here.</p></div>';
+             await fs.writeFile(path.join(layoutsDirectory, placeholderFileName), placeholderContent, 'utf8');
+             console.log(`Created layouts directory and placeholder file.`);
+             return [placeholderLayoutName]; // Return only placeholder initially
+        } catch (creationError) {
+             console.error('Error creating layout directory or placeholder file:', creationError);
+             return []; // Return empty on creation error
         }
-    }
-
-
-    // If the directory is empty except for potentially the placeholder, ensure placeholder is returned
-    if (layoutNames.length === 0 && filenames.includes(placeholderFileName)) {
-        return [placeholderLayoutName];
-    }
-     if (layoutNames.length === 0) {
-        console.warn('No .html or .md layout files found in src/layouts. Returning empty.');
-        return []; // Return empty if no files found at all
-    }
-
-    return layoutNames;
-  } catch (error) {
+     }
+    // Rethrow other errors during directory read
     console.error('Error reading layout directory:', error);
-    // Attempt to return placeholder on error if it exists
-    try {
-       await fs.access(path.join(layoutsDirectory, placeholderFileName));
-       return [placeholderLayoutName];
-    } catch (placeholderError) {
-       console.error('Placeholder layout file also not found on error.');
-       return []; // Return empty array as a last resort
-    }
+    return [];
   }
+
+  let layoutNames = filenames
+    .filter((filename) => /\.(html|md)$/.test(filename) && filename !== placeholderFileName)
+    .map((filename) => filename.replace(/\.(html|md)$/, ''))
+    .sort((a, b) => a.localeCompare(b));
+
+  // Check if placeholder file exists and add it if it does
+  const placeholderExists = filenames.includes(placeholderFileName);
+
+  if (placeholderExists) {
+     // Ensure placeholder is always present, typically last unless it's the only one
+     if (layoutNames.length === 0) {
+        return [placeholderLayoutName];
+     } else {
+         // Add placeholder if it's not already mapped (e.g., if named differently)
+         if (!layoutNames.includes(placeholderLayoutName)){
+              layoutNames.push(placeholderLayoutName); // Add placeholder, sort will handle placement later if needed
+         }
+     }
+  } else if (layoutNames.length === 0) {
+      console.warn('No layout files found and placeholder is missing.');
+      return []; // Return empty if no files found at all
+  }
+
+
+  // Return sorted names, potentially including the placeholder added above
+  // If placeholder needs to be strictly last, filter it out before sort and add back
+  const hasPlaceholder = layoutNames.includes(placeholderLayoutName);
+  let sortedNames = layoutNames.filter(name => name !== placeholderLayoutName).sort((a,b) => a.localeCompare(b));
+  if (hasPlaceholder) {
+    sortedNames.push(placeholderLayoutName);
+  }
+
+
+  return sortedNames;
+
 }
 
 
@@ -69,16 +76,19 @@ export async function getLayoutNames(): Promise<string[]> {
 export async function getLayoutContentForApi(name: string): Promise<string> {
   const potentialHtmlPath = path.join(layoutsDirectory, `${name}.html`);
   const potentialMdPath = path.join(layoutsDirectory, `${name}.md`);
-  const placeholderPath = path.join(layoutsDirectory, placeholderFileName);
+  const placeholderPath = path.join(layoutsDirectory, placeholderFileName); // Use consistent placeholder name
 
 
    // Handle request for placeholder explicitly
    if (name === placeholderLayoutName) {
       try {
+         // Attempt to read the placeholder file
          return await fs.readFile(placeholderPath, 'utf8');
       } catch (e) {
-         console.error(`Error reading placeholder layout file:`, e);
-         throw new Error(`Layout '${name}' not found.`); // Treat as not found if placeholder file missing
+         console.error(`Error reading placeholder layout file (${placeholderFileName}):`, e);
+         // If placeholder file doesn't exist, provide default content
+         return '<!-- Placeholder Layout -->\n<div class="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground p-6 text-center text-muted-foreground"><p>Placeholder layout file not found.</p></div>';
+         // Alternatively, throw an error: throw new Error(`Layout '${name}' not found.`);
       }
    }
 
