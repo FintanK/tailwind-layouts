@@ -1,0 +1,87 @@
+<!-- E-commerce - Order Confirmation -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-2xl px-4 lg:max-w-4xl lg:px-8">
+    <div class="text-center">
+       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <h1 class="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Thank You for Your Order!</h1>
+      <p class="mt-2 text-lg text-muted-foreground">Your order <span class="font-medium text-primary">#W086438695</span> has been placed successfully.</p>
+      <p class="mt-1 text-sm text-muted-foreground">We've sent a confirmation email to you@example.com.</p>
+       <a href="#" class="mt-6 inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90">Track Order</a>
+    </div>
+
+    <section aria-labelledby="order-heading" class="mt-10 border-t border-border pt-10">
+      <h2 id="order-heading" class="text-lg font-medium text-foreground">Order Summary</h2>
+
+      <div class="mt-6 space-y-6">
+        <!-- Order Item 1 -->
+        <div class="flex items-start gap-x-6 border-b border-border pb-6">
+          <img src="https://picsum.photos/100/100?random=order1" alt="Product 1 image." class="h-20 w-20 flex-none rounded-lg bg-muted object-cover object-center">
+          <div class="flex-auto">
+            <h3 class="font-medium text-foreground">Basic Tee</h3>
+            <p class="text-sm text-muted-foreground">Color: Black, Size: L</p>
+             <p class="text-sm text-muted-foreground">Qty: 1</p>
+          </div>
+          <p class="flex-none font-medium text-foreground">$36.00</p>
+        </div>
+        <!-- Order Item 2 -->
+        <div class="flex items-start gap-x-6 border-b border-border pb-6">
+          <img src="https://picsum.photos/100/100?random=order2" alt="Product 2 image." class="h-20 w-20 flex-none rounded-lg bg-muted object-cover object-center">
+          <div class="flex-auto">
+             <h3 class="font-medium text-foreground">Nomad Tumbler</h3>
+             <p class="text-sm text-muted-foreground">Color: White</p>
+             <p class="text-sm text-muted-foreground">Qty: 1</p>
+          </div>
+          <p class="flex-none font-medium text-foreground">$35.00</p>
+        </div>
+        <!-- More items... -->
+      </div>
+
+      <div class="mt-10 sm:ml-40 sm:pl-6">
+        <dl class="space-y-6 border-t border-border pt-6 text-sm">
+          <div class="flex justify-between">
+            <dt class="font-medium text-foreground">Subtotal</dt>
+            <dd class="text-muted-foreground">$71.00</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-foreground">Shipping</dt>
+            <dd class="text-muted-foreground">$5.00</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-foreground">Taxes</dt>
+            <dd class="text-muted-foreground">$5.68</dd>
+          </div>
+          <div class="flex justify-between border-t border-border pt-6 font-medium text-foreground">
+            <dt>Total</dt>
+            <dd class="text-lg">$81.68</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+     <section aria-labelledby="shipping-heading" class="mt-10 border-t border-border pt-10">
+        <h2 id="shipping-heading" class="text-lg font-medium text-foreground">Shipping Information</h2>
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+            <div>
+                <h3 class="text-sm font-medium text-foreground">Shipping Address</h3>
+                <address class="mt-2 text-sm not-italic text-muted-foreground">
+                    <p>Kristin Watson</p>
+                    <p>7363 Cynthia Pass</p>
+                    <p>Toronto, ON N3Y 4H8</p>
+                </address>
+            </div>
+             <div>
+                <h3 class="text-sm font-medium text-foreground">Estimated Delivery</h3>
+                <p class="mt-2 text-sm text-muted-foreground">Standard Shipping (3-5 business days)</p>
+                <p class="mt-1 text-sm text-muted-foreground">Expected by: <time datetime="2023-06-01">June 1, 2023</time></p>
+            </div>
+        </div>
+     </section>
+
+     <div class="mt-16 border-t border-border py-6 text-right">
+      <a href="#" class="text-sm font-medium text-primary hover:text-primary/90">
+        Continue Shopping
+        <span aria-hidden="true"> &rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>

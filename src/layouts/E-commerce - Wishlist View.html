@@ -1,0 +1,105 @@
+<!-- E-commerce - Wishlist View -->
+<div class="bg-background py-12 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">My Wishlist</h1>
+    <p class="mt-2 text-lg text-muted-foreground">Items you've saved for later.</p>
+
+    <section class="mt-10">
+      <h2 class="sr-only">Items in your wishlist</h2>
+
+      <ul role="list" class="divide-y divide-border border-t border-b border-border">
+        <!-- Wishlist Item 1 -->
+        <li class="flex py-6 sm:py-10">
+          <div class="flex-shrink-0">
+            <img src="https://picsum.photos/200/200?random=wish1" alt="Wishlist item 1" class="h-24 w-24 rounded-md object-cover object-center sm:h-36 sm:w-36">
+          </div>
+
+          <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+            <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+              <div>
+                <div class="flex justify-between">
+                  <h3 class="text-sm">
+                    <a href="#" class="font-medium text-foreground hover:text-muted-foreground">Nomad Backpack</a>
+                  </h3>
+                </div>
+                <div class="mt-1 flex text-sm">
+                  <p class="text-muted-foreground">Black</p>
+                  <p class="ml-4 border-l border-border pl-4 text-muted-foreground">One Size</p>
+                </div>
+                <p class="mt-1 text-sm font-medium text-foreground">$140.00</p>
+                 <p class="mt-2 text-xs text-green-600">In Stock</p>
+              </div>
+
+              <div class="mt-4 sm:mt-0 sm:pr-9">
+                <label for="quantity-0" class="sr-only">Quantity, Nomad Backpack</label>
+                <!-- Optional: Quantity selector if applicable -->
+                <!-- <select id="quantity-0" name="quantity-0" class="max-w-full rounded-md border border-border py-1.5 text-left text-base font-medium leading-5 text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm">
+                  <option value="1">1</option>
+                </select> -->
+
+                <div class="absolute top-0 right-0">
+                  <button type="button" class="-m-2 inline-flex p-2 text-muted-foreground hover:text-foreground">
+                    <span class="sr-only">Remove</span>
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                    </svg>
+                  </button>
+                </div>
+                 <div class="absolute bottom-0 right-0">
+                    <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                       Add to Cart
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Wishlist Item 2 -->
+         <li class="flex py-6 sm:py-10">
+          <div class="flex-shrink-0">
+            <img src="https://picsum.photos/200/200?random=wish2" alt="Wishlist item 2" class="h-24 w-24 rounded-md object-cover object-center sm:h-36 sm:w-36">
+          </div>
+
+          <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+             <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+              <div>
+                <div class="flex justify-between">
+                  <h3 class="text-sm">
+                    <a href="#" class="font-medium text-foreground hover:text-muted-foreground">Minimalist Desk Set</a>
+                  </h3>
+                </div>
+                <div class="mt-1 flex text-sm">
+                  <p class="text-muted-foreground">Walnut</p>
+                </div>
+                <p class="mt-1 text-sm font-medium text-foreground">$210.00</p>
+                 <p class="mt-2 text-xs text-red-600">Out of Stock</p>
+              </div>
+
+              <div class="mt-4 sm:mt-0 sm:pr-9">
+                <div class="absolute top-0 right-0">
+                  <button type="button" class="-m-2 inline-flex p-2 text-muted-foreground hover:text-foreground">
+                    <span class="sr-only">Remove</span>
+                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                    </svg>
+                  </button>
+                </div>
+                 <div class="absolute bottom-0 right-0">
+                    <button type="button" disabled class="inline-flex items-center rounded-md border border-transparent bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-sm cursor-not-allowed">
+                       Notify Me
+                    </button>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- More items... -->
+      </ul>
+       <div class="mt-8 text-center">
+           <p class="text-sm text-muted-foreground" x-show="wishlistItemsCount === 0">Your wishlist is currently empty.</p>
+           <a href="#" class="text-sm font-medium text-primary hover:text-primary/90">Continue Shopping <span aria-hidden="true">&rarr;</span></a>
+       </div>
+    </section>
+  </div>
+</div>

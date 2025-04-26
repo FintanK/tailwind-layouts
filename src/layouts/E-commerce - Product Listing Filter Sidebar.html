@@ -1,0 +1,159 @@
+<!-- E-commerce - Product Listing Filter Sidebar -->
+<div class="bg-background">
+  <div>
+    <!-- Mobile filter dialog (optional, requires JS) -->
+    <!-- ... -->
+
+    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-baseline justify-between border-b border-border pt-12 pb-6">
+        <h1 class="text-4xl font-bold tracking-tight text-foreground">New Arrivals</h1>
+
+        <div class="flex items-center">
+          <!-- Sort menu (Replace with Dropdown component) -->
+          <div class="relative inline-block text-left">
+            <div>
+              <button type="button" class="group inline-flex justify-center text-sm font-medium text-muted-foreground hover:text-foreground" id="menu-button" aria-expanded="false" aria-haspopup="true">
+                Sort
+                <svg class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-muted-foreground group-hover:text-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+            <!-- Dropdown panel (hidden by default) -->
+            <div class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-card shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+              <div class="py-1" role="none">
+                <a href="#" class="font-medium text-foreground block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</a>
+                <a href="#" class="text-muted-foreground block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</a>
+                <a href="#" class="text-muted-foreground block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="-m-2 ml-5 p-2 text-muted-foreground hover:text-foreground sm:ml-7">
+            <span class="sr-only">View grid</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zM11 13.25a2.25 2.25 0 00-2.25-2.25h-2.5A2.25 2.25 0 004 13.25v2.5A2.25 2.25 0 006.25 18h2.5A2.25 2.25 0 0011 15.75v-2.5zm4.75-2.25a2.25 2.25 0 00-2.25-2.25h-2.5a2.25 2.25 0 00-2.25 2.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5z" clip-rule="evenodd" /></svg>
+          </button>
+          <button type="button" class="-m-2 ml-4 p-2 text-muted-foreground hover:text-foreground sm:ml-6 lg:hidden">
+            <span class="sr-only">Filters</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.628 1.601C5.028 1.206 7.49 1 10 1s4.973.206 7.372.601a.75.75 0 01.628.74v2.288a2.25 2.25 0 01-.659 1.59l-4.682 4.683a2.25 2.25 0 00-.659 1.59v3.037c0 .684-.31 1.33-.844 1.757l-1.937 1.55A.75.75 0 018 18.25v-5.757a2.25 2.25 0 00-.659-1.59L2.659 6.22A2.25 2.25 0 012 4.629V2.34a.75.75 0 01.628-.74z" clip-rule="evenodd" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <section aria-labelledby="products-heading" class="pt-6 pb-24">
+        <h2 id="products-heading" class="sr-only">Products</h2>
+
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+          <!-- Filters Sidebar -->
+          <form class="hidden lg:block border-r border-border pr-8">
+            <h3 class="sr-only">Categories</h3>
+            <ul role="list" class="space-y-4 border-b border-border pb-6 text-sm font-medium text-foreground">
+              <li><a href="#">Totes</a></li>
+              <li><a href="#">Backpacks</a></li>
+              <li><a href="#">Travel Bags</a></li>
+              <li><a href="#">Hip Bags</a></li>
+              <li><a href="#">Laptop Sleeves</a></li>
+            </ul>
+
+            <!-- Color Filter -->
+            <div class="border-b border-border py-6">
+                <h3 class="-my-3 flow-root">
+                    <button type="button" class="flex w-full items-center justify-between bg-background py-3 text-sm text-muted-foreground hover:text-foreground" aria-controls="filter-section-0" aria-expanded="false">
+                    <span class="font-medium text-foreground">Color</span>
+                    <span class="ml-6 flex items-center">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
+                        <svg class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" /></svg>
+                    </span>
+                    </button>
+                </h3>
+                <div class="pt-6" id="filter-section-0">
+                    <div class="space-y-4">
+                    <div class="flex items-center"><input id="filter-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary"><label for="filter-color-0" class="ml-3 text-sm text-muted-foreground">White</label></div>
+                    <div class="flex items-center"><input id="filter-color-1" name="color[]" value="black" type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary"><label for="filter-color-1" class="ml-3 text-sm text-muted-foreground">Black</label></div>
+                    <div class="flex items-center"><input id="filter-color-2" name="color[]" value="blue" type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary"><label for="filter-color-2" class="ml-3 text-sm text-muted-foreground">Blue</label></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more filters (e.g., Size, Price) following the same pattern -->
+             <div class="border-b border-border py-6">
+                <h3 class="-my-3 flow-root">
+                    <button type="button" class="flex w-full items-center justify-between bg-background py-3 text-sm text-muted-foreground hover:text-foreground">
+                        <span class="font-medium text-foreground">Size</span>
+                        <span class="ml-6 flex items-center">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
+                        </span>
+                    </button>
+                </h3>
+                <div class="pt-6 hidden"> <!-- Hidden by default -->
+                     <div class="space-y-4">
+                         <div class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary"><label class="ml-3 text-sm text-muted-foreground">Small</label></div>
+                         <div class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary"><label class="ml-3 text-sm text-muted-foreground">Medium</label></div>
+                         <div class="flex items-center"><input type="checkbox" class="h-4 w-4 rounded border-border text-primary focus:ring-primary"><label class="ml-3 text-sm text-muted-foreground">Large</label></div>
+                     </div>
+                </div>
+            </div>
+
+          </form>
+
+          <!-- Product grid -->
+          <div class="lg:col-span-3">
+            <!-- Product Grid content using cards (e.g., E-commerce Product Grid layout) -->
+            <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                <!-- Example Product Card -->
+                <a href="#" class="group">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-muted xl:aspect-w-7 xl:aspect-h-8">
+                        <img src="https://picsum.photos/400/500?random=pl1" alt="Product 1" class="h-full w-full object-cover object-center group-hover:opacity-75">
+                    </div>
+                    <h3 class="mt-4 text-sm text-muted-foreground">Category</h3>
+                    <p class="mt-1 text-lg font-medium text-foreground">Product Name 1</p>
+                    <p class="mt-1 text-sm font-medium text-muted-foreground">$48</p>
+                </a>
+                <a href="#" class="group">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-muted xl:aspect-w-7 xl:aspect-h-8">
+                        <img src="https://picsum.photos/400/500?random=pl2" alt="Product 2" class="h-full w-full object-cover object-center group-hover:opacity-75">
+                    </div>
+                    <h3 class="mt-4 text-sm text-muted-foreground">Category</h3>
+                    <p class="mt-1 text-lg font-medium text-foreground">Product Name 2</p>
+                    <p class="mt-1 text-sm font-medium text-muted-foreground">$35</p>
+                </a>
+                 <a href="#" class="group">
+                    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-muted xl:aspect-w-7 xl:aspect-h-8">
+                        <img src="https://picsum.photos/400/500?random=pl3" alt="Product 3" class="h-full w-full object-cover object-center group-hover:opacity-75">
+                    </div>
+                    <h3 class="mt-4 text-sm text-muted-foreground">Category</h3>
+                    <p class="mt-1 text-lg font-medium text-foreground">Product Name 3</p>
+                    <p class="mt-1 text-sm font-medium text-muted-foreground">$89</p>
+                </a>
+                 <!-- Add more products -->
+            </div>
+             <!-- Pagination could go here -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+    // Basic JS for filter accordion toggle (replace with Radix UI Accordion or similar)
+    document.querySelectorAll('[aria-controls^="filter-section-"]').forEach(button => {
+        const content = document.getElementById(button.getAttribute('aria-controls'));
+        const icons = button.querySelectorAll('svg');
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        if (content) {
+            content.style.display = isExpanded ? 'block' : 'none';
+             icons[0].style.display = isExpanded ? 'none' : 'block'; // Plus icon
+             icons[1].style.display = isExpanded ? 'block' : 'none'; // Minus icon
+        }
+
+        button.addEventListener('click', () => {
+            const currentlyExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !currentlyExpanded);
+             if (content) {
+                 content.style.display = currentlyExpanded ? 'none' : 'block';
+                  icons[0].style.display = currentlyExpanded ? 'block' : 'none';
+                  icons[1].style.display = currentlyExpanded ? 'none' : 'block';
+             }
+        });
+    });
+</script>
